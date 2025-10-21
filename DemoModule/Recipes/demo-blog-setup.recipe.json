@@ -1,0 +1,553 @@
+{
+  "name": "DemoBlogModuleSetup",
+  "displayName": "Demo Blog Module Setup",
+  "description": "Automatically sets up the demo blog module with default configuration, content types, and sample data",
+  "author": "OrchardCore Learning",
+  "website": "https://github.com/khpt1976-cloud/HocOrchardCore",
+  "version": "1.0.0",
+  "issetuprecipe": false,
+  "categories": ["blog", "content", "demo"],
+  "tags": ["blog", "content", "automation", "demo", "learning"],
+  
+  "variables": {
+    "welcomePostId": "[js:uuid()]",
+    "samplePost1Id": "[js:uuid()]",
+    "samplePost2Id": "[js:uuid()]",
+    "categoryTaxonomyId": "[js:uuid()]",
+    "currentDate": "[js: new Date().toISOString()]",
+    "siteName": "[js: variables('SiteName') || 'Demo Blog Site']"
+  },
+  
+  "steps": [
+    {
+      "name": "feature",
+      "enable": [
+        "OrchardCore.Contents",
+        "OrchardCore.ContentTypes",
+        "OrchardCore.Autoroute",
+        "OrchardCore.Html",
+        "OrchardCore.Title",
+        "OrchardCore.Taxonomies",
+        "OrchardCore.Lists",
+        "OrchardCore.Flows",
+        "OrchardCore.Markdown",
+        "OrchardCoreLearning.DemoBlogModule"
+      ]
+    },
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
+        {
+          "Name": "DemoBlogPost",
+          "DisplayName": "Demo Blog Post",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Listable": true,
+              "Securable": true,
+              "Stereotype": "Content"
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "AutoroutePart",
+              "Name": "AutoroutePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                },
+                "AutoroutePartSettings": {
+                  "Pattern": "/blog/{{ Model.ContentItem | display_text | slugify }}",
+                  "AllowCustomPath": true,
+                  "ShowHomepageOption": false
+                }
+              }
+            },
+            {
+              "PartName": "HtmlBodyPart",
+              "Name": "HtmlBodyPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                },
+                "HtmlBodyPartSettings": {
+                  "SanitizeHtml": true
+                }
+              }
+            },
+            {
+              "PartName": "DemoBlogPostPart",
+              "Name": "DemoBlogPostPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "3"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "DemoBlogCategory",
+          "DisplayName": "Demo Blog Category",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Stereotype": "Taxonomy"
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "AutoroutePart",
+              "Name": "AutoroutePart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "1"
+                },
+                "AutoroutePartSettings": {
+                  "Pattern": "/blog/category/{{ Model.ContentItem | display_text | slugify }}",
+                  "AllowCustomPath": true
+                }
+              }
+            },
+            {
+              "PartName": "TaxonomyPart",
+              "Name": "TaxonomyPart",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "2"
+                },
+                "TaxonomyPartSettings": {
+                  "TermContentType": "DemoBlogCategory"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "DemoBlogPostPart",
+          "Settings": {
+            "ContentPartSettings": {
+              "Attachable": true,
+              "Description": "Provides demo blog post specific functionality including categories, tags, and metadata"
+            }
+          },
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "Category",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Category",
+                  "Position": "0"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Blog post category",
+                  "Required": false
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "Tags",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Tags",
+                  "Position": "1"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Comma-separated tags for this blog post",
+                  "Required": false
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "Excerpt",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Excerpt",
+                  "Position": "2"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Short summary of the blog post (will be auto-generated if empty)",
+                  "Required": false
+                }
+              }
+            },
+            {
+              "FieldName": "BooleanField",
+              "Name": "IsFeatured",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Featured Post",
+                  "Position": "3"
+                },
+                "BooleanFieldSettings": {
+                  "Hint": "Mark this post as featured",
+                  "DefaultValue": false
+                }
+              }
+            },
+            {
+              "FieldName": "DateTimeField",
+              "Name": "PublishedDate",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Published Date",
+                  "Position": "4"
+                },
+                "DateTimeFieldSettings": {
+                  "Hint": "Custom published date (defaults to current date)",
+                  "Required": false
+                }
+              }
+            },
+            {
+              "FieldName": "NumericField",
+              "Name": "ViewCount",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "View Count",
+                  "Position": "5"
+                },
+                "NumericFieldSettings": {
+                  "Hint": "Number of times this post has been viewed",
+                  "DefaultValue": "0",
+                  "Minimum": 0
+                }
+              }
+            },
+            {
+              "FieldName": "NumericField",
+              "Name": "ReadingTime",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Reading Time (minutes)",
+                  "Position": "6"
+                },
+                "NumericFieldSettings": {
+                  "Hint": "Estimated reading time in minutes",
+                  "DefaultValue": "5",
+                  "Minimum": 1
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "AuthorName",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Author Name",
+                  "Position": "7"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Author of this blog post",
+                  "Required": false
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "MetaDescription",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Meta Description",
+                  "Position": "8"
+                },
+                "TextFieldSettings": {
+                  "Hint": "SEO meta description for this post",
+                  "Required": false
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "MetaKeywords",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Meta Keywords",
+                  "Position": "9"
+                },
+                "TextFieldSettings": {
+                  "Hint": "SEO keywords for this post (comma-separated)",
+                  "Required": false
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "content",
+      "Data": [
+        {
+          "ContentItemId": "[js: variables('categoryTaxonomyId')]",
+          "ContentType": "Taxonomy",
+          "DisplayText": "Demo Blog Categories",
+          "Latest": true,
+          "Published": true,
+          "TitlePart": {
+            "Title": "Demo Blog Categories"
+          },
+          "AutoroutePart": {
+            "Path": "/blog/categories"
+          },
+          "TaxonomyPart": {
+            "TermContentType": "DemoBlogCategory"
+          }
+        },
+        {
+          "ContentItemId": "[js: variables('welcomePostId')]",
+          "ContentType": "DemoBlogPost",
+          "DisplayText": "Welcome to Your Demo Blog",
+          "Latest": true,
+          "Published": true,
+          "TitlePart": {
+            "Title": "Welcome to Your Demo Blog"
+          },
+          "AutoroutePart": {
+            "Path": "/blog/welcome-to-your-demo-blog"
+          },
+          "HtmlBodyPart": {
+            "Html": "<h2>Welcome to your new demo blog!</h2><p>This is your first blog post created automatically by the Demo Blog Module. This module demonstrates OrchardCore best practices and standards.</p><h3>Features Included:</h3><ul><li><strong>Automated Setup:</strong> Everything is configured automatically when you enable the module</li><li><strong>Content Types:</strong> Pre-configured blog post and category content types</li><li><strong>SEO Ready:</strong> Built-in meta description and keywords fields</li><li><strong>Categorization:</strong> Organize your posts with categories and tags</li><li><strong>View Tracking:</strong> Track how many times each post has been viewed</li><li><strong>Reading Time:</strong> Estimated reading time for each post</li><li><strong>Featured Posts:</strong> Mark important posts as featured</li><li><strong>Responsive Design:</strong> Mobile-friendly layout</li></ul><h3>Getting Started:</h3><ol><li>Edit or delete this welcome post</li><li>Create your own blog categories</li><li>Start writing your own blog posts</li><li>Customize the settings in the admin panel</li></ol><p>This demo module follows all OrchardCore coding standards and best practices, making it a great reference for building your own modules.</p><p>Happy blogging!</p>"
+          },
+          "DemoBlogPostPart": {
+            "Category": {
+              "Text": "Getting Started"
+            },
+            "Tags": {
+              "Text": "welcome, demo, getting-started, orchardcore"
+            },
+            "Excerpt": {
+              "Text": "Welcome to your new demo blog! This post demonstrates the features and capabilities of the Demo Blog Module for OrchardCore."
+            },
+            "IsFeatured": {
+              "Value": true
+            },
+            "PublishedDate": {
+              "Value": "[js: variables('currentDate')]"
+            },
+            "ViewCount": {
+              "Value": 0
+            },
+            "ReadingTime": {
+              "Value": 3
+            },
+            "AuthorName": {
+              "Text": "Demo Blog Module"
+            },
+            "MetaDescription": {
+              "Text": "Welcome to your new demo blog powered by OrchardCore. Learn about the features and get started with blogging."
+            },
+            "MetaKeywords": {
+              "Text": "demo, blog, orchardcore, welcome, getting started"
+            }
+          }
+        },
+        {
+          "ContentItemId": "[js: variables('samplePost1Id')]",
+          "ContentType": "DemoBlogPost",
+          "DisplayText": "Understanding OrchardCore Module Development",
+          "Latest": true,
+          "Published": true,
+          "TitlePart": {
+            "Title": "Understanding OrchardCore Module Development"
+          },
+          "AutoroutePart": {
+            "Path": "/blog/understanding-orchardcore-module-development"
+          },
+          "HtmlBodyPart": {
+            "Html": "<h2>Building Modules the Right Way</h2><p>OrchardCore provides a powerful and flexible framework for building modular web applications. This post explores the key concepts and best practices for module development.</p><h3>Key Principles:</h3><ul><li><strong>Modularity:</strong> Each module should be self-contained and focused on a specific functionality</li><li><strong>Dependency Injection:</strong> Use the built-in DI container for managing dependencies</li><li><strong>Content Management:</strong> Leverage OrchardCore's content management features</li><li><strong>Recipes:</strong> Automate setup and configuration with recipes</li><li><strong>Migrations:</strong> Handle database schema changes gracefully</li></ul><h3>Best Practices:</h3><ol><li>Follow naming conventions consistently</li><li>Use feature event handlers for initialization</li><li>Implement proper error handling</li><li>Write comprehensive tests</li><li>Document your code thoroughly</li></ol><p>This demo module serves as a practical example of these principles in action.</p>"
+          },
+          "DemoBlogPostPart": {
+            "Category": {
+              "Text": "Development"
+            },
+            "Tags": {
+              "Text": "orchardcore, development, modules, best-practices"
+            },
+            "Excerpt": {
+              "Text": "Learn the key principles and best practices for developing modules in OrchardCore, with practical examples and guidelines."
+            },
+            "IsFeatured": {
+              "Value": false
+            },
+            "PublishedDate": {
+              "Value": "[js: variables('currentDate')]"
+            },
+            "ViewCount": {
+              "Value": 0
+            },
+            "ReadingTime": {
+              "Value": 5
+            },
+            "AuthorName": {
+              "Text": "OrchardCore Team"
+            },
+            "MetaDescription": {
+              "Text": "Learn OrchardCore module development best practices, key principles, and practical implementation guidelines."
+            },
+            "MetaKeywords": {
+              "Text": "orchardcore, module development, best practices, cms, asp.net core"
+            }
+          }
+        },
+        {
+          "ContentItemId": "[js: variables('samplePost2Id')]",
+          "ContentType": "DemoBlogPost",
+          "DisplayText": "Automated Testing Strategies for OrchardCore",
+          "Latest": true,
+          "Published": true,
+          "TitlePart": {
+            "Title": "Automated Testing Strategies for OrchardCore"
+          },
+          "AutoroutePart": {
+            "Path": "/blog/automated-testing-strategies-orchardcore"
+          },
+          "HtmlBodyPart": {
+            "Html": "<h2>Ensuring Quality Through Testing</h2><p>Testing is crucial for maintaining high-quality OrchardCore modules. This post covers various testing strategies and approaches.</p><h3>Types of Tests:</h3><ul><li><strong>Unit Tests:</strong> Test individual components in isolation</li><li><strong>Integration Tests:</strong> Test component interactions</li><li><strong>Functional Tests:</strong> Test complete workflows</li><li><strong>Performance Tests:</strong> Ensure acceptable performance</li></ul><h3>Testing Tools:</h3><ul><li>xUnit for unit testing framework</li><li>Moq for mocking dependencies</li><li>OrchardCore.Tests for integration testing</li><li>Selenium for UI testing</li></ul><h3>Best Practices:</h3><ol><li>Write tests before implementing features (TDD)</li><li>Maintain high test coverage</li><li>Use meaningful test names</li><li>Keep tests simple and focused</li><li>Run tests in CI/CD pipeline</li></ol><p>Remember: Good tests are an investment in your module's future maintainability.</p>"
+          },
+          "DemoBlogPostPart": {
+            "Category": {
+              "Text": "Testing"
+            },
+            "Tags": {
+              "Text": "testing, quality-assurance, unit-tests, integration-tests"
+            },
+            "Excerpt": {
+              "Text": "Explore comprehensive testing strategies for OrchardCore modules, including unit tests, integration tests, and best practices."
+            },
+            "IsFeatured": {
+              "Value": true
+            },
+            "PublishedDate": {
+              "Value": "[js: variables('currentDate')]"
+            },
+            "ViewCount": {
+              "Value": 0
+            },
+            "ReadingTime": {
+              "Value": 7
+            },
+            "AuthorName": {
+              "Text": "QA Team"
+            },
+            "MetaDescription": {
+              "Text": "Learn comprehensive testing strategies for OrchardCore modules including unit tests, integration tests, and quality assurance practices."
+            },
+            "MetaKeywords": {
+              "Text": "testing, orchardcore, unit tests, integration tests, quality assurance, tdd"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DemoBlogSetup",
+      "Categories": [
+        {
+          "Name": "Getting Started",
+          "Description": "Posts to help you get started with the blog"
+        },
+        {
+          "Name": "Development",
+          "Description": "Posts about development techniques and best practices"
+        },
+        {
+          "Name": "Testing",
+          "Description": "Posts about testing strategies and quality assurance"
+        },
+        {
+          "Name": "Tutorials",
+          "Description": "Step-by-step tutorials and guides"
+        },
+        {
+          "Name": "News",
+          "Description": "Latest news and announcements"
+        }
+      ],
+      "Settings": {
+        "PostsPerPage": 10,
+        "AllowComments": true,
+        "RequireCommentApproval": false,
+        "ShowAuthor": true,
+        "ShowPublishedDate": true,
+        "ShowCategories": true,
+        "ShowTags": true,
+        "ShowReadingTime": true,
+        "ShowViewCount": false,
+        "DefaultCategory": "General",
+        "AutoGenerateExcerpts": true,
+        "ExcerptLength": 200,
+        "EnableSeo": true,
+        "EnableRssFeed": true,
+        "RssFeedTitle": "Demo Blog Posts",
+        "RssFeedDescription": "Latest posts from the demo blog",
+        "RssFeedPostCount": 20,
+        "EnableSocialSharing": true,
+        "EnabledSocialPlatforms": ["Facebook", "Twitter", "LinkedIn"],
+        "EnableRelatedPosts": true,
+        "RelatedPostsCount": 3,
+        "EnableSearch": true,
+        "EnableArchive": true,
+        "ArchiveGrouping": "Monthly"
+      }
+    },
+    {
+      "name": "settings",
+      "DemoBlogSettings": {
+        "IsInitialized": true,
+        "PostsPerPage": 10,
+        "AllowComments": true,
+        "RequireCommentApproval": false,
+        "ShowAuthor": true,
+        "ShowPublishedDate": true,
+        "ShowCategories": true,
+        "ShowTags": true,
+        "ShowReadingTime": true,
+        "ShowViewCount": false,
+        "DefaultCategory": "General",
+        "AutoGenerateExcerpts": true,
+        "ExcerptLength": 200,
+        "EnableSeo": true,
+        "EnableRssFeed": true,
+        "RssFeedTitle": "Demo Blog Posts",
+        "RssFeedDescription": "Latest posts from the demo blog",
+        "RssFeedPostCount": 20,
+        "CustomCss": "/* Custom CSS for demo blog */\n.demo-blog-post { margin-bottom: 2rem; }\n.demo-blog-meta { color: #666; font-size: 0.9em; }\n.demo-blog-tags { margin-top: 1rem; }\n.demo-blog-tag { background: #f0f0f0; padding: 0.2rem 0.5rem; margin-right: 0.5rem; border-radius: 3px; }",
+        "CustomJavaScript": "// Custom JavaScript for demo blog\nconsole.log('Demo Blog Module loaded successfully');",
+        "EnableSocialSharing": true,
+        "EnabledSocialPlatforms": ["Facebook", "Twitter", "LinkedIn"],
+        "EnableRelatedPosts": true,
+        "RelatedPostsCount": 3,
+        "EnableSearch": true,
+        "EnableArchive": true,
+        "ArchiveGrouping": "Monthly"
+      }
+    }
+  ]
+}
