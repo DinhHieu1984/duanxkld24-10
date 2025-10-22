@@ -212,9 +212,9 @@ Backup*/
 UpgradeLog*.XML
 UpgradeLog*.htm
 
-# SQL Server files
-*.mdf
-*.ldf
+# SQL Server files - Allow database files to be tracked
+# *.mdf
+# *.ldf
 
 # Business Intelligence projects
 *.rdl.data
@@ -311,10 +311,12 @@ wwwroot/
 # !*.mdb
 # !*.accdb
 
-# Allow SQLite databases specifically for OrchardCore
+# Allow all database files for OrchardCore (SQLite + SQL Server)
 !*.db
 !*.sqlite
 !*.sqlite3
+!*.mdf
+!*.ldf
 
 # Logs
 logs/
