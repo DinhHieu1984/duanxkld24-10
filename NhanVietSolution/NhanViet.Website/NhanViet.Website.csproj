@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+    <Folder Include="Localization\" />
+  </ItemGroup>
+
+  <!-- Watcher include and excludes -->
+  <ItemGroup>
+      <Watch Include="**\*.cs" Exclude="Recipes\**;Assets\**;node_modules\**\*;**\*.js.map;obj\**\*;bin\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OrchardCore.Logging.NLog" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../NhanViet.JobOrders/NhanViet.JobOrders.csproj" />
+    <ProjectReference Include="../NhanViet.News/NhanViet.News.csproj" />
+    <ProjectReference Include="../NhanViet.Companies/NhanViet.Companies.csproj" />
+    <ProjectReference Include="../NhanViet.Recruitment/NhanViet.Recruitment.csproj" />
+    <ProjectReference Include="../NhanViet.Consultation/NhanViet.Consultation.csproj" />
+    <ProjectReference Include="../NhanViet.Countries/NhanViet.Countries.csproj" />
+    <ProjectReference Include="../NhanViet.Analytics/NhanViet.Analytics.csproj" />
+    <ProjectReference Include="../NhanViet.Frontend.Theme/NhanViet.Frontend.Theme.csproj" />
+    <ProjectReference Include="../NhanViet.Admin.Theme/NhanViet.Admin.Theme.csproj" />
+  </ItemGroup>
+
+</Project>
