@@ -2,26 +2,266 @@
 <html lang="{{ Culture.Name }}">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% page_title Site.SiteName, position: "before", separator: " - " %}</title>
     
     {% resources type: "Meta" %}
-
-    <!-- INSERT REQUIRED RESOURCES HERE -->
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     {% resources type: "HeadLink" %}
     {% resources type: "Stylesheet" %}
     {% resources type: "HeadScript" %}
+    
+    <!-- Custom CSS for NhanViet Labor Export -->
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .job-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .job-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+    </style>
 </head>
 <body dir="{{ Culture.Dir }}">
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-globe-asia me-2"></i>
+                NhanViet Group
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="fas fa-home me-1"></i>Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/jobs"><i class="fas fa-briefcase me-1"></i>Việc làm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/companies"><i class="fas fa-building me-1"></i>Công ty</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/news"><i class="fas fa-newspaper me-1"></i>Tin tức</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/consultation"><i class="fas fa-comments me-1"></i>Tư vấn</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/countries"><i class="fas fa-flag me-1"></i>Quốc gia</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt me-1"></i>Đăng nhập</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary ms-2" href="/register">
+                            <i class="fas fa-user-plus me-1"></i>Đăng ký
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    {% render_body %}
+    <!-- Main Content -->
+    <main>
+        {% render_body %}
+    </main>
     
-    <footer>
-    {% render_section "Footer", required: false %}
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="text-white mb-3">
+                        <i class="fas fa-globe-asia me-2"></i>
+                        NhanViet Group
+                    </h5>
+                    <p class="text-light">
+                        Công ty hàng đầu về xuất khẩu lao động tại Việt Nam. 
+                        Chúng tôi kết nối người lao động Việt Nam với các cơ hội việc làm tốt nhất trên thế giới.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-zalo"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="text-white mb-3">Dịch vụ</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/jobs" class="text-light text-decoration-none">Tìm việc làm</a></li>
+                        <li><a href="/consultation" class="text-light text-decoration-none">Tư vấn</a></li>
+                        <li><a href="/training" class="text-light text-decoration-none">Đào tạo</a></li>
+                        <li><a href="/support" class="text-light text-decoration-none">Hỗ trợ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="text-white mb-3">Quốc gia</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="/countries/japan" class="text-light text-decoration-none">Nhật Bản</a></li>
+                        <li><a href="/countries/korea" class="text-light text-decoration-none">Hàn Quốc</a></li>
+                        <li><a href="/countries/taiwan" class="text-light text-decoration-none">Đài Loan</a></li>
+                        <li><a href="/countries/singapore" class="text-light text-decoration-none">Singapore</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <h6 class="text-white mb-3">Liên hệ</h6>
+                    <div class="contact-info">
+                        <p class="text-light mb-2">
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            123 Đường ABC, Quận 1, TP.HCM
+                        </p>
+                        <p class="text-light mb-2">
+                            <i class="fas fa-phone me-2"></i>
+                            +84 123 456 789
+                        </p>
+                        <p class="text-light mb-2">
+                            <i class="fas fa-envelope me-2"></i>
+                            info@nhanvietgroup.com
+                        </p>
+                        <p class="text-light">
+                            <i class="fas fa-clock me-2"></i>
+                            T2-T6: 8:00 - 17:30
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="my-4 border-secondary">
+            
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-light mb-0">
+                        © 2024 NhanViet Group. All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="/privacy" class="text-light text-decoration-none me-3">Chính sách bảo mật</a>
+                    <a href="/terms" class="text-light text-decoration-none">Điều khoản sử dụng</a>
+                </div>
+            </div>
+        </div>
+        
+        {% render_section "Footer", required: false %}
     </footer>
     
+    <!-- Scripts -->
     {% script name:"jquery", use_cdn:"true", at:"Foot" %}
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     {% resources type: "FootScript" %}
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow');
+            } else {
+                navbar.classList.remove('shadow');
+            }
+        });
+    </script>
 </body>
 </html>

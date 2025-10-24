@@ -1,0 +1,24 @@
+{
+  "name": "Enable NhanViet Frontend Theme",
+  "displayName": "Enable NhanViet Frontend Theme",
+  "description": "Enables the NhanViet Frontend Theme and sets it as default",
+  "author": "NhanViet Group",
+  "website": "https://nhanvietgroup.com",
+  "version": "1.0.0",
+  "issetuprecipe": false,
+  "categories": [ "theme" ],
+  "tags": [ "theme", "frontend" ],
+  "steps": [
+    {
+      "name": "Feature",
+      "enable": [
+        "NhanViet.Frontend.Theme"
+      ]
+    },
+    {
+      "name": "Themes",
+      "Site": "NhanViet Frontend Theme",
+      "Admin": "TheAdmin"
+    }
+  ]
+}

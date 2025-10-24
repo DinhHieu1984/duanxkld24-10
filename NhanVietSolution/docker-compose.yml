@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: nhanviet-postgres
+    environment:
+      POSTGRES_DB: orchardcore
+      POSTGRES_USER: orchardcore
+      POSTGRES_PASSWORD: orchardcore123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - nhanviet-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U orchardcore -d orchardcore"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  nhanviet-website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nhanviet-orchardcore
+    ports:
+      - "12000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "OrchardCore__ConnectionString=Host=postgres;Database=orchardcore;Username=orchardcore;Password=orchardcore123"
+      - OrchardCore__DatabaseProvider=Postgres
+      - OrchardCore__TablePrefix=
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - nhanviet-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  postgres_data:
+
+networks:
+  nhanviet-network:
+    driver: bridge

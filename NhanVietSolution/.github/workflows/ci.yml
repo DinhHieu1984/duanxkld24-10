@@ -1,0 +1,94 @@
+name: NhanViet - CI/CD Pipeline
+
+on:
+  push:
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**/*'
+    branches: [ main, develop, release/** ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    name: Build & Test
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        
+    - name: Restore dependencies
+      run: dotnet restore NhanVietSolution.sln
+      
+    - name: Build solution
+      run: dotnet build NhanVietSolution.sln -c Release --no-restore /p:TreatWarningsAsErrors=true
+      
+    - name: Run tests
+      run: dotnet test NhanVietSolution.sln -c Release --no-build --verbosity normal
+      
+    - name: Publish artifacts
+      if: matrix.os == 'ubuntu-latest'
+      run: dotnet publish NhanViet.Website/NhanViet.Website.csproj -c Release -o ./publish --no-build
+      
+    - name: Upload build artifacts
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/upload-artifact@v4
+      with:
+        name: nhanviet-website
+        path: ./publish/
+
+  docker-build:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Build Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile
+        push: false
+        tags: nhanviet-website:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  security-scan:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        
+    - name: Restore dependencies
+      run: dotnet restore NhanVietSolution.sln
+      
+    - name: Run security audit
+      run: dotnet list package --vulnerable --include-transitive

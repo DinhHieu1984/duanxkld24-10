@@ -6,12 +6,12 @@ builder.Host.UseNLogHost();
 
 builder.Services
     .AddOrchardCms()
-    // // Orchard Specific Pipeline
-    // .ConfigureServices( services => {
-    // })
-    // .Configure( (app, routes, services) => {
-    // })
-;
+    .ConfigureServices(services => {
+        // Configure theme settings
+    })
+    .Configure((app, routes, services) => {
+        // Configure routing
+    });
 
 var app = builder.Build();
 
@@ -28,3 +28,6 @@ app.UseStaticFiles();
 app.UseOrchardCore();
 
 app.Run();
+
+// Make Program class accessible for testing
+public partial class Program { }

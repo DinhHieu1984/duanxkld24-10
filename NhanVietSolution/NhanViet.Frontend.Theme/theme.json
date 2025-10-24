@@ -1,0 +1,30 @@
+{
+  "name": "NhanViet Frontend Theme",
+  "author": "NhanViet Group",
+  "website": "https://nhanvietgroup.com",
+  "version": "1.0.0",
+  "description": "Professional frontend theme for NhanViet labor export website",
+  "tags": ["Labor Export", "Jobs", "Responsive", "Bootstrap"],
+  "baseTheme": "TheTheme",
+  "zones": [
+    "Header",
+    "Navigation",
+    "Featured",
+    "BeforeMain",
+    "AsideFirst",
+    "Messages",
+    "BeforeContent",
+    "Content",
+    "AfterContent",
+    "AsideSecond",
+    "AfterMain",
+    "TripelFirst",
+    "TripelSecond", 
+    "TripelThird",
+    "FooterQuadFirst",
+    "FooterQuadSecond",
+    "FooterQuadThird",
+    "FooterQuadFourth",
+    "Footer"
+  ]
+}

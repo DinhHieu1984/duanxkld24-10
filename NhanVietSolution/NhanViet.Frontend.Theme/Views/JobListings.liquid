@@ -1,0 +1,374 @@
+<!-- Page Header -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold mb-3">Tìm kiếm việc làm</h1>
+                <p class="lead text-muted">
+                    Khám phá hàng nghìn cơ hội việc làm tại các quốc gia hàng đầu thế giới
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <div class="d-flex align-items-center justify-content-lg-end">
+                    <span class="text-muted me-3">Tìm thấy <strong>1,247</strong> việc làm</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search and Filter Section -->
+<section class="py-4 border-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="row g-3">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="Tìm kiếm việc làm..." value="">
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-select">
+                            <option selected>Tất cả quốc gia</option>
+                            <option value="japan">Nhật Bản</option>
+                            <option value="korea">Hàn Quốc</option>
+                            <option value="taiwan">Đài Loan</option>
+                            <option value="singapore">Singapore</option>
+                            <option value="malaysia">Malaysia</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-select">
+                            <option selected>Tất cả ngành nghề</option>
+                            <option value="construction">Xây dựng</option>
+                            <option value="manufacturing">Sản xuất</option>
+                            <option value="agriculture">Nông nghiệp</option>
+                            <option value="service">Dịch vụ</option>
+                            <option value="hospitality">Khách sạn</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-select">
+                            <option selected>Mức lương</option>
+                            <option value="under-500">Dưới $500</option>
+                            <option value="500-1000">$500 - $1000</option>
+                            <option value="1000-1500">$1000 - $1500</option>
+                            <option value="over-1500">Trên $1500</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-select">
+                            <option selected>Kinh nghiệm</option>
+                            <option value="no-experience">Không yêu cầu</option>
+                            <option value="1-2-years">1-2 năm</option>
+                            <option value="3-5-years">3-5 năm</option>
+                            <option value="over-5-years">Trên 5 năm</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Job Listings -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar Filters -->
+            <div class="col-lg-3 mb-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-filter me-2"></i>Bộ lọc nâng cao
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <!-- Location Filter -->
+                        <div class="mb-4">
+                            <h6 class="fw-semibold mb-3">Địa điểm</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="japan">
+                                <label class="form-check-label" for="japan">
+                                    <img src="https://flagcdn.com/w20/jp.png" alt="Japan" class="me-2">
+                                    Nhật Bản (456)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="korea">
+                                <label class="form-check-label" for="korea">
+                                    <img src="https://flagcdn.com/w20/kr.png" alt="Korea" class="me-2">
+                                    Hàn Quốc (321)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="taiwan">
+                                <label class="form-check-label" for="taiwan">
+                                    <img src="https://flagcdn.com/w20/tw.png" alt="Taiwan" class="me-2">
+                                    Đài Loan (287)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="singapore">
+                                <label class="form-check-label" for="singapore">
+                                    <img src="https://flagcdn.com/w20/sg.png" alt="Singapore" class="me-2">
+                                    Singapore (183)
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Job Type Filter -->
+                        <div class="mb-4">
+                            <h6 class="fw-semibold mb-3">Loại hình công việc</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="fulltime">
+                                <label class="form-check-label" for="fulltime">
+                                    Toàn thời gian (892)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="contract">
+                                <label class="form-check-label" for="contract">
+                                    Hợp đồng (355)
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Salary Range -->
+                        <div class="mb-4">
+                            <h6 class="fw-semibold mb-3">Mức lương (USD)</h6>
+                            <div class="range-slider">
+                                <input type="range" class="form-range" min="300" max="3000" value="1500">
+                                <div class="d-flex justify-content-between">
+                                    <small>$300</small>
+                                    <small>$3000</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-outline-secondary w-100">
+                            <i class="fas fa-redo me-2"></i>Đặt lại bộ lọc
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Results -->
+            <div class="col-lg-9">
+                <!-- Sort Options -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <span class="text-muted">Hiển thị 1-20 trong 1,247 kết quả</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <label class="form-label me-2 mb-0">Sắp xếp:</label>
+                        <select class="form-select" style="width: auto;">
+                            <option>Mới nhất</option>
+                            <option>Lương cao nhất</option>
+                            <option>Phù hợp nhất</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Job Cards -->
+                <div class="row">
+                    <!-- Job Card 1 -->
+                    <div class="col-12 mb-4">
+                        <div class="job-card p-4 h-100">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://flagcdn.com/w40/jp.png" alt="Japan" class="me-3 mt-1">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Công nhân xây dựng - Dự án cao tốc</h5>
+                                            <p class="text-muted mb-2">
+                                                <i class="fas fa-building me-1"></i>Công ty Xây dựng ABC
+                                                <span class="mx-2">•</span>
+                                                <i class="fas fa-map-marker-alt me-1"></i>Tokyo, Nhật Bản
+                                            </p>
+                                            <p class="mb-3">
+                                                Tuyển công nhân xây dựng có kinh nghiệm làm việc tại dự án cao tốc lớn. 
+                                                Yêu cầu sức khỏe tốt, có thể làm việc ngoài trời.
+                                            </p>
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <span class="badge bg-light text-dark">Xây dựng</span>
+                                                <span class="badge bg-light text-dark">Toàn thời gian</span>
+                                                <span class="badge bg-light text-dark">3 năm kinh nghiệm</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <div class="mb-3">
+                                        <h4 class="text-success mb-1">¥320,000</h4>
+                                        <small class="text-muted">/ tháng</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>Đăng 2 ngày trước
+                                        </small>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <a href="/jobs/1" class="btn btn-primary">
+                                            <i class="fas fa-eye me-1"></i>Xem chi tiết
+                                        </a>
+                                        <button class="btn btn-outline-secondary">
+                                            <i class="fas fa-heart me-1"></i>Lưu
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job Card 2 -->
+                    <div class="col-12 mb-4">
+                        <div class="job-card p-4 h-100">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://flagcdn.com/w40/kr.png" alt="Korea" class="me-3 mt-1">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Công nhân sản xuất điện tử</h5>
+                                            <p class="text-muted mb-2">
+                                                <i class="fas fa-building me-1"></i>Samsung Electronics
+                                                <span class="mx-2">•</span>
+                                                <i class="fas fa-map-marker-alt me-1"></i>Seoul, Hàn Quốc
+                                            </p>
+                                            <p class="mb-3">
+                                                Làm việc tại nhà máy sản xuất điện tử hiện đại. Môi trường làm việc sạch sẽ, 
+                                                được đào tạo kỹ thuật mới nhất.
+                                            </p>
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <span class="badge bg-light text-dark">Sản xuất</span>
+                                                <span class="badge bg-light text-dark">Toàn thời gian</span>
+                                                <span class="badge bg-light text-dark">Không yêu cầu kinh nghiệm</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <div class="mb-3">
+                                        <h4 class="text-success mb-1">₩2,800,000</h4>
+                                        <small class="text-muted">/ tháng</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>Đăng 1 ngày trước
+                                        </small>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <a href="/jobs/2" class="btn btn-primary">
+                                            <i class="fas fa-eye me-1"></i>Xem chi tiết
+                                        </a>
+                                        <button class="btn btn-outline-secondary">
+                                            <i class="fas fa-heart me-1"></i>Lưu
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job Card 3 -->
+                    <div class="col-12 mb-4">
+                        <div class="job-card p-4 h-100">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <img src="https://flagcdn.com/w40/tw.png" alt="Taiwan" class="me-3 mt-1">
+                                        <div class="flex-grow-1">
+                                            <h5 class="mb-1">Công nhân nông nghiệp công nghệ cao</h5>
+                                            <p class="text-muted mb-2">
+                                                <i class="fas fa-building me-1"></i>Taiwan Agriculture Corp
+                                                <span class="mx-2">•</span>
+                                                <i class="fas fa-map-marker-alt me-1"></i>Taichung, Đài Loan
+                                            </p>
+                                            <p class="mb-3">
+                                                Làm việc tại trang trại ứng dụng công nghệ cao. Được đào tạo kỹ thuật canh tác hiện đại, 
+                                                môi trường làm việc thoải mái.
+                                            </p>
+                                            <div class="d-flex flex-wrap gap-2">
+                                                <span class="badge bg-light text-dark">Nông nghiệp</span>
+                                                <span class="badge bg-light text-dark">Toàn thời gian</span>
+                                                <span class="badge bg-light text-dark">1-2 năm kinh nghiệm</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <div class="mb-3">
+                                        <h4 class="text-success mb-1">NT$32,000</h4>
+                                        <small class="text-muted">/ tháng</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>Đăng 3 ngày trước
+                                        </small>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <a href="/jobs/3" class="btn btn-primary">
+                                            <i class="fas fa-eye me-1"></i>Xem chi tiết
+                                        </a>
+                                        <button class="btn btn-outline-secondary">
+                                            <i class="fas fa-heart me-1"></i>Lưu
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <nav aria-label="Job listings pagination" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Trước</a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">3</a>
+                        </li>
+                        <li class="page-item">
+                            <span class="page-link">...</span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">63</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Sau</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center">
+            <h3 class="mb-3">Không tìm thấy việc làm phù hợp?</h3>
+            <p class="text-muted mb-4">
+                Để lại thông tin liên hệ, chúng tôi sẽ thông báo khi có cơ hội việc làm phù hợp với bạn.
+            </p>
+            <a href="/job-alerts" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-bell me-2"></i>Đăng ký nhận thông báo
+            </a>
+            <a href="/consultation" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-comments me-2"></i>Tư vấn miễn phí
+            </a>
+        </div>
+    </div>
+</section>
