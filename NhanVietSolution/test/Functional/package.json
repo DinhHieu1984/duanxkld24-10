@@ -1,0 +1,25 @@
+{
+  "name": "nhanviet-functional-tests",
+  "version": "1.0.0",
+  "description": "Functional tests for NhanViet Labor Export Website",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "cypress run --headless",
+    "test:chrome": "cypress run --browser chrome",
+    "test:firefox": "cypress run --browser firefox"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.0",
+    "@cypress/code-coverage": "^3.12.0"
+  },
+  "keywords": [
+    "cypress",
+    "e2e",
+    "testing",
+    "orchardcore",
+    "nhanviet"
+  ],
+  "author": "NhanViet Team",
+  "license": "MIT"
+}

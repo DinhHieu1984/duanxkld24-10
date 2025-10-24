@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.6.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Moq" Version="4.20.69" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentTypes" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Data" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NhanViet.Website\NhanViet.Website.csproj" />
+    <ProjectReference Include="..\NhanViet.JobOrders\NhanViet.JobOrders.csproj" />
+    <ProjectReference Include="..\NhanViet.News\NhanViet.News.csproj" />
+    <ProjectReference Include="..\NhanViet.Companies\NhanViet.Companies.csproj" />
+    <ProjectReference Include="..\NhanViet.Recruitment\NhanViet.Recruitment.csproj" />
+    <ProjectReference Include="..\NhanViet.Consultation\NhanViet.Consultation.csproj" />
+    <ProjectReference Include="..\NhanViet.Countries\NhanViet.Countries.csproj" />
+    <ProjectReference Include="..\NhanViet.Analytics\NhanViet.Analytics.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
