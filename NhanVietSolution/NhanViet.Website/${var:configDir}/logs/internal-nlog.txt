@@ -35,3 +35,5 @@
 2025-10-25 10:26:21.2662 Warn Logger: Microsoft.Hosting.Lifetime configured with duplicate output to target: FileTarget(Name=file). LoggingRule with NamePattern='Microsoft.Hosting.Lifetime' and Level=Warn has been skipped.
 2025-10-25 10:26:39.5036 Warn Logger: Microsoft.Hosting.Lifetime configured with duplicate output to target: FileTarget(Name=file). LoggingRule with NamePattern='Microsoft.Hosting.Lifetime' and Level=Warn has been skipped.
 2025-10-25 10:44:42.8927 Warn Logger: Microsoft.Hosting.Lifetime configured with duplicate output to target: FileTarget(Name=file). LoggingRule with NamePattern='Microsoft.Hosting.Lifetime' and Level=Warn has been skipped.
+2025-10-25 20:55:54.4237 Warn Logger: Microsoft.Hosting.Lifetime configured with duplicate output to target: FileTarget(Name=file). LoggingRule with NamePattern='Microsoft.Hosting.Lifetime' and Level=Warn has been skipped.
+2025-10-25 20:56:30.7646 Warn Logger: Microsoft.Hosting.Lifetime configured with duplicate output to target: FileTarget(Name=file). LoggingRule with NamePattern='Microsoft.Hosting.Lifetime' and Level=Warn has been skipped.

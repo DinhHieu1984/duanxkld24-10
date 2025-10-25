@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using NhanViet.Companies.Drivers;
 using NhanViet.Companies.Models;
+using NhanViet.Companies.Services;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Data.Migration;
@@ -21,6 +22,9 @@ public sealed class Startup : StartupBase
         
         // Register Permission Provider
         services.AddScoped<IPermissionProvider, Permissions>();
+        
+        // Register Business Services
+        services.AddScoped<ICompanyService, CompanyService>();
 
         // Register Authorization Handler
     }

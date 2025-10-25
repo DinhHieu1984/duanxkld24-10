@@ -23,7 +23,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NhanViet.Frontend.Theme", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NhanViet.Admin.Theme", "NhanViet.Admin.Theme\NhanViet.Admin.Theme.csproj", "{FB9B12AC-6142-4561-8E79-763F1AD53C3C}"
 EndProject
-
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{505F0061-84EF-4C80-822F-9AE739CB1811}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NhanViet.Tests", "test\NhanViet.Tests\NhanViet.Tests.csproj", "{8A246752-E10D-4B63-A790-84C7C3E8DE8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NhanViet.Core", "NhanViet.Core\NhanViet.Core.csproj", "{DC3559D5-C865-43C6-9441-784ED23AD8FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +78,16 @@ Global
 		{FB9B12AC-6142-4561-8E79-763F1AD53C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB9B12AC-6142-4561-8E79-763F1AD53C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB9B12AC-6142-4561-8E79-763F1AD53C3C}.Release|Any CPU.Build.0 = Release|Any CPU
-
+		{8A246752-E10D-4B63-A790-84C7C3E8DE8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A246752-E10D-4B63-A790-84C7C3E8DE8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A246752-E10D-4B63-A790-84C7C3E8DE8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A246752-E10D-4B63-A790-84C7C3E8DE8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC3559D5-C865-43C6-9441-784ED23AD8FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC3559D5-C865-43C6-9441-784ED23AD8FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC3559D5-C865-43C6-9441-784ED23AD8FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC3559D5-C865-43C6-9441-784ED23AD8FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A246752-E10D-4B63-A790-84C7C3E8DE8A} = {505F0061-84EF-4C80-822F-9AE739CB1811}
 	EndGlobalSection
 EndGlobal

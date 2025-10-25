@@ -29,7 +29,7 @@ public sealed class JobOrderPartDisplayDriver : ContentPartDisplayDriver<JobOrde
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.ViewJobOrders, jobOrderPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return Task.FromResult<IDisplayResult?>(null).Result;
+            return Task.FromResult<IDisplayResult?>(null).Result!;
         }
 
         return Initialize<JobOrderPartViewModel>(GetDisplayShapeType(context), m => BuildViewModel(m, jobOrderPart))
@@ -45,7 +45,7 @@ public sealed class JobOrderPartDisplayDriver : ContentPartDisplayDriver<JobOrde
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.EditJobOrders, jobOrderPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return Task.FromResult<IDisplayResult?>(null).Result;
+            return Task.FromResult<IDisplayResult?>(null).Result!;
         }
 
         return Initialize<JobOrderPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, jobOrderPart));

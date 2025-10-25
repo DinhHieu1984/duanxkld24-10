@@ -40,16 +40,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Temporarily disable modules to test routing conflict -->
-    <!-- <ProjectReference Include="../NhanViet.JobOrders/NhanViet.JobOrders.csproj" /> -->
-    <!-- <ProjectReference Include="../NhanViet.News/NhanViet.News.csproj" /> -->
-    <!-- <ProjectReference Include="../NhanViet.Companies/NhanViet.Companies.csproj" /> -->
-    <!-- <ProjectReference Include="../NhanViet.Recruitment/NhanViet.Recruitment.csproj" /> -->
-    <!-- <ProjectReference Include="../NhanViet.Consultation/NhanViet.Consultation.csproj" /> -->
-    <!-- <ProjectReference Include="../NhanViet.Countries/NhanViet.Countries.csproj" /> -->
+    <!-- Re-enable modules after fixing compilation issues -->
+    <ProjectReference Include="../NhanViet.JobOrders/NhanViet.JobOrders.csproj" />
+    <ProjectReference Include="../NhanViet.News/NhanViet.News.csproj" />
+    <ProjectReference Include="../NhanViet.Companies/NhanViet.Companies.csproj" />
+    <ProjectReference Include="../NhanViet.Recruitment/NhanViet.Recruitment.csproj" />
+    <ProjectReference Include="../NhanViet.Consultation/NhanViet.Consultation.csproj" />
+    <ProjectReference Include="../NhanViet.Countries/NhanViet.Countries.csproj" />
     <ProjectReference Include="../NhanViet.Analytics/NhanViet.Analytics.csproj" />
     <ProjectReference Include="../NhanViet.Frontend.Theme/NhanViet.Frontend.Theme.csproj" />
     <ProjectReference Include="../NhanViet.Admin.Theme/NhanViet.Admin.Theme.csproj" />
+    <ProjectReference Include="../NhanViet.Core/NhanViet.Core.csproj" />
   </ItemGroup>
 
 </Project>

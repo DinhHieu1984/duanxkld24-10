@@ -18,11 +18,11 @@ namespace NhanViet.Core.Navigation
             S = localizer;
         }
 
-        public Task BuildNavigationAsync(string name, NavigationBuilder builder)
+        public ValueTask BuildNavigationAsync(string name, NavigationBuilder builder)
         {
             if (!string.Equals(name, "main", StringComparison.OrdinalIgnoreCase))
             {
-                return Task.CompletedTask;
+                return ValueTask.CompletedTask;
             }
 
             builder
@@ -30,14 +30,14 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Trang chủ"], "1", item => item
                     .Url("~/")
                     .AddClass("nav-home")
-                    .SetId("nav-home")
+                    .Id("nav-home")
                 )
 
                 // Jobs Menu
                 .Add(S["Việc làm"], "2", jobs => jobs
                     .Url("~/jobs")
                     .AddClass("nav-jobs")
-                    .SetId("nav-jobs")
+                    .Id("nav-jobs")
                     
                     // Jobs Submenu
                     .Add(S["Tìm việc làm"], "2.1", item => item
@@ -110,7 +110,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Công ty"], "3", companies => companies
                     .Url("~/companies")
                     .AddClass("nav-companies")
-                    .SetId("nav-companies")
+                    .Id("nav-companies")
                     
                     .Add(S["Danh sách công ty"], "3.1", item => item
                         .Url("~/companies/list")
@@ -130,7 +130,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Quốc gia"], "4", countries => countries
                     .Url("~/countries")
                     .AddClass("nav-countries")
-                    .SetId("nav-countries")
+                    .Id("nav-countries")
                     
                     .Add(S["Thông tin quốc gia"], "4.1", item => item
                         .Url("~/countries/info")
@@ -154,7 +154,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Tin tức"], "5", news => news
                     .Url("~/news")
                     .AddClass("nav-news")
-                    .SetId("nav-news")
+                    .Id("nav-news")
                     
                     .Add(S["Tin mới nhất"], "5.1", item => item
                         .Url("~/news/latest")
@@ -182,7 +182,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Tư vấn"], "6", consultation => consultation
                     .Url("~/consultations")
                     .AddClass("nav-consultations")
-                    .SetId("nav-consultations")
+                    .Id("nav-consultations")
                     
                     .Add(S["Đặt lịch tư vấn"], "6.1", item => item
                         .Url("~/consultations/book")
@@ -206,7 +206,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Dịch vụ"], "7", services => services
                     .Url("~/services")
                     .AddClass("nav-services")
-                    .SetId("nav-services")
+                    .Id("nav-services")
                     
                     .Add(S["Hỗ trợ hồ sơ"], "7.1", item => item
                         .Url("~/services/document-support")
@@ -230,7 +230,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Giới thiệu"], "8", about => about
                     .Url("~/about")
                     .AddClass("nav-about")
-                    .SetId("nav-about")
+                    .Id("nav-about")
                     
                     .Add(S["Về chúng tôi"], "8.1", item => item
                         .Url("~/about/company")
@@ -254,10 +254,10 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Liên hệ"], "9", item => item
                     .Url("~/contact")
                     .AddClass("nav-contact")
-                    .SetId("nav-contact")
+                    .Id("nav-contact")
                 );
 
-            return Task.CompletedTask;
+            return ValueTask.CompletedTask;
         }
     }
 }

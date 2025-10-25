@@ -29,7 +29,7 @@ public sealed class CompanyPartDisplayDriver : ContentPartDisplayDriver<CompanyP
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.ViewCompanies, companyPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return Task.FromResult<IDisplayResult?>(null).Result;
+            return Task.FromResult<IDisplayResult?>(null).Result!;
         }
 
         return Initialize<CompanyPartViewModel>(GetDisplayShapeType(context), m => BuildViewModel(m, companyPart))
@@ -45,7 +45,7 @@ public sealed class CompanyPartDisplayDriver : ContentPartDisplayDriver<CompanyP
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.EditCompany, companyPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return Task.FromResult<IDisplayResult?>(null).Result;
+            return Task.FromResult<IDisplayResult?>(null).Result!;
         }
 
         return Initialize<CompanyPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, companyPart));

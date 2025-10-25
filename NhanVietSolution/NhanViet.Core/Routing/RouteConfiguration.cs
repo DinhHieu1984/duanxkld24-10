@@ -13,6 +13,7 @@ namespace NhanViet.Core.Routing
     public class RouteConfiguration : IStartup
     {
         public int Order => 1000;
+        public int ConfigureOrder => 1000;
 
         public void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {

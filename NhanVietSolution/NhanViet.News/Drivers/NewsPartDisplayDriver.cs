@@ -29,7 +29,7 @@ public sealed class NewsPartDisplayDriver : ContentPartDisplayDriver<NewsPart>
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.ViewNews, newsPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return Task.FromResult<IDisplayResult?>(null).Result;
+            return Task.FromResult<IDisplayResult?>(null).Result!;
         }
 
         return Initialize<NewsPartViewModel>(GetDisplayShapeType(context), m => BuildViewModel(m, newsPart))
@@ -45,7 +45,7 @@ public sealed class NewsPartDisplayDriver : ContentPartDisplayDriver<NewsPart>
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.EditNews, newsPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return Task.FromResult<IDisplayResult?>(null).Result;
+            return Task.FromResult<IDisplayResult?>(null).Result!;
         }
 
         return Initialize<NewsPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, newsPart));

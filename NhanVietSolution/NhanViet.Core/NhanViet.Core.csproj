@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OrchardCore.Module.Targets" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Navigation" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="2.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="System.Threading.Channels" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NhanViet.JobOrders\NhanViet.JobOrders.csproj" />
+    <ProjectReference Include="..\NhanViet.Companies\NhanViet.Companies.csproj" />
+  </ItemGroup>
+
+</Project>

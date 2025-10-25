@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Localization;
 using OrchardCore.Navigation;
+using OrchardCore.Security.Permissions;
 using System;
 using System.Threading.Tasks;
 
@@ -18,11 +19,11 @@ namespace NhanViet.Core.Navigation
             S = localizer;
         }
 
-        public Task BuildNavigationAsync(string name, NavigationBuilder builder)
+        public ValueTask BuildNavigationAsync(string name, NavigationBuilder builder)
         {
             if (!string.Equals(name, "admin", StringComparison.OrdinalIgnoreCase))
             {
-                return Task.CompletedTask;
+                return ValueTask.CompletedTask;
             }
 
             builder
@@ -30,7 +31,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Dashboard"], "1", dashboard => dashboard
                     .Url("~/Admin")
                     .AddClass("nav-dashboard")
-                    .SetId("nav-dashboard")
+                    .Id("nav-dashboard")
                     .Permission(Permissions.AccessAdminPanel)
                 )
 
@@ -38,7 +39,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Quản lý nội dung"], "2", content => content
                     .Url("~/Admin/Contents")
                     .AddClass("nav-content")
-                    .SetId("nav-content")
+                    .Id("nav-content")
                     .Permission(Permissions.ManageContent)
                     
                     .Add(S["Việc làm"], "2.1", jobs => jobs
@@ -157,7 +158,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Quản lý người dùng"], "3", users => users
                     .Url("~/Admin/Users")
                     .AddClass("nav-users")
-                    .SetId("nav-users")
+                    .Id("nav-users")
                     .Permission(Permissions.ManageUsers)
                     
                     .Add(S["Danh sách người dùng"], "3.1", item => item
@@ -182,7 +183,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Quản lý đơn ứng tuyển"], "4", applications => applications
                     .Url("~/Admin/Applications")
                     .AddClass("nav-applications")
-                    .SetId("nav-applications")
+                    .Id("nav-applications")
                     .Permission(Permissions.ManageApplications)
                     
                     .Add(S["Đơn mới"], "4.1", item => item
@@ -211,7 +212,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Quản lý hệ thống"], "5", system => system
                     .Url("~/Admin/Settings")
                     .AddClass("nav-system")
-                    .SetId("nav-system")
+                    .Id("nav-system")
                     .Permission(Permissions.ManageSettings)
                     
                     .Add(S["Cài đặt chung"], "5.1", item => item
@@ -240,7 +241,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Báo cáo & Thống kê"], "6", reports => reports
                     .Url("~/Admin/Reports")
                     .AddClass("nav-reports")
-                    .SetId("nav-reports")
+                    .Id("nav-reports")
                     .Permission(Permissions.ViewReports)
                     
                     .Add(S["Tổng quan"], "6.1", item => item
@@ -269,7 +270,7 @@ namespace NhanViet.Core.Navigation
                 .Add(S["Công cụ"], "7", tools => tools
                     .Url("~/Admin/Tools")
                     .AddClass("nav-tools")
-                    .SetId("nav-tools")
+                    .Id("nav-tools")
                     .Permission(Permissions.AccessTools)
                     
                     .Add(S["Import/Export"], "7.1", item => item
@@ -294,7 +295,7 @@ namespace NhanViet.Core.Navigation
                     )
                 );
 
-            return Task.CompletedTask;
+            return ValueTask.CompletedTask;
         }
     }
 
