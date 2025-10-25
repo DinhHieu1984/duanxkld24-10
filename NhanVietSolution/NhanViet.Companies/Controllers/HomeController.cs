@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace NhanViet.Companies.Controllers;
 
+[Area("NhanViet.Companies")]
 public sealed class HomeController : Controller
 {
     public ActionResult Index()

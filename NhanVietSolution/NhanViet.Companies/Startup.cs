@@ -16,9 +16,16 @@ public sealed class Startup : StartupBase
     public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
     {
         routes.MapAreaControllerRoute(
-            name: "Home",
+            name: "CompaniesHome",
+            areaName: "NhanViet.Companies", 
+            pattern: "companies",
+            defaults: new { controller = "Home", action = "Index" }
+        );
+        
+        routes.MapAreaControllerRoute(
+            name: "Companies",
             areaName: "NhanViet.Companies",
-            pattern: "Home/Index",
+            pattern: "companies/{action=Index}/{id?}",
             defaults: new { controller = "Home", action = "Index" }
         );
     }

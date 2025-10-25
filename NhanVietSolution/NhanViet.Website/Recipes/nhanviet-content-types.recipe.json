@@ -1,0 +1,290 @@
+{
+  "name": "NhanVietContentTypes",
+  "displayName": "NhanViet Content Types",
+  "description": "Import NhanViet content types (Company, JobOrder, NewsArticle) theo chuẩn OrchardCore",
+  "author": "NhanViet Group",
+  "website": "https://nhanvietgroup.com",
+  "version": "1.0.0",
+  "issetuprecipe": false,
+  "tags": [ "content", "nhanviet", "import" ],
+  "steps": [
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
+        {
+          "Name": "Company",
+          "DisplayName": "Company",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "Company",
+              "Name": "Company",
+              "Settings": {}
+            },
+            {
+              "PartName": "AutoroutePart",
+              "Name": "AutoroutePart",
+              "Settings": {
+                "AutoroutePartSettings": {
+                  "AllowCustomPath": true,
+                  "Pattern": "{{ Model.ContentItem | display_text | slugify }}",
+                  "ShowHomepageOption": false
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {}
+            }
+          ]
+        },
+        {
+          "Name": "JobOrder",
+          "DisplayName": "Job Order",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "JobOrder",
+              "Name": "JobOrder",
+              "Settings": {}
+            },
+            {
+              "PartName": "AutoroutePart",
+              "Name": "AutoroutePart",
+              "Settings": {
+                "AutoroutePartSettings": {
+                  "AllowCustomPath": true,
+                  "Pattern": "{{ Model.ContentItem | display_text | slugify }}",
+                  "ShowHomepageOption": false
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {}
+            }
+          ]
+        },
+        {
+          "Name": "NewsArticle",
+          "DisplayName": "News Article",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Creatable": true,
+              "Listable": true,
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "NewsArticle",
+              "Name": "NewsArticle",
+              "Settings": {}
+            },
+            {
+              "PartName": "AutoroutePart",
+              "Name": "AutoroutePart",
+              "Settings": {
+                "AutoroutePartSettings": {
+                  "AllowCustomPath": true,
+                  "Pattern": "{{ Model.ContentItem | display_text | slugify }}",
+                  "ShowHomepageOption": false
+                }
+              }
+            },
+            {
+              "PartName": "TitlePart",
+              "Name": "TitlePart",
+              "Settings": {}
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "Company",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "CompanyCode",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Company Code",
+                  "Description": "Unique company identifier",
+                  "Required": true
+                },
+                "TextFieldSettings": {
+                  "Hint": "Enter company code (e.g., COMP001)"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "Industry",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Industry",
+                  "Description": "Company industry sector"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Enter industry (e.g., Manufacturing)"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "Country",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Country",
+                  "Description": "Company country location"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Enter country (e.g., Japan)"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "City",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "City",
+                  "Description": "Company city location"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Enter city (e.g., Tokyo)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "JobOrder",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "JobCode",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Job Code",
+                  "Description": "Unique job order identifier",
+                  "Required": true
+                },
+                "TextFieldSettings": {
+                  "Hint": "Enter job code (e.g., JOB001)"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "Position",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Position",
+                  "Description": "Job position title"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Enter position (e.g., Factory Worker)"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "Salary",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Salary",
+                  "Description": "Job salary information"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Enter salary (e.g., 1500 USD/month)"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "Requirements",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Requirements",
+                  "Description": "Job requirements"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Enter requirements"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "Name": "NewsArticle",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "Summary",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Summary",
+                  "Description": "Article summary"
+                },
+                "TextFieldSettings": {
+                  "Hint": "Enter article summary"
+                }
+              }
+            },
+            {
+              "FieldName": "HtmlField",
+              "Name": "Content",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Content",
+                  "Description": "Article content"
+                },
+                "HtmlFieldSettings": {
+                  "Hint": "Enter article content"
+                }
+              }
+            },
+            {
+              "FieldName": "DateTimeField",
+              "Name": "PublishedDate",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Published Date",
+                  "Description": "Article published date"
+                },
+                "DateTimeFieldSettings": {
+                  "Hint": "Select published date"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

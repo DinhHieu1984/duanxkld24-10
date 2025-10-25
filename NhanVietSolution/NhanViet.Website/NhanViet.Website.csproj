@@ -25,6 +25,18 @@
     <PackageReference Include="OrchardCore.Logging.NLog" Version="2.2.1" />
     <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="2.2.1" />
     <PackageReference Include="OrchardCore.Microsoft.Authentication" Version="2.2.1" />
+    <!-- OrchardCore Content Management Modules -->
+    <PackageReference Include="OrchardCore.ContentManagement" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentTypes" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.ContentPreview" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Contents" Version="2.2.1" />
+    <!-- OrchardCore Parts and Features -->
+    <PackageReference Include="OrchardCore.Autoroute" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Media" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Html" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.Title" Version="2.2.1" />
+    <PackageReference Include="OrchardCore.PublishLater" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>

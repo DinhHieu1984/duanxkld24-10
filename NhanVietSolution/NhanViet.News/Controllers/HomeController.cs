@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace NhanViet.News.Controllers;
 
+[Area("NhanViet.News")]
 public sealed class HomeController : Controller
 {
     public ActionResult Index()
