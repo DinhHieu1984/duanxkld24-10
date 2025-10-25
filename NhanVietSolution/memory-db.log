@@ -1,0 +1,171 @@
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://0.0.0.0:12000
+2025-10-24 22:35:39.3052|INFO|Microsoft.Hosting.Lifetime|Now listening on: http://0.0.0.0:12000
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+2025-10-24 22:35:39.3305|INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+2025-10-24 22:35:39.3312|INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/project/duanxkld24-10/NhanVietSolution/NhanViet.Website
+2025-10-24 22:35:39.3316|INFO|Microsoft.Hosting.Lifetime|Content root path: /workspace/project/duanxkld24-10/NhanVietSolution/NhanViet.Website
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+fail: Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 14: 'unable to open database file'.
+         at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+         at Microsoft.Data.Sqlite.SqliteConnectionInternal..ctor(SqliteConnectionStringBuilder connectionOptions, SqliteConnectionPool pool)
+         at Microsoft.Data.Sqlite.SqliteConnectionPool.GetConnection()
+         at Microsoft.Data.Sqlite.SqliteConnectionFactory.GetConnection(SqliteConnection outerConnection)
+         at Microsoft.Data.Sqlite.SqliteConnection.Open()
+         at System.Data.Common.DbConnection.OpenAsync(CancellationToken cancellationToken)
+      --- End of stack trace from previous location ---
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.DependencyInjection.OrchardCoreBuilderExtensions.<>c.<<AddDataAccess>b__0_2>d.MoveNext()
+      --- End of stack trace from previous location ---
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.CreateDescribedContextAsync(ShellSettings settings, ShellDescriptor shellDescriptor)
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.OrchardCore.Environment.Shell.Builders.IShellContextFactory.CreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetOrCreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetScopeAsync(ShellSettings settings)
+         at OrchardCore.Modules.ModularTenantContainerMiddleware.Invoke(HttpContext httpContext)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+fail: Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 14: 'unable to open database file'.
+         at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+         at Microsoft.Data.Sqlite.SqliteConnectionInternal..ctor(SqliteConnectionStringBuilder connectionOptions, SqliteConnectionPool pool)
+         at Microsoft.Data.Sqlite.SqliteConnectionPool.GetConnection()
+         at Microsoft.Data.Sqlite.SqliteConnectionFactory.GetConnection(SqliteConnection outerConnection)
+         at Microsoft.Data.Sqlite.SqliteConnection.Open()
+         at System.Data.Common.DbConnection.OpenAsync(CancellationToken cancellationToken)
+      --- End of stack trace from previous location ---
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.DependencyInjection.OrchardCoreBuilderExtensions.<>c.<<AddDataAccess>b__0_2>d.MoveNext()
+      --- End of stack trace from previous location ---
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.CreateDescribedContextAsync(ShellSettings settings, ShellDescriptor shellDescriptor)
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.OrchardCore.Environment.Shell.Builders.IShellContextFactory.CreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetOrCreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetScopeAsync(ShellSettings settings)
+         at OrchardCore.Modules.ModularTenantContainerMiddleware.Invoke(HttpContext httpContext)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+fail: Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 14: 'unable to open database file'.
+         at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+         at Microsoft.Data.Sqlite.SqliteConnectionInternal..ctor(SqliteConnectionStringBuilder connectionOptions, SqliteConnectionPool pool)
+         at Microsoft.Data.Sqlite.SqliteConnectionPool.GetConnection()
+         at Microsoft.Data.Sqlite.SqliteConnectionFactory.GetConnection(SqliteConnection outerConnection)
+         at Microsoft.Data.Sqlite.SqliteConnection.Open()
+         at System.Data.Common.DbConnection.OpenAsync(CancellationToken cancellationToken)
+      --- End of stack trace from previous location ---
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.DependencyInjection.OrchardCoreBuilderExtensions.<>c.<<AddDataAccess>b__0_2>d.MoveNext()
+      --- End of stack trace from previous location ---
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.CreateDescribedContextAsync(ShellSettings settings, ShellDescriptor shellDescriptor)
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.OrchardCore.Environment.Shell.Builders.IShellContextFactory.CreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetOrCreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetScopeAsync(ShellSettings settings)
+         at OrchardCore.Modules.ModularTenantContainerMiddleware.Invoke(HttpContext httpContext)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+fail: Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 14: 'unable to open database file'.
+         at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+         at Microsoft.Data.Sqlite.SqliteConnectionInternal..ctor(SqliteConnectionStringBuilder connectionOptions, SqliteConnectionPool pool)
+         at Microsoft.Data.Sqlite.SqliteConnectionPool.GetConnection()
+         at Microsoft.Data.Sqlite.SqliteConnectionFactory.GetConnection(SqliteConnection outerConnection)
+         at Microsoft.Data.Sqlite.SqliteConnection.Open()
+         at System.Data.Common.DbConnection.OpenAsync(CancellationToken cancellationToken)
+      --- End of stack trace from previous location ---
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.DependencyInjection.OrchardCoreBuilderExtensions.<>c.<<AddDataAccess>b__0_2>d.MoveNext()
+      --- End of stack trace from previous location ---
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.CreateDescribedContextAsync(ShellSettings settings, ShellDescriptor shellDescriptor)
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.OrchardCore.Environment.Shell.Builders.IShellContextFactory.CreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetOrCreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetScopeAsync(ShellSettings settings)
+         at OrchardCore.Modules.ModularTenantContainerMiddleware.Invoke(HttpContext httpContext)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+fail: Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 14: 'unable to open database file'.
+         at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+         at Microsoft.Data.Sqlite.SqliteConnectionInternal..ctor(SqliteConnectionStringBuilder connectionOptions, SqliteConnectionPool pool)
+         at Microsoft.Data.Sqlite.SqliteConnectionPool.GetConnection()
+         at Microsoft.Data.Sqlite.SqliteConnectionFactory.GetConnection(SqliteConnection outerConnection)
+         at Microsoft.Data.Sqlite.SqliteConnection.Open()
+         at System.Data.Common.DbConnection.OpenAsync(CancellationToken cancellationToken)
+      --- End of stack trace from previous location ---
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.DependencyInjection.OrchardCoreBuilderExtensions.<>c.<<AddDataAccess>b__0_2>d.MoveNext()
+      --- End of stack trace from previous location ---
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.CreateDescribedContextAsync(ShellSettings settings, ShellDescriptor shellDescriptor)
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.OrchardCore.Environment.Shell.Builders.IShellContextFactory.CreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetOrCreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetScopeAsync(ShellSettings settings)
+         at OrchardCore.Modules.ModularTenantContainerMiddleware.Invoke(HttpContext httpContext)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+fail: Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 14: 'unable to open database file'.
+         at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+         at Microsoft.Data.Sqlite.SqliteConnectionInternal..ctor(SqliteConnectionStringBuilder connectionOptions, SqliteConnectionPool pool)
+         at Microsoft.Data.Sqlite.SqliteConnectionPool.GetConnection()
+         at Microsoft.Data.Sqlite.SqliteConnectionFactory.GetConnection(SqliteConnection outerConnection)
+         at Microsoft.Data.Sqlite.SqliteConnection.Open()
+         at System.Data.Common.DbConnection.OpenAsync(CancellationToken cancellationToken)
+      --- End of stack trace from previous location ---
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.DependencyInjection.OrchardCoreBuilderExtensions.<>c.<<AddDataAccess>b__0_2>d.MoveNext()
+      --- End of stack trace from previous location ---
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.CreateDescribedContextAsync(ShellSettings settings, ShellDescriptor shellDescriptor)
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.OrchardCore.Environment.Shell.Builders.IShellContextFactory.CreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetOrCreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetScopeAsync(ShellSettings settings)
+         at OrchardCore.Modules.ModularTenantContainerMiddleware.Invoke(HttpContext httpContext)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+fail: Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 14: 'unable to open database file'.
+         at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+         at Microsoft.Data.Sqlite.SqliteConnectionInternal..ctor(SqliteConnectionStringBuilder connectionOptions, SqliteConnectionPool pool)
+         at Microsoft.Data.Sqlite.SqliteConnectionPool.GetConnection()
+         at Microsoft.Data.Sqlite.SqliteConnectionFactory.GetConnection(SqliteConnection outerConnection)
+         at Microsoft.Data.Sqlite.SqliteConnection.Open()
+         at System.Data.Common.DbConnection.OpenAsync(CancellationToken cancellationToken)
+      --- End of stack trace from previous location ---
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeCollectionAsync(String collection, CancellationToken cancellationToken)
+         at YesSql.Store.InitializeAsync(CancellationToken cancellationToken)
+         at Microsoft.Extensions.DependencyInjection.OrchardCoreBuilderExtensions.<>c.<<AddDataAccess>b__0_2>d.MoveNext()
+      --- End of stack trace from previous location ---
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.CreateDescribedContextAsync(ShellSettings settings, ShellDescriptor shellDescriptor)
+         at OrchardCore.Environment.Shell.Builders.ShellContextFactory.OrchardCore.Environment.Shell.Builders.IShellContextFactory.CreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetOrCreateShellContextAsync(ShellSettings settings)
+         at OrchardCore.Environment.Shell.ShellHost.GetScopeAsync(ShellSettings settings)
+         at OrchardCore.Modules.ModularTenantContainerMiddleware.Invoke(HttpContext httpContext)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+2025-10-24 22:36:00.8499|INFO|Microsoft.Hosting.Lifetime|Application is shutting down...

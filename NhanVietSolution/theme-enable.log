@@ -1,0 +1,17 @@
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://0.0.0.0:12000
+2025-10-24 22:28:00.0935|INFO|Microsoft.Hosting.Lifetime|Now listening on: http://0.0.0.0:12000
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+2025-10-24 22:28:00.1238|INFO|Microsoft.Hosting.Lifetime|Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+2025-10-24 22:28:00.1246|INFO|Microsoft.Hosting.Lifetime|Hosting environment: Development
+2025-10-24 22:28:00.1246|INFO|Microsoft.Hosting.Lifetime|Content root path: /workspace/project/duanxkld24-10/NhanVietSolution/NhanViet.Website
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/project/duanxkld24-10/NhanVietSolution/NhanViet.Website
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+2025-10-24 22:29:14.2983|INFO|Microsoft.Hosting.Lifetime|Application is shutting down...
