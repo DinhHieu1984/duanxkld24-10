@@ -1,0 +1,121 @@
+<!-- Job Order Summary Template -->
+<div class="job-card h-100">
+    <div class="card-body p-4">
+        <!-- Job Header -->
+        <div class="d-flex align-items-center mb-3">
+            {% if Model.Country %}
+                <img src="https://flagcdn.com/w40/{{ Model.Country.Code | downcase }}.png" 
+                     alt="{{ Model.Country.Name }}" 
+                     class="me-3 rounded">
+            {% endif %}
+            <div class="flex-grow-1">
+                <h5 class="card-title mb-1">
+                    <a href="{{ Model.Url }}" class="text-decoration-none">
+                        {{ Model.Title }}
+                    </a>
+                </h5>
+                <small class="text-muted">
+                    {% if Model.Country %}
+                        <i class="fas fa-map-marker-alt me-1"></i>{{ Model.Country.Name }}
+                    {% endif %}
+                    {% if Model.Category %}
+                        • {{ Model.Category }}
+                    {% endif %}
+                </small>
+            </div>
+            {% if Model.IsUrgent %}
+                <span class="badge bg-danger">Gấp</span>
+            {% endif %}
+        </div>
+
+        <!-- Job Details -->
+        <div class="job-details mb-3">
+            {% if Model.Summary %}
+                <p class="card-text text-muted mb-2">{{ Model.Summary | truncate: 120 }}</p>
+            {% endif %}
+            
+            <div class="row g-2 mb-3">
+                {% if Model.Salary %}
+                    <div class="col-6">
+                        <small class="text-muted d-block">Lương:</small>
+                        <span class="job-salary fw-bold text-success">{{ Model.Salary }}</span>
+                    </div>
+                {% endif %}
+                
+                {% if Model.WorkingHours %}
+                    <div class="col-6">
+                        <small class="text-muted d-block">Giờ làm:</small>
+                        <span class="text-dark">{{ Model.WorkingHours }}</span>
+                    </div>
+                {% endif %}
+                
+                {% if Model.ContractDuration %}
+                    <div class="col-6">
+                        <small class="text-muted d-block">Thời hạn:</small>
+                        <span class="text-dark">{{ Model.ContractDuration }}</span>
+                    </div>
+                {% endif %}
+                
+                {% if Model.RequiredWorkers %}
+                    <div class="col-6">
+                        <small class="text-muted d-block">Số lượng:</small>
+                        <span class="text-dark">{{ Model.RequiredWorkers }} người</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Requirements -->
+        {% if Model.Requirements %}
+            <div class="requirements mb-3">
+                <small class="text-muted d-block mb-1">Yêu cầu:</small>
+                <div class="requirement-tags">
+                    {% assign requirements = Model.Requirements | split: ',' %}
+                    {% for requirement in requirements limit: 3 %}
+                        <span class="badge bg-light text-dark me-1 mb-1">{{ requirement | strip }}</span>
+                    {% endfor %}
+                    {% if requirements.size > 3 %}
+                        <span class="badge bg-light text-muted">+{{ requirements.size | minus: 3 }} khác</span>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="job-meta">
+                {% if Model.CreatedUtc %}
+                    <small class="text-muted">
+                        <i class="fas fa-clock me-1"></i>
+                        {{ Model.CreatedUtc | date: "%d/%m/%Y" }}
+                    </small>
+                {% endif %}
+            </div>
+            
+            <div class="job-actions">
+                <a href="{{ Model.Url }}" class="btn btn-outline-primary btn-sm me-2">
+                    <i class="fas fa-eye me-1"></i>Chi tiết
+                </a>
+                <a href="/apply/{{ Model.Id }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-paper-plane me-1"></i>Ứng tuyển
+                </a>
+            </div>
+        </div>
+
+        <!-- Status Indicator -->
+        {% if Model.Status %}
+            <div class="job-status mt-2">
+                {% case Model.Status %}
+                    {% when 'Active' %}
+                        <span class="badge bg-success">Đang tuyển</span>
+                    {% when 'Closed' %}
+                        <span class="badge bg-secondary">Đã đóng</span>
+                    {% when 'Draft' %}
+                        <span class="badge bg-warning">Nháp</span>
+                    {% else %}
+                        <span class="badge bg-info">{{ Model.Status }}</span>
+                {% endcase %}
+            </div>
+        {% endif %}
+    </div>
+</div>

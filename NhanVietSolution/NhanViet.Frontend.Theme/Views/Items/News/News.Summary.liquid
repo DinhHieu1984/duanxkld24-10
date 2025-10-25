@@ -1,0 +1,148 @@
+<!-- News Summary Template -->
+<article class="news-card h-100">
+    <div class="card border-0 shadow-sm h-100">
+        <!-- News Image -->
+        {% if Model.FeaturedImage %}
+            <div class="news-image-container">
+                <img src="{{ Model.FeaturedImage }}" 
+                     class="card-img-top news-image" 
+                     alt="{{ Model.Title }}"
+                     loading="lazy">
+                {% if Model.Category %}
+                    <span class="badge bg-primary position-absolute top-0 start-0 m-2">
+                        {{ Model.Category }}
+                    </span>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="news-placeholder bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <i class="fas fa-newspaper fa-3x text-muted"></i>
+            </div>
+        {% endif %}
+
+        <div class="card-body d-flex flex-column">
+            <!-- News Meta -->
+            <div class="news-meta mb-2">
+                <small class="text-muted">
+                    {% if Model.PublishedUtc %}
+                        <i class="fas fa-calendar me-1"></i>
+                        {{ Model.PublishedUtc | date: "%d/%m/%Y" }}
+                    {% endif %}
+                    
+                    {% if Model.Author %}
+                        <i class="fas fa-user ms-2 me-1"></i>
+                        {{ Model.Author }}
+                    {% endif %}
+                    
+                    {% if Model.ReadingTime %}
+                        <i class="fas fa-clock ms-2 me-1"></i>
+                        {{ Model.ReadingTime }} phút đọc
+                    {% endif %}
+                </small>
+            </div>
+
+            <!-- News Title -->
+            <h5 class="card-title mb-2">
+                <a href="{{ Model.Url }}" class="text-decoration-none text-dark">
+                    {{ Model.Title }}
+                </a>
+            </h5>
+
+            <!-- News Summary -->
+            {% if Model.Summary %}
+                <p class="card-text text-muted mb-3 flex-grow-1">
+                    {{ Model.Summary | truncate: 150 }}
+                </p>
+            {% endif %}
+
+            <!-- News Tags -->
+            {% if Model.Tags %}
+                <div class="news-tags mb-3">
+                    {% assign tags = Model.Tags | split: ',' %}
+                    {% for tag in tags limit: 3 %}
+                        <span class="badge bg-light text-dark me-1 mb-1">
+                            <i class="fas fa-tag me-1"></i>{{ tag | strip }}
+                        </span>
+                    {% endfor %}
+                    {% if tags.size > 3 %}
+                        <span class="badge bg-light text-muted">+{{ tags.size | minus: 3 }}</span>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            <!-- News Actions -->
+            <div class="news-actions d-flex justify-content-between align-items-center mt-auto">
+                <div class="news-stats">
+                    {% if Model.ViewCount %}
+                        <small class="text-muted me-3">
+                            <i class="fas fa-eye me-1"></i>{{ Model.ViewCount }} lượt xem
+                        </small>
+                    {% endif %}
+                    
+                    {% if Model.CommentCount %}
+                        <small class="text-muted">
+                            <i class="fas fa-comments me-1"></i>{{ Model.CommentCount }} bình luận
+                        </small>
+                    {% endif %}
+                </div>
+                
+                <a href="{{ Model.Url }}" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-arrow-right me-1"></i>Đọc thêm
+                </a>
+            </div>
+        </div>
+
+        <!-- News Footer -->
+        {% if Model.IsFeatured or Model.IsBreaking %}
+            <div class="card-footer bg-transparent border-top-0">
+                {% if Model.IsBreaking %}
+                    <span class="badge bg-danger">
+                        <i class="fas fa-bolt me-1"></i>Tin nóng
+                    </span>
+                {% endif %}
+                
+                {% if Model.IsFeatured %}
+                    <span class="badge bg-warning text-dark">
+                        <i class="fas fa-star me-1"></i>Nổi bật
+                    </span>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</article>
+
+<style>
+.news-image {
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.news-card:hover .news-image {
+    transform: scale(1.05);
+}
+
+.news-image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.375rem 0.375rem 0 0;
+}
+
+.news-card .card {
+    transition: all 0.3s ease;
+}
+
+.news-card:hover .card {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.news-tags .badge {
+    font-size: 0.75rem;
+}
+
+.news-meta {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+}
+</style>

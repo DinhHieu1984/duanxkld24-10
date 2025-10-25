@@ -1,0 +1,24 @@
+{
+  "name": "NhanViet Admin Theme",
+  "author": "NhanViet Group",
+  "website": "https://nhanvietgroup.com",
+  "version": "1.0.0",
+  "description": "Professional admin theme for NhanViet labor export management system. Features modern dashboard design, responsive layout, and comprehensive admin functionality.",
+  "tags": ["Admin", "Dashboard", "Management", "Labor Export", "Professional"],
+  "baseTheme": "TheAdmin",
+  "zones": [
+    "Header",
+    "Navigation", 
+    "Content",
+    "Sidebar",
+    "Footer"
+  ],
+  "features": [
+    "Responsive Design",
+    "Dark Sidebar",
+    "Collapsible Navigation",
+    "Breadcrumb Navigation",
+    "User Menu",
+    "Mobile Support"
+  ]
+}

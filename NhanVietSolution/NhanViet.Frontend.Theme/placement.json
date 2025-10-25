@@ -1,0 +1,76 @@
+{
+  "JobOrder": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": null,
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ],
+  "News": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": null,
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ],
+  "Company": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": null,
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ],
+  "Country": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": null,
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ],
+  "Consultation": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": null,
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ],
+  "HomePage": [
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ],
+  "JobListings": [
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ]
+}

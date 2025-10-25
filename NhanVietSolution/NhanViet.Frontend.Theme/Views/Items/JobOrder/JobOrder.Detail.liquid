@@ -1,0 +1,290 @@
+<!-- Job Order Detail Template -->
+<article class="job-detail">
+    <!-- Job Header -->
+    <div class="job-header bg-primary text-white p-4 rounded-top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="d-flex align-items-center mb-3">
+                        {% if Model.Country %}
+                            <img src="https://flagcdn.com/w60/{{ Model.Country.Code | downcase }}.png" 
+                                 alt="{{ Model.Country.Name }}" 
+                                 class="me-3 rounded">
+                        {% endif %}
+                        <div>
+                            <h1 class="h2 mb-1">{{ Model.Title }}</h1>
+                            <p class="mb-0 opacity-75">
+                                {% if Model.Country %}
+                                    <i class="fas fa-map-marker-alt me-1"></i>{{ Model.Country.Name }}
+                                {% endif %}
+                                {% if Model.Category %}
+                                    • {{ Model.Category }}
+                                {% endif %}
+                                {% if Model.CreatedUtc %}
+                                    • Đăng ngày {{ Model.CreatedUtc | date: "%d/%m/%Y" }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    {% if Model.IsUrgent %}
+                        <span class="badge bg-danger fs-6">
+                            <i class="fas fa-exclamation-triangle me-1"></i>Tuyển gấp
+                        </span>
+                    {% endif %}
+                </div>
+                
+                <div class="col-lg-4 text-lg-end">
+                    <div class="job-salary-display">
+                        {% if Model.Salary %}
+                            <div class="salary-amount h3 mb-1">{{ Model.Salary }}</div>
+                            <small class="opacity-75">Mức lương</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Job Content -->
+    <div class="job-content bg-white">
+        <div class="container">
+            <div class="row">
+                <!-- Main Content -->
+                <div class="col-lg-8">
+                    <div class="p-4">
+                        <!-- Job Summary -->
+                        {% if Model.Summary %}
+                            <div class="job-summary mb-4">
+                                <h3 class="h5 mb-3">Tóm tắt công việc</h3>
+                                <p class="lead">{{ Model.Summary }}</p>
+                            </div>
+                        {% endif %}
+
+                        <!-- Job Description -->
+                        {% if Model.Description %}
+                            <div class="job-description mb-4">
+                                <h3 class="h5 mb-3">Mô tả công việc</h3>
+                                <div class="content">
+                                    {{ Model.Description | raw }}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Requirements -->
+                        {% if Model.Requirements %}
+                            <div class="job-requirements mb-4">
+                                <h3 class="h5 mb-3">Yêu cầu ứng viên</h3>
+                                <div class="content">
+                                    {{ Model.Requirements | raw }}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Benefits -->
+                        {% if Model.Benefits %}
+                            <div class="job-benefits mb-4">
+                                <h3 class="h5 mb-3">Quyền lợi</h3>
+                                <div class="content">
+                                    {{ Model.Benefits | raw }}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Application Process -->
+                        {% if Model.ApplicationProcess %}
+                            <div class="application-process mb-4">
+                                <h3 class="h5 mb-3">Quy trình ứng tuyển</h3>
+                                <div class="content">
+                                    {{ Model.ApplicationProcess | raw }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <div class="job-sidebar p-4 bg-light">
+                        <!-- Quick Info -->
+                        <div class="quick-info mb-4">
+                            <h4 class="h6 mb-3">Thông tin nhanh</h4>
+                            
+                            <div class="info-item mb-3">
+                                <div class="row">
+                                    {% if Model.Salary %}
+                                        <div class="col-6">
+                                            <small class="text-muted d-block">Mức lương</small>
+                                            <strong class="text-success">{{ Model.Salary }}</strong>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if Model.RequiredWorkers %}
+                                        <div class="col-6">
+                                            <small class="text-muted d-block">Số lượng</small>
+                                            <strong>{{ Model.RequiredWorkers }} người</strong>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if Model.WorkingHours %}
+                                        <div class="col-6 mt-2">
+                                            <small class="text-muted d-block">Giờ làm việc</small>
+                                            <strong>{{ Model.WorkingHours }}</strong>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if Model.ContractDuration %}
+                                        <div class="col-6 mt-2">
+                                            <small class="text-muted d-block">Thời hạn hợp đồng</small>
+                                            <strong>{{ Model.ContractDuration }}</strong>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if Model.ApplicationDeadline %}
+                                        <div class="col-12 mt-2">
+                                            <small class="text-muted d-block">Hạn nộp hồ sơ</small>
+                                            <strong class="text-danger">{{ Model.ApplicationDeadline | date: "%d/%m/%Y" }}</strong>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Apply Button -->
+                        <div class="apply-section mb-4">
+                            <a href="/apply/{{ Model.Id }}" class="btn btn-primary btn-lg w-100 mb-2">
+                                <i class="fas fa-paper-plane me-2"></i>Ứng tuyển ngay
+                            </a>
+                            <a href="/consultation" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-comments me-2"></i>Tư vấn miễn phí
+                            </a>
+                        </div>
+
+                        <!-- Company Info -->
+                        {% if Model.Company %}
+                            <div class="company-info mb-4">
+                                <h4 class="h6 mb-3">Thông tin công ty</h4>
+                                <div class="d-flex align-items-center mb-2">
+                                    {% if Model.Company.Logo %}
+                                        <img src="{{ Model.Company.Logo }}" alt="{{ Model.Company.Name }}" class="company-logo me-3">
+                                    {% endif %}
+                                    <div>
+                                        <h6 class="mb-1">{{ Model.Company.Name }}</h6>
+                                        {% if Model.Company.Location %}
+                                            <small class="text-muted">{{ Model.Company.Location }}</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% if Model.Company.Description %}
+                                    <p class="small text-muted">{{ Model.Company.Description | truncate: 150 }}</p>
+                                {% endif %}
+                                <a href="/companies/{{ Model.Company.Id }}" class="btn btn-outline-secondary btn-sm">
+                                    Xem công ty
+                                </a>
+                            </div>
+                        {% endif %}
+
+                        <!-- Share -->
+                        <div class="share-section">
+                            <h4 class="h6 mb-3">Chia sẻ</h4>
+                            <div class="d-flex gap-2">
+                                <a href="#" class="btn btn-outline-primary btn-sm" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline-info btn-sm" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline-success btn-sm" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm" onclick="copyLink()">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- Related Jobs -->
+<section class="related-jobs py-5 bg-light">
+    <div class="container">
+        <h3 class="mb-4">Việc làm liên quan</h3>
+        <div class="row">
+            <!-- Related jobs will be loaded here -->
+            <div class="col-12">
+                <div id="related-jobs-container">
+                    <!-- Placeholder for related jobs -->
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Đang tải...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Share functions
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+}
+
+function shareOnTwitter() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('{{ Model.Title }} - Cơ hội việc làm tại {{ Model.Country.Name }}');
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+}
+
+function shareOnWhatsApp() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('{{ Model.Title }} - Cơ hội việc làm tại {{ Model.Country.Name }}');
+    window.open(`https://wa.me/?text=${text} ${url}`, '_blank');
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('Đã sao chép liên kết!');
+    });
+}
+
+// Load related jobs
+document.addEventListener('DOMContentLoaded', function() {
+    fetch(`/api/jobs/related/{{ Model.Id }}`)
+        .then(response => response.json())
+        .then(jobs => {
+            const container = document.getElementById('related-jobs-container');
+            if (jobs.length > 0) {
+                let html = '<div class="row">';
+                jobs.forEach(job => {
+                    html += `
+                        <div class="col-md-6 col-lg-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h6 class="card-title">${job.title}</h6>
+                                    <p class="card-text small text-muted">${job.country} • ${job.salary}</p>
+                                    <a href="/jobs/${job.id}" class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = '<p class="text-muted text-center">Không có việc làm liên quan.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error loading related jobs:', error);
+            document.getElementById('related-jobs-container').innerHTML = 
+                '<p class="text-muted text-center">Không thể tải việc làm liên quan.</p>';
+        });
+});
+</script>

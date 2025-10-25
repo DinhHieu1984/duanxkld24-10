@@ -1,0 +1,249 @@
+<!-- Company Summary Template -->
+<div class="company-card h-100">
+    <div class="card border-0 shadow-sm h-100">
+        <!-- Company Header -->
+        <div class="card-header bg-white border-0 p-4">
+            <div class="d-flex align-items-center">
+                <!-- Company Logo -->
+                <div class="company-logo-container me-3">
+                    {% if Model.Logo %}
+                        <img src="{{ Model.Logo }}" 
+                             alt="{{ Model.Name }}" 
+                             class="company-logo rounded">
+                    {% else %}
+                        <div class="company-logo-placeholder bg-light rounded d-flex align-items-center justify-content-center">
+                            <i class="fas fa-building fa-2x text-muted"></i>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Company Info -->
+                <div class="flex-grow-1">
+                    <h5 class="card-title mb-1">
+                        <a href="{{ Model.Url }}" class="text-decoration-none">
+                            {{ Model.Name }}
+                        </a>
+                    </h5>
+                    
+                    <div class="company-meta">
+                        {% if Model.Industry %}
+                            <small class="text-muted">
+                                <i class="fas fa-industry me-1"></i>{{ Model.Industry }}
+                            </small>
+                        {% endif %}
+                        
+                        {% if Model.Location %}
+                            <small class="text-muted ms-2">
+                                <i class="fas fa-map-marker-alt me-1"></i>{{ Model.Location }}
+                            </small>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Company Status -->
+                {% if Model.IsVerified %}
+                    <div class="company-status">
+                        <span class="badge bg-success">
+                            <i class="fas fa-check-circle me-1"></i>Đã xác thực
+                        </span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card-body d-flex flex-column">
+            <!-- Company Description -->
+            {% if Model.Description %}
+                <p class="card-text text-muted mb-3 flex-grow-1">
+                    {{ Model.Description | truncate: 120 }}
+                </p>
+            {% endif %}
+
+            <!-- Company Stats -->
+            <div class="company-stats mb-3">
+                <div class="row g-2 text-center">
+                    {% if Model.EmployeeCount %}
+                        <div class="col-4">
+                            <div class="stat-item">
+                                <div class="stat-number text-primary fw-bold">{{ Model.EmployeeCount }}</div>
+                                <small class="text-muted">Nhân viên</small>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if Model.ActiveJobsCount %}
+                        <div class="col-4">
+                            <div class="stat-item">
+                                <div class="stat-number text-success fw-bold">{{ Model.ActiveJobsCount }}</div>
+                                <small class="text-muted">Việc làm</small>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if Model.EstablishedYear %}
+                        <div class="col-4">
+                            <div class="stat-item">
+                                <div class="stat-number text-info fw-bold">{{ Model.EstablishedYear }}</div>
+                                <small class="text-muted">Thành lập</small>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Company Specialties -->
+            {% if Model.Specialties %}
+                <div class="company-specialties mb-3">
+                    <small class="text-muted d-block mb-2">Chuyên môn:</small>
+                    <div class="specialty-tags">
+                        {% assign specialties = Model.Specialties | split: ',' %}
+                        {% for specialty in specialties limit: 3 %}
+                            <span class="badge bg-light text-dark me-1 mb-1">{{ specialty | strip }}</span>
+                        {% endfor %}
+                        {% if specialties.size > 3 %}
+                            <span class="badge bg-light text-muted">+{{ specialties.size | minus: 3 }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Company Rating -->
+            {% if Model.Rating %}
+                <div class="company-rating mb-3">
+                    <div class="d-flex align-items-center">
+                        <div class="rating-stars me-2">
+                            {% assign fullStars = Model.Rating | floor %}
+                            {% assign hasHalfStar = Model.Rating | modulo: 1 | at_least: 0.5 %}
+                            
+                            {% for i in (1..fullStars) %}
+                                <i class="fas fa-star text-warning"></i>
+                            {% endfor %}
+                            
+                            {% if hasHalfStar %}
+                                <i class="fas fa-star-half-alt text-warning"></i>
+                            {% endif %}
+                            
+                            {% assign emptyStars = 5 | minus: fullStars %}
+                            {% if hasHalfStar %}
+                                {% assign emptyStars = emptyStars | minus: 1 %}
+                            {% endif %}
+                            
+                            {% for i in (1..emptyStars) %}
+                                <i class="far fa-star text-warning"></i>
+                            {% endfor %}
+                        </div>
+                        
+                        <span class="rating-value fw-bold me-1">{{ Model.Rating | round: 1 }}</span>
+                        
+                        {% if Model.ReviewCount %}
+                            <small class="text-muted">({{ Model.ReviewCount }} đánh giá)</small>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Action Buttons -->
+            <div class="company-actions mt-auto">
+                <div class="d-flex gap-2">
+                    <a href="{{ Model.Url }}" class="btn btn-outline-primary btn-sm flex-grow-1">
+                        <i class="fas fa-eye me-1"></i>Xem chi tiết
+                    </a>
+                    
+                    {% if Model.ActiveJobsCount > 0 %}
+                        <a href="/jobs?company={{ Model.Id }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-briefcase me-1"></i>{{ Model.ActiveJobsCount }} việc làm
+                        </a>
+                    {% endif %}
+                </div>
+                
+                {% if Model.Website %}
+                    <div class="mt-2">
+                        <a href="{{ Model.Website }}" 
+                           target="_blank" 
+                           class="btn btn-outline-secondary btn-sm w-100">
+                            <i class="fas fa-external-link-alt me-1"></i>Website
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Company Footer -->
+        <div class="card-footer bg-light border-0">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="company-contact">
+                    {% if Model.Email %}
+                        <a href="mailto:{{ Model.Email }}" class="text-muted me-2" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    {% endif %}
+                    
+                    {% if Model.Phone %}
+                        <a href="tel:{{ Model.Phone }}" class="text-muted me-2" title="Điện thoại">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                    {% endif %}
+                    
+                    {% if Model.LinkedIn %}
+                        <a href="{{ Model.LinkedIn }}" target="_blank" class="text-muted me-2" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    {% endif %}
+                </div>
+                
+                <div class="company-updated">
+                    {% if Model.ModifiedUtc %}
+                        <small class="text-muted">
+                            Cập nhật {{ Model.ModifiedUtc | date: "%d/%m/%Y" }}
+                        </small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.company-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.company-logo-placeholder {
+    width: 60px;
+    height: 60px;
+}
+
+.company-card .card {
+    transition: all 0.3s ease;
+}
+
+.company-card:hover .card {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.stat-item {
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    background-color: #f8f9fa;
+}
+
+.stat-number {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.rating-stars {
+    font-size: 0.9rem;
+}
+
+.specialty-tags .badge {
+    font-size: 0.75rem;
+}
+
+.company-actions .btn {
+    font-size: 0.875rem;
+}
+</style>

@@ -1,0 +1,426 @@
+<!-- Admin Dashboard Template -->
+<div class="dashboard">
+    <!-- Dashboard Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-1">Dashboard</h1>
+            <p class="text-muted mb-0">Tổng quan hệ thống quản lý xuất khẩu lao động</p>
+        </div>
+        <div>
+            <button class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Thêm mới
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="bg-primary bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-briefcase fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div class="small text-muted">Tổng việc làm</div>
+                            <div class="h4 mb-0">1,247</div>
+                            <div class="small text-success">
+                                <i class="fas fa-arrow-up me-1"></i>12% so với tháng trước
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="bg-success bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-users fa-2x text-success"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div class="small text-muted">Lao động</div>
+                            <div class="h4 mb-0">3,892</div>
+                            <div class="small text-success">
+                                <i class="fas fa-arrow-up me-1"></i>8% so với tháng trước
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="bg-warning bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-comments fa-2x text-warning"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div class="small text-muted">Tư vấn mới</div>
+                            <div class="h4 mb-0">156</div>
+                            <div class="small text-warning">
+                                <i class="fas fa-clock me-1"></i>Cần xử lý
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="bg-info bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-building fa-2x text-info"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div class="small text-muted">Công ty</div>
+                            <div class="h4 mb-0">89</div>
+                            <div class="small text-info">
+                                <i class="fas fa-check me-1"></i>Đã xác thực
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row mb-4">
+        <div class="col-xl-8 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Thống kê việc làm theo tháng</h6>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                2024
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">2024</a></li>
+                                <li><a class="dropdown-item" href="#">2023</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas id="jobsChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <h6 class="mb-0">Phân bố theo quốc gia</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="countriesChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="row">
+        <div class="col-xl-8 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Việc làm mới nhất</h6>
+                        <a href="/admin/joborders" class="btn btn-sm btn-outline-primary">Xem tất cả</a>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Công việc</th>
+                                    <th>Quốc gia</th>
+                                    <th>Lương</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày tạo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-primary bg-opacity-10 rounded p-2 me-3">
+                                                <i class="fas fa-wrench text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-semibold">Thợ cơ khí</div>
+                                                <small class="text-muted">Công ty ABC</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://flagcdn.com/w20/jp.png" alt="Japan" class="me-2">
+                                            Nhật Bản
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="fw-semibold text-success">$2,500</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">Đang tuyển</span>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">25/10/2024</small>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>Xem</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Sửa</a></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>Xóa</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-success bg-opacity-10 rounded p-2 me-3">
+                                                <i class="fas fa-utensils text-success"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-semibold">Đầu bếp</div>
+                                                <small class="text-muted">Nhà hàng XYZ</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://flagcdn.com/w20/kr.png" alt="Korea" class="me-2">
+                                            Hàn Quốc
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="fw-semibold text-success">$2,200</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-warning">Chờ duyệt</span>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">24/10/2024</small>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>Xem</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Sửa</a></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>Xóa</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-info bg-opacity-10 rounded p-2 me-3">
+                                                <i class="fas fa-hard-hat text-info"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-semibold">Công nhân xây dựng</div>
+                                                <small class="text-muted">Công ty DEF</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://flagcdn.com/w20/de.png" alt="Germany" class="me-2">
+                                            Đức
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="fw-semibold text-success">$2,800</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">Đang tuyển</span>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">23/10/2024</small>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="dropdown">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-eye me-2"></i>Xem</a></li>
+                                                <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Sửa</a></li>
+                                                <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash me-2"></i>Xóa</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">Tư vấn gần đây</h6>
+                        <a href="/admin/consultations" class="btn btn-sm btn-outline-primary">Xem tất cả</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0">
+                            <div class="bg-primary bg-opacity-10 rounded-circle p-2">
+                                <i class="fas fa-user text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div class="fw-semibold">Nguyễn Văn A</div>
+                            <small class="text-muted">Quan tâm: Nhật Bản - Thợ cơ khí</small>
+                            <div class="small text-muted">2 giờ trước</div>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <span class="badge bg-warning">Mới</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0">
+                            <div class="bg-success bg-opacity-10 rounded-circle p-2">
+                                <i class="fas fa-user text-success"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div class="fw-semibold">Trần Thị B</div>
+                            <small class="text-muted">Quan tâm: Hàn Quốc - Đầu bếp</small>
+                            <div class="small text-muted">4 giờ trước</div>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <span class="badge bg-success">Đã xử lý</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0">
+                            <div class="bg-info bg-opacity-10 rounded-circle p-2">
+                                <i class="fas fa-user text-info"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div class="fw-semibold">Lê Văn C</div>
+                            <small class="text-muted">Quan tâm: Đức - Xây dựng</small>
+                            <div class="small text-muted">1 ngày trước</div>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <span class="badge bg-primary">Đang xử lý</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Jobs Chart
+const jobsCtx = document.getElementById('jobsChart').getContext('2d');
+new Chart(jobsCtx, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+            label: 'Việc làm mới',
+            data: [65, 78, 90, 81, 95, 105, 110, 125, 140, 155, 170, 180],
+            borderColor: '#2563eb',
+            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+            tension: 0.4,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(0,0,0,0.05)'
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    }
+});
+
+// Countries Chart
+const countriesCtx = document.getElementById('countriesChart').getContext('2d');
+new Chart(countriesCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Nhật Bản', 'Hàn Quốc', 'Đức', 'Úc', 'Canada'],
+        datasets: [{
+            data: [35, 25, 20, 12, 8],
+            backgroundColor: [
+                '#2563eb',
+                '#10b981',
+                '#f59e0b',
+                '#ef4444',
+                '#8b5cf6'
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    padding: 20,
+                    usePointStyle: true
+                }
+            }
+        }
+    }
+});
+</script>

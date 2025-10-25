@@ -147,9 +147,12 @@
         </div>
     </nav>
 
+    <!-- Alert Container -->
+    <div id="alert-container" class="container mt-3"></div>
+
     <!-- Main Content -->
     <main>
-        {% render_body %}
+        {{ Model.Content | shape_render }}
     </main>
     
     <!-- Footer -->

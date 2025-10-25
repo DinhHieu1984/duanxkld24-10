@@ -2,25 +2,362 @@
 <html lang="{{ Culture.Name }}">
 <head>
     <meta charset="utf-8">
-    <title>{% page_title Site.SiteName, position: "before", separator: " - " %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% page_title Site.SiteName, position: "before", separator: " - " %} - Admin Panel</title>
     
     {% resources type: "Meta" %}
 
-    <!-- INSERT REQUIRED RESOURCES HERE -->
+    <!-- Bootstrap 5 Admin Theme -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Admin Theme Styles -->
+    <style>
+        :root {
+            --admin-primary: #2563eb;
+            --admin-secondary: #64748b;
+            --admin-success: #10b981;
+            --admin-danger: #ef4444;
+            --admin-warning: #f59e0b;
+            --admin-info: #06b6d4;
+            --admin-dark: #1e293b;
+            --admin-light: #f8fafc;
+            --admin-sidebar-width: 280px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--admin-light);
+            font-size: 14px;
+        }
+
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            width: var(--admin-sidebar-width);
+            background: linear-gradient(180deg, var(--admin-dark) 0%, #334155 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .admin-sidebar.collapsed {
+            width: 70px;
+        }
+
+        .admin-content {
+            flex: 1;
+            margin-left: var(--admin-sidebar-width);
+            transition: all 0.3s ease;
+        }
+
+        .admin-content.expanded {
+            margin-left: 70px;
+        }
+
+        .admin-header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .admin-main {
+            padding: 1.5rem;
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .sidebar-brand h4 {
+            color: white;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 0;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .nav-link.active {
+            background: var(--admin-primary);
+            color: white;
+        }
+
+        .nav-link i {
+            width: 20px;
+            margin-right: 0.75rem;
+            text-align: center;
+        }
+
+        .sidebar-collapsed .nav-link span {
+            display: none;
+        }
+
+        .sidebar-collapsed .nav-link {
+            justify-content: center;
+            padding: 0.75rem;
+        }
+
+        .sidebar-collapsed .nav-link i {
+            margin-right: 0;
+        }
+
+        .breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: ">";
+            color: var(--admin-secondary);
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 0.5rem;
+        }
+
+        .card-header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            font-weight: 600;
+        }
+
+        .btn {
+            border-radius: 0.375rem;
+            font-weight: 500;
+        }
+
+        .table {
+            font-size: 14px;
+        }
+
+        .table th {
+            border-top: none;
+            font-weight: 600;
+            color: var(--admin-dark);
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: var(--admin-secondary);
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--admin-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .admin-sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .admin-content {
+                margin-left: 0;
+            }
+        }
+    </style>
     
     {% resources type: "HeadLink" %}
     {% resources type: "Stylesheet" %}
     {% resources type: "HeadScript" %}
 </head>
 <body dir="{{ Culture.Dir }}">
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <nav class="admin-sidebar" id="adminSidebar">
+            <div class="sidebar-brand">
+                <h4>NhanViet Admin</h4>
+            </div>
+            
+            <ul class="sidebar-nav nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/joborders">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Việc làm</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/companies">
+                        <i class="fas fa-building"></i>
+                        <span>Công ty</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/countries">
+                        <i class="fas fa-globe"></i>
+                        <span>Quốc gia</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/consultations">
+                        <i class="fas fa-comments"></i>
+                        <span>Tư vấn</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/news">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Tin tức</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/recruitment">
+                        <i class="fas fa-users"></i>
+                        <span>Tuyển dụng</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/analytics">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Thống kê</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Cài đặt</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-    {% render_body %}
+        <!-- Main Content -->
+        <div class="admin-content" id="adminContent">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <button class="sidebar-toggle me-3" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    
+                    <div class="d-flex align-items-center">
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle p-0" type="button" data-bs-toggle="dropdown">
+                                <div class="user-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="/admin/profile"><i class="fas fa-user me-2"></i>Hồ sơ</a></li>
+                                <li><a class="dropdown-item" href="/admin/settings"><i class="fas fa-cog me-2"></i>Cài đặt</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="admin-main">
+                {% render_body %}
+            </main>
+        </div>
+    </div>
     
-    <footer>
-    {% render_section "Footer", required: false %}
-    </footer>
-    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     {% script name:"jquery", use_cdn:"true", at:"Foot" %}
+    
+    <script>
+        // Sidebar toggle functionality
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('adminSidebar');
+            const content = document.getElementById('adminContent');
+            
+            sidebar.classList.toggle('collapsed');
+            content.classList.toggle('expanded');
+        });
+
+        // Mobile sidebar toggle
+        if (window.innerWidth <= 768) {
+            document.getElementById('sidebarToggle').addEventListener('click', function() {
+                const sidebar = document.getElementById('adminSidebar');
+                sidebar.classList.toggle('show');
+            });
+        }
+
+        // Active nav link highlighting
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === currentPath || 
+                (currentPath.startsWith(link.getAttribute('href')) && link.getAttribute('href') !== '/admin')) {
+                link.classList.add('active');
+            }
+        });
+    </script>
     
     {% resources type: "FootScript" %}
 </body>

@@ -1,0 +1,284 @@
+<!-- Consultation Summary Template -->
+<div class="consultation-card h-100">
+    <div class="card border-0 shadow-sm h-100">
+        <!-- Consultation Header -->
+        <div class="card-header bg-light border-0 p-3">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="consultation-info">
+                    <h6 class="card-title mb-1">
+                        <a href="{{ Model.Url }}" class="text-decoration-none">
+                            {{ Model.FullName }}
+                        </a>
+                    </h6>
+                    
+                    <div class="consultation-meta">
+                        {% if Model.Email %}
+                            <small class="text-muted me-2">
+                                <i class="fas fa-envelope me-1"></i>{{ Model.Email }}
+                            </small>
+                        {% endif %}
+                        
+                        {% if Model.Phone %}
+                            <small class="text-muted">
+                                <i class="fas fa-phone me-1"></i>{{ Model.Phone }}
+                            </small>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Status Badge -->
+                <div class="consultation-status">
+                    {% case Model.Status %}
+                        {% when 'New' %}
+                            <span class="badge bg-primary">
+                                <i class="fas fa-clock me-1"></i>Mới
+                            </span>
+                        {% when 'InProgress' %}
+                            <span class="badge bg-warning">
+                                <i class="fas fa-spinner me-1"></i>Đang xử lý
+                            </span>
+                        {% when 'Completed' %}
+                            <span class="badge bg-success">
+                                <i class="fas fa-check-circle me-1"></i>Hoàn thành
+                            </span>
+                        {% when 'Cancelled' %}
+                            <span class="badge bg-danger">
+                                <i class="fas fa-times-circle me-1"></i>Đã hủy
+                            </span>
+                        {% else %}
+                            <span class="badge bg-secondary">
+                                <i class="fas fa-question-circle me-1"></i>{{ Model.Status }}
+                            </span>
+                    {% endcase %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body d-flex flex-column">
+            <!-- Consultation Details -->
+            <div class="consultation-details mb-3">
+                <div class="row g-2">
+                    {% if Model.InterestedCountry %}
+                        <div class="col-6">
+                            <small class="text-muted d-block">Quốc gia quan tâm:</small>
+                            <div class="d-flex align-items-center">
+                                {% if Model.InterestedCountry.Code %}
+                                    <img src="https://flagcdn.com/w20/{{ Model.InterestedCountry.Code | downcase }}.png" 
+                                         alt="{{ Model.InterestedCountry.Name }}" 
+                                         class="me-2 rounded">
+                                {% endif %}
+                                <strong class="text-primary">{{ Model.InterestedCountry.Name }}</strong>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if Model.InterestedJob %}
+                        <div class="col-6">
+                            <small class="text-muted d-block">Công việc quan tâm:</small>
+                            <strong class="text-success">{{ Model.InterestedJob }}</strong>
+                        </div>
+                    {% endif %}
+                    
+                    {% if Model.Experience %}
+                        <div class="col-6">
+                            <small class="text-muted d-block">Kinh nghiệm:</small>
+                            <strong>{{ Model.Experience }}</strong>
+                        </div>
+                    {% endif %}
+                    
+                    {% if Model.PreferredSalary %}
+                        <div class="col-6">
+                            <small class="text-muted d-block">Mức lương mong muốn:</small>
+                            <strong class="text-success">{{ Model.PreferredSalary }}</strong>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Consultation Message -->
+            {% if Model.Message %}
+                <div class="consultation-message mb-3 flex-grow-1">
+                    <small class="text-muted d-block mb-2">Tin nhắn:</small>
+                    <div class="message-content bg-light p-3 rounded">
+                        <p class="mb-0 text-muted">{{ Model.Message | truncate: 150 }}</p>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Personal Info -->
+            <div class="personal-info mb-3">
+                <div class="row g-2">
+                    {% if Model.Age %}
+                        <div class="col-4">
+                            <small class="text-muted d-block">Tuổi:</small>
+                            <strong>{{ Model.Age }}</strong>
+                        </div>
+                    {% endif %}
+                    
+                    {% if Model.Gender %}
+                        <div class="col-4">
+                            <small class="text-muted d-block">Giới tính:</small>
+                            <strong>
+                                {% if Model.Gender == 'Male' %}Nam
+                                {% elsif Model.Gender == 'Female' %}Nữ
+                                {% else %}{{ Model.Gender }}
+                                {% endif %}
+                            </strong>
+                        </div>
+                    {% endif %}
+                    
+                    {% if Model.Education %}
+                        <div class="col-4">
+                            <small class="text-muted d-block">Học vấn:</small>
+                            <strong>{{ Model.Education }}</strong>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Languages -->
+            {% if Model.Languages %}
+                <div class="languages mb-3">
+                    <small class="text-muted d-block mb-2">Ngoại ngữ:</small>
+                    <div class="language-tags">
+                        {% assign languages = Model.Languages | split: ',' %}
+                        {% for language in languages %}
+                            <span class="badge bg-info bg-opacity-10 text-info me-1 mb-1">
+                                <i class="fas fa-language me-1"></i>{{ language | strip }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Priority Level -->
+            {% if Model.Priority %}
+                <div class="priority-level mb-3">
+                    <small class="text-muted d-block mb-1">Mức độ ưu tiên:</small>
+                    {% case Model.Priority %}
+                        {% when 'High' %}
+                            <span class="badge bg-danger bg-opacity-10 text-danger">
+                                <i class="fas fa-exclamation-triangle me-1"></i>Cao
+                            </span>
+                        {% when 'Medium' %}
+                            <span class="badge bg-warning bg-opacity-10 text-warning">
+                                <i class="fas fa-exclamation-circle me-1"></i>Trung bình
+                            </span>
+                        {% when 'Low' %}
+                            <span class="badge bg-success bg-opacity-10 text-success">
+                                <i class="fas fa-info-circle me-1"></i>Thấp
+                            </span>
+                        {% else %}
+                            <span class="badge bg-secondary bg-opacity-10 text-secondary">
+                                {{ Model.Priority }}
+                            </span>
+                    {% endcase %}
+                </div>
+            {% endif %}
+
+            <!-- Action Buttons -->
+            <div class="consultation-actions mt-auto">
+                <div class="d-flex gap-2">
+                    <a href="{{ Model.Url }}" class="btn btn-outline-primary btn-sm flex-grow-1">
+                        <i class="fas fa-eye me-1"></i>Xem chi tiết
+                    </a>
+                    
+                    {% if Model.Status == 'New' %}
+                        <a href="/admin/consultations/{{ Model.Id }}/process" class="btn btn-primary btn-sm">
+                            <i class="fas fa-play me-1"></i>Xử lý
+                        </a>
+                    {% endif %}
+                </div>
+                
+                {% if Model.Email %}
+                    <div class="mt-2">
+                        <a href="mailto:{{ Model.Email }}" class="btn btn-outline-success btn-sm w-100">
+                            <i class="fas fa-reply me-1"></i>Phản hồi
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Consultation Footer -->
+        <div class="card-footer bg-transparent border-0">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="consultation-date">
+                    {% if Model.CreatedUtc %}
+                        <small class="text-muted">
+                            <i class="fas fa-calendar me-1"></i>{{ Model.CreatedUtc | date: "%d/%m/%Y %H:%M" }}
+                        </small>
+                    {% endif %}
+                </div>
+                
+                <div class="consultation-source">
+                    {% if Model.Source %}
+                        <small class="text-muted">
+                            <i class="fas fa-external-link-alt me-1"></i>{{ Model.Source }}
+                        </small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.consultation-card .card {
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.consultation-card:hover .card {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1) !important;
+}
+
+/* Status-based border colors */
+.consultation-card .card:has(.badge.bg-primary) {
+    border-left-color: #0d6efd;
+}
+
+.consultation-card .card:has(.badge.bg-warning) {
+    border-left-color: #ffc107;
+}
+
+.consultation-card .card:has(.badge.bg-success) {
+    border-left-color: #198754;
+}
+
+.consultation-card .card:has(.badge.bg-danger) {
+    border-left-color: #dc3545;
+}
+
+.message-content {
+    max-height: 80px;
+    overflow: hidden;
+    position: relative;
+}
+
+.message-content::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(transparent, #f8f9fa);
+}
+
+.language-tags .badge,
+.priority-level .badge {
+    font-size: 0.75rem;
+}
+
+.consultation-actions .btn {
+    font-size: 0.875rem;
+}
+
+.consultation-details img {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+}
+</style>

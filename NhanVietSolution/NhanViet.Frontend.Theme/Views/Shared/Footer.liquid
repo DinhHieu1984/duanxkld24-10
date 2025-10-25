@@ -1,0 +1,173 @@
+<!-- Footer Component for NhanViet Frontend Theme -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <!-- Company Info -->
+            <div class="col-lg-4 mb-4">
+                <h5 class="text-white mb-3">
+                    <i class="fas fa-globe-asia me-2"></i>
+                    NhanViet Group
+                </h5>
+                <p class="text-light">
+                    Công ty hàng đầu về xuất khẩu lao động tại Việt Nam. 
+                    Chúng tôi kết nối người lao động Việt Nam với các cơ hội việc làm tốt nhất trên thế giới.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="text-light me-3" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-light me-3" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-light me-3" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="text-light" title="Zalo">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Services -->
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h6 class="text-white mb-3">Dịch vụ</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="/jobs" class="text-light text-decoration-none">
+                            <i class="fas fa-briefcase me-1"></i>Tìm việc làm
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/consultation" class="text-light text-decoration-none">
+                            <i class="fas fa-comments me-1"></i>Tư vấn
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/training" class="text-light text-decoration-none">
+                            <i class="fas fa-graduation-cap me-1"></i>Đào tạo
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/support" class="text-light text-decoration-none">
+                            <i class="fas fa-headset me-1"></i>Hỗ trợ
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Countries -->
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h6 class="text-white mb-3">Quốc gia</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="/countries/japan" class="text-light text-decoration-none">
+                            <i class="fas fa-flag me-1"></i>Nhật Bản
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/countries/korea" class="text-light text-decoration-none">
+                            <i class="fas fa-flag me-1"></i>Hàn Quốc
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/countries/taiwan" class="text-light text-decoration-none">
+                            <i class="fas fa-flag me-1"></i>Đài Loan
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/countries/singapore" class="text-light text-decoration-none">
+                            <i class="fas fa-flag me-1"></i>Singapore
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="col-lg-4 mb-4">
+                <h6 class="text-white mb-3">Liên hệ</h6>
+                <div class="contact-info">
+                    <p class="text-light mb-2">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        123 Đường ABC, Quận 1, TP.HCM
+                    </p>
+                    <p class="text-light mb-2">
+                        <i class="fas fa-phone me-2"></i>
+                        <a href="tel:+84123456789" class="text-light text-decoration-none">
+                            +84 123 456 789
+                        </a>
+                    </p>
+                    <p class="text-light mb-2">
+                        <i class="fas fa-envelope me-2"></i>
+                        <a href="mailto:info@nhanvietgroup.com" class="text-light text-decoration-none">
+                            info@nhanvietgroup.com
+                        </a>
+                    </p>
+                    <p class="text-light mb-3">
+                        <i class="fas fa-clock me-2"></i>
+                        T2-T6: 8:00 - 17:30
+                    </p>
+                    
+                    <!-- Newsletter Signup -->
+                    <div class="newsletter-signup">
+                        <h6 class="text-white mb-2">Đăng ký nhận tin</h6>
+                        <form class="d-flex">
+                            <input type="email" class="form-control me-2" placeholder="Email của bạn" required>
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="my-4 border-secondary">
+        
+        <!-- Bottom Footer -->
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="text-light mb-0">
+                    © {{ "now" | date: "yyyy" }} NhanViet Group. All rights reserved.
+                </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <a href="/privacy" class="text-light text-decoration-none me-3">
+                    <i class="fas fa-shield-alt me-1"></i>Chính sách bảo mật
+                </a>
+                <a href="/terms" class="text-light text-decoration-none">
+                    <i class="fas fa-file-contract me-1"></i>Điều khoản sử dụng
+                </a>
+            </div>
+        </div>
+        
+        <!-- Back to Top Button -->
+        <div class="back-to-top">
+            <button class="btn btn-primary rounded-circle position-fixed" 
+                    style="bottom: 20px; right: 20px; z-index: 1000; display: none;" 
+                    id="backToTop" 
+                    title="Về đầu trang">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top Script -->
+<script>
+    // Back to top button functionality
+    window.addEventListener('scroll', function() {
+        const backToTop = document.getElementById('backToTop');
+        if (window.scrollY > 300) {
+            backToTop.style.display = 'block';
+        } else {
+            backToTop.style.display = 'none';
+        }
+    });
+
+    document.getElementById('backToTop').addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>

@@ -1,0 +1,274 @@
+<!-- Country Summary Template -->
+<div class="country-card h-100">
+    <div class="card border-0 shadow-sm h-100 country-card-hover">
+        <!-- Country Flag & Header -->
+        <div class="card-header bg-gradient-primary text-white p-0 position-relative overflow-hidden">
+            <div class="country-header-bg"></div>
+            <div class="p-4 position-relative">
+                <div class="d-flex align-items-center">
+                    <!-- Country Flag -->
+                    <div class="country-flag-container me-3">
+                        {% if Model.Code %}
+                            <img src="https://flagcdn.com/w80/{{ Model.Code | downcase }}.png" 
+                                 alt="{{ Model.Name }}" 
+                                 class="country-flag rounded shadow-sm">
+                        {% else %}
+                            <div class="country-flag-placeholder bg-white rounded d-flex align-items-center justify-content-center">
+                                <i class="fas fa-globe fa-2x text-primary"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Country Info -->
+                    <div class="flex-grow-1">
+                        <h5 class="card-title mb-1 text-white">
+                            <a href="{{ Model.Url }}" class="text-white text-decoration-none">
+                                {{ Model.Name }}
+                            </a>
+                        </h5>
+                        
+                        {% if Model.Region %}
+                            <small class="text-white-50">
+                                <i class="fas fa-map me-1"></i>{{ Model.Region }}
+                            </small>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Country Status -->
+                    {% if Model.IsActive %}
+                        <div class="country-status">
+                            <span class="badge bg-success bg-opacity-75">
+                                <i class="fas fa-check-circle me-1"></i>Đang tuyển
+                            </span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body d-flex flex-column">
+            <!-- Country Description -->
+            {% if Model.Description %}
+                <p class="card-text text-muted mb-3 flex-grow-1">
+                    {{ Model.Description | truncate: 120 }}
+                </p>
+            {% endif %}
+
+            <!-- Country Stats -->
+            <div class="country-stats mb-3">
+                <div class="row g-2 text-center">
+                    {% if Model.ActiveJobsCount %}
+                        <div class="col-4">
+                            <div class="stat-item bg-primary bg-opacity-10 rounded p-2">
+                                <div class="stat-number text-primary fw-bold">{{ Model.ActiveJobsCount }}</div>
+                                <small class="text-muted">Việc làm</small>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if Model.AverageSalary %}
+                        <div class="col-4">
+                            <div class="stat-item bg-success bg-opacity-10 rounded p-2">
+                                <div class="stat-number text-success fw-bold">{{ Model.AverageSalary }}</div>
+                                <small class="text-muted">Lương TB</small>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if Model.WorkersCount %}
+                        <div class="col-4">
+                            <div class="stat-item bg-info bg-opacity-10 rounded p-2">
+                                <div class="stat-number text-info fw-bold">{{ Model.WorkersCount }}</div>
+                                <small class="text-muted">Lao động</small>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Popular Industries -->
+            {% if Model.PopularIndustries %}
+                <div class="popular-industries mb-3">
+                    <small class="text-muted d-block mb-2">Ngành nghề phổ biến:</small>
+                    <div class="industry-tags">
+                        {% assign industries = Model.PopularIndustries | split: ',' %}
+                        {% for industry in industries limit: 3 %}
+                            <span class="badge bg-light text-dark me-1 mb-1">
+                                <i class="fas fa-industry me-1"></i>{{ industry | strip }}
+                            </span>
+                        {% endfor %}
+                        {% if industries.size > 3 %}
+                            <span class="badge bg-light text-muted">+{{ industries.size | minus: 3 }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Country Highlights -->
+            {% if Model.Highlights %}
+                <div class="country-highlights mb-3">
+                    <div class="row g-2">
+                        {% assign highlights = Model.Highlights | split: ',' %}
+                        {% for highlight in highlights limit: 4 %}
+                            <div class="col-6">
+                                <div class="highlight-item d-flex align-items-center">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <small class="text-muted">{{ highlight | strip }}</small>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Requirements -->
+            {% if Model.Requirements %}
+                <div class="country-requirements mb-3">
+                    <small class="text-muted d-block mb-2">Yêu cầu chung:</small>
+                    <div class="requirements-list">
+                        {% assign requirements = Model.Requirements | split: ',' %}
+                        {% for requirement in requirements limit: 2 %}
+                            <div class="requirement-item d-flex align-items-center mb-1">
+                                <i class="fas fa-dot-circle text-primary me-2" style="font-size: 0.5rem;"></i>
+                                <small class="text-muted">{{ requirement | strip }}</small>
+                            </div>
+                        {% endfor %}
+                        {% if requirements.size > 2 %}
+                            <small class="text-muted">và {{ requirements.size | minus: 2 }} yêu cầu khác...</small>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Action Buttons -->
+            <div class="country-actions mt-auto">
+                <div class="d-flex gap-2 mb-2">
+                    <a href="{{ Model.Url }}" class="btn btn-outline-primary btn-sm flex-grow-1">
+                        <i class="fas fa-info-circle me-1"></i>Chi tiết
+                    </a>
+                    
+                    {% if Model.ActiveJobsCount > 0 %}
+                        <a href="/jobs?country={{ Model.Id }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-briefcase me-1"></i>{{ Model.ActiveJobsCount }} việc làm
+                        </a>
+                    {% endif %}
+                </div>
+                
+                <a href="/consultation?country={{ Model.Id }}" class="btn btn-outline-success btn-sm w-100">
+                    <i class="fas fa-comments me-1"></i>Tư vấn miễn phí
+                </a>
+            </div>
+        </div>
+
+        <!-- Country Footer -->
+        <div class="card-footer bg-light border-0">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="country-rating">
+                    {% if Model.Rating %}
+                        <div class="d-flex align-items-center">
+                            <div class="rating-stars me-2">
+                                {% assign fullStars = Model.Rating | floor %}
+                                {% assign hasHalfStar = Model.Rating | modulo: 1 | at_least: 0.5 %}
+                                
+                                {% for i in (1..fullStars) %}
+                                    <i class="fas fa-star text-warning"></i>
+                                {% endfor %}
+                                
+                                {% if hasHalfStar %}
+                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                {% endif %}
+                                
+                                {% assign emptyStars = 5 | minus: fullStars %}
+                                {% if hasHalfStar %}
+                                    {% assign emptyStars = emptyStars | minus: 1 %}
+                                {% endif %}
+                                
+                                {% for i in (1..emptyStars) %}
+                                    <i class="far fa-star text-warning"></i>
+                                {% endfor %}
+                            </div>
+                            
+                            <small class="text-muted">{{ Model.Rating | round: 1 }}/5</small>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="country-updated">
+                    {% if Model.ModifiedUtc %}
+                        <small class="text-muted">
+                            <i class="fas fa-sync-alt me-1"></i>{{ Model.ModifiedUtc | date: "%d/%m" }}
+                        </small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.country-flag {
+    width: 50px;
+    height: 35px;
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.country-flag-placeholder {
+    width: 50px;
+    height: 35px;
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.country-header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.country-card-hover .card {
+    transition: all 0.3s ease;
+}
+
+.country-card:hover .card {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+
+.stat-item {
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: scale(1.05);
+}
+
+.stat-number {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.rating-stars {
+    font-size: 0.8rem;
+}
+
+.industry-tags .badge,
+.country-highlights .highlight-item,
+.requirements-list .requirement-item {
+    font-size: 0.75rem;
+}
+
+.country-actions .btn {
+    font-size: 0.875rem;
+}
+
+.highlight-item i {
+    font-size: 0.75rem;
+}
+</style>

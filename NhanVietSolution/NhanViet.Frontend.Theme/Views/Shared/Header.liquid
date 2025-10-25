@@ -1,0 +1,86 @@
+<!-- Header Component for NhanViet Frontend Theme -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-globe-asia me-2"></i>
+            NhanViet Group
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="fas fa-home me-1"></i>Trang chủ
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="jobsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-briefcase me-1"></i>Việc làm
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="jobsDropdown">
+                        <li><a class="dropdown-item" href="/jobs">Tất cả việc làm</a></li>
+                        <li><a class="dropdown-item" href="/jobs/japan">Nhật Bản</a></li>
+                        <li><a class="dropdown-item" href="/jobs/korea">Hàn Quốc</a></li>
+                        <li><a class="dropdown-item" href="/jobs/taiwan">Đài Loan</a></li>
+                        <li><a class="dropdown-item" href="/jobs/singapore">Singapore</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/jobs/apply">Nộp hồ sơ</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/companies">
+                        <i class="fas fa-building me-1"></i>Công ty
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="newsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-newspaper me-1"></i>Tin tức
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="newsDropdown">
+                        <li><a class="dropdown-item" href="/news">Tất cả tin tức</a></li>
+                        <li><a class="dropdown-item" href="/news/japan">Thị trường Nhật Bản</a></li>
+                        <li><a class="dropdown-item" href="/news/korea">Thị trường Hàn Quốc</a></li>
+                        <li><a class="dropdown-item" href="/news/taiwan">Thị trường Đài Loan</a></li>
+                        <li><a class="dropdown-item" href="/news/europe">Thị trường Châu Âu</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/consultation">
+                        <i class="fas fa-comments me-1"></i>Tư vấn
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/countries">
+                        <i class="fas fa-flag me-1"></i>Quốc gia
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Search Form -->
+            <form class="d-flex me-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Tìm việc làm..." aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            
+            <!-- User Menu -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">
+                        <i class="fas fa-sign-in-alt me-1"></i>Đăng nhập
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-primary ms-2" href="/register">
+                        <i class="fas fa-user-plus me-1"></i>Đăng ký
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
