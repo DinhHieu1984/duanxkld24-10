@@ -1,0 +1,39 @@
+@model NhanViet.Analytics.ViewModels.AnalyticsPartViewModel
+
+<fieldset class="form-group">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="TrackingCode" class="form-label">@T["Tracking Code"]</label>
+                <input asp-for="TrackingCode" class="form-control" />
+                <span asp-validation-for="TrackingCode" class="text-danger"></span>
+                <div class="hint">@T["Enter your analytics tracking code (e.g., Google Analytics tracking ID)"]</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="AnalyticsProvider" class="form-label">@T["Analytics Provider"]</label>
+                <select asp-for="AnalyticsProvider" class="form-control">
+                    <option value="GoogleAnalytics">Google Analytics</option>
+                    <option value="GoogleTagManager">Google Tag Manager</option>
+                    <option value="FacebookPixel">Facebook Pixel</option>
+                    <option value="Custom">Custom</option>
+                </select>
+                <span asp-validation-for="AnalyticsProvider" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="form-check">
+                    <input asp-for="EnableTracking" type="checkbox" class="form-check-input" />
+                    <label asp-for="EnableTracking" class="form-check-label">@T["Enable Tracking"]</label>
+                </div>
+                <div class="hint">@T["Check to enable analytics tracking for this content"]</div>
+            </div>
+        </div>
+    </div>
+</fieldset>

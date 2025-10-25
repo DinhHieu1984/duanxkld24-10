@@ -1,0 +1,155 @@
+@model NhanViet.Countries.ViewModels.CountryPartViewModel
+
+<div class="country-info">
+    <div class="country-header d-flex align-items-center mb-3">
+        @if (!string.IsNullOrEmpty(Model.FlagUrl))
+        {
+            <img src="@Model.FlagUrl" alt="@Model.CountryName Flag" class="country-flag me-3" style="width: 48px; height: auto;" />
+        }
+        
+        <div>
+            <h3 class="country-name mb-1">@Model.CountryName</h3>
+            @if (!string.IsNullOrEmpty(Model.CountryCode))
+            {
+                <span class="badge badge-primary">@Model.CountryCode</span>
+            }
+            @if (!string.IsNullOrEmpty(Model.CountryCodeAlpha3))
+            {
+                <span class="badge badge-secondary ms-1">@Model.CountryCodeAlpha3</span>
+            }
+        </div>
+    </div>
+    
+    <div class="country-status mb-3">
+        @if (Model.IsActive)
+        {
+            <span class="badge badge-success">@T["Active"]</span>
+        }
+        else
+        {
+            <span class="badge badge-secondary">@T["Inactive"]</span>
+        }
+        
+        @if (Model.IsPopular)
+        {
+            <span class="badge badge-warning ms-2">
+                <i class="fas fa-star"></i> @T["Popular Destination"]
+            </span>
+        }
+    </div>
+    
+    <div class="country-basic-info mb-4">
+        <div class="row">
+            @if (!string.IsNullOrEmpty(Model.Capital))
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>@T["Capital"]:</strong> @Model.Capital
+                </div>
+            }
+            
+            @if (!string.IsNullOrEmpty(Model.Region))
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>@T["Region"]:</strong> @Model.Region
+                </div>
+            }
+            
+            @if (!string.IsNullOrEmpty(Model.SubRegion))
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>@T["Sub Region"]:</strong> @Model.SubRegion
+                </div>
+            }
+            
+            @if (Model.Population > 0)
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>@T["Population"]:</strong> @Model.Population.ToString("N0")
+                </div>
+            }
+            
+            @if (Model.Area > 0)
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>@T["Area"]:</strong> @Model.Area.ToString("N0") km²
+                </div>
+            }
+            
+            @if (!string.IsNullOrEmpty(Model.TimeZone))
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>@T["Time Zone"]:</strong> @Model.TimeZone
+                </div>
+            }
+        </div>
+    </div>
+    
+    @if (!string.IsNullOrEmpty(Model.Currency) || !string.IsNullOrEmpty(Model.CurrencyCode))
+    {
+        <div class="currency-info mb-3">
+            <h5>@T["Currency"]</h5>
+            <p>
+                @if (!string.IsNullOrEmpty(Model.Currency))
+                {
+                    @Model.Currency
+                }
+                @if (!string.IsNullOrEmpty(Model.CurrencyCode))
+                {
+                    <span class="badge badge-info ms-2">@Model.CurrencyCode</span>
+                }
+            </p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Languages))
+    {
+        <div class="languages-info mb-3">
+            <h5>@T["Languages"]</h5>
+            <p>@Model.Languages</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Description))
+    {
+        <div class="description mb-4">
+            <h5>@T["Description"]</h5>
+            <p>@Html.Raw(Model.Description.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.VisaRequirements))
+    {
+        <div class="visa-requirements mb-4">
+            <h5>@T["Visa Requirements"]</h5>
+            <div class="alert alert-info">
+                @Html.Raw(Model.VisaRequirements.Replace("\n", "<br />"))
+            </div>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.WorkPermitInfo))
+    {
+        <div class="work-permit-info mb-4">
+            <h5>@T["Work Permit Information"]</h5>
+            <div class="alert alert-warning">
+                @Html.Raw(Model.WorkPermitInfo.Replace("\n", "<br />"))
+            </div>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.CostOfLiving))
+    {
+        <div class="cost-of-living mb-4">
+            <h5>@T["Cost of Living"]</h5>
+            <p>@Html.Raw(Model.CostOfLiving.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.JobMarketInfo))
+    {
+        <div class="job-market-info mb-4">
+            <h5>@T["Job Market Information"]</h5>
+            <p>@Html.Raw(Model.JobMarketInfo.Replace("\n", "<br />"))</p>
+        </div>
+    }
+</div>

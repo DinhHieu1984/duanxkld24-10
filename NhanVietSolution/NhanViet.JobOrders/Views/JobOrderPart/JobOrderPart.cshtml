@@ -1,0 +1,116 @@
+@model NhanViet.JobOrders.ViewModels.JobOrderPartViewModel
+
+<div class="job-order-info">
+    @if (!string.IsNullOrEmpty(Model.JobTitle))
+    {
+        <h3 class="job-title">
+            @Model.JobTitle
+            @if (Model.IsFeatured)
+            {
+                <span class="badge badge-warning">@T["Featured"]</span>
+            }
+            @if (!Model.IsActive)
+            {
+                <span class="badge badge-secondary">@T["Inactive"]</span>
+            }
+        </h3>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.CompanyName))
+    {
+        <h5 class="company-name text-primary">@Model.CompanyName</h5>
+    }
+    
+    <div class="job-meta mb-3">
+        @if (!string.IsNullOrEmpty(Model.Location))
+        {
+            <span class="job-location me-3">
+                <i class="fas fa-map-marker-alt"></i> @Model.Location
+            </span>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.JobType))
+        {
+            <span class="job-type me-3">
+                <i class="fas fa-briefcase"></i> @Model.JobType
+            </span>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.ExperienceLevel))
+        {
+            <span class="experience-level me-3">
+                <i class="fas fa-user-graduate"></i> @Model.ExperienceLevel
+            </span>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.SalaryRange))
+        {
+            <span class="salary-range me-3">
+                <i class="fas fa-dollar-sign"></i> @Model.SalaryRange
+            </span>
+        }
+    </div>
+    
+    @if (!string.IsNullOrEmpty(Model.JobDescription))
+    {
+        <div class="job-description mb-3">
+            <h6>@T["Job Description"]</h6>
+            <p>@Html.Raw(Model.JobDescription.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Requirements))
+    {
+        <div class="job-requirements mb-3">
+            <h6>@T["Requirements"]</h6>
+            <p>@Html.Raw(Model.Requirements.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Benefits))
+    {
+        <div class="job-benefits mb-3">
+            <h6>@T["Benefits"]</h6>
+            <p>@Html.Raw(Model.Benefits.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    <div class="job-details">
+        <div class="row">
+            <div class="col-md-6">
+                <small class="text-muted">
+                    <strong>@T["Posted"]:</strong> @Model.PostedDate.ToString("MMM dd, yyyy")
+                </small>
+            </div>
+            <div class="col-md-6">
+                <small class="text-muted">
+                    <strong>@T["Expires"]:</strong> @Model.ExpiryDate.ToString("MMM dd, yyyy")
+                </small>
+            </div>
+        </div>
+        
+        @if (Model.ApplicationCount > 0)
+        {
+            <div class="mt-2">
+                <small class="text-info">
+                    <i class="fas fa-users"></i> @Model.ApplicationCount @T["applications received"]
+                </small>
+            </div>
+        }
+    </div>
+    
+    @if (!string.IsNullOrEmpty(Model.ContactEmail) || !string.IsNullOrEmpty(Model.ContactPhone))
+    {
+        <div class="contact-info mt-3 p-3 bg-light rounded">
+            <h6>@T["Contact Information"]</h6>
+            @if (!string.IsNullOrEmpty(Model.ContactEmail))
+            {
+                <p><strong>@T["Email"]:</strong> <a href="mailto:@Model.ContactEmail">@Model.ContactEmail</a></p>
+            }
+            @if (!string.IsNullOrEmpty(Model.ContactPhone))
+            {
+                <p><strong>@T["Phone"]:</strong> <a href="tel:@Model.ContactPhone">@Model.ContactPhone</a></p>
+            }
+        </div>
+    }
+</div>

@@ -1,8 +1,11 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using OrchardCore.Modules;
+using NhanViet.Companies.Drivers;
+using NhanViet.Companies.Models;
+using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Data.Migration;
+using OrchardCore.Modules;
+using OrchardCore.Security.Permissions;
 
 namespace NhanViet.Companies;
 
@@ -10,24 +13,16 @@ public sealed class Startup : StartupBase
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        services.AddScoped<IDataMigration, Migrations>();
-    }
-
-    public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
-    {
-        routes.MapAreaControllerRoute(
-            name: "CompaniesHome",
-            areaName: "NhanViet.Companies", 
-            pattern: "companies",
-            defaults: new { controller = "Home", action = "Index" }
-        );
+        // Company Content Part
+        services.AddContentPart<CompanyPart>()
+            .UseDisplayDriver<CompanyPartDisplayDriver>();
+            
+        services.AddDataMigration<Migrations>();
         
-        routes.MapAreaControllerRoute(
-            name: "Companies",
-            areaName: "NhanViet.Companies",
-            pattern: "companies/{action=Index}/{id?}",
-            defaults: new { controller = "Home", action = "Index" }
-        );
+        // Register Permission Provider
+        services.AddScoped<IPermissionProvider, Permissions>();
+
+        // Register Authorization Handler
     }
 }
 

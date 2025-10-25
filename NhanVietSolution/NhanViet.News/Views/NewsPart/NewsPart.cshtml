@@ -1,0 +1,50 @@
+@model NhanViet.News.ViewModels.NewsPartViewModel
+
+<div class="news-part">
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <div class="news-image">
+            <img src="@Model.ImageUrl" alt="@Model.ContentItem.DisplayText" class="img-fluid" />
+        </div>
+    }
+    
+    <div class="news-meta">
+        @if (!string.IsNullOrEmpty(Model.Category))
+        {
+            <span class="badge badge-primary">@Model.Category</span>
+        }
+        
+        @if (Model.IsFeatured)
+        {
+            <span class="badge badge-warning">@T["Featured"]</span>
+        }
+        
+        <small class="text-muted">
+            @if (!string.IsNullOrEmpty(Model.Author))
+            {
+                @T["By"] @Model.Author
+            }
+            @if (Model.PublishedDate != default)
+            {
+                @T["on"] @Model.PublishedDate.ToString("MMM dd, yyyy")
+            }
+        </small>
+    </div>
+    
+    @if (!string.IsNullOrEmpty(Model.Summary))
+    {
+        <div class="news-summary">
+            <p>@Model.Summary</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Tags))
+    {
+        <div class="news-tags">
+            @foreach (var tag in Model.Tags.Split(',', StringSplitOptions.RemoveEmptyEntries))
+            {
+                <span class="badge badge-secondary">#@tag.Trim()</span>
+            }
+        </div>
+    }
+</div>

@@ -1,8 +1,11 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using OrchardCore.Modules;
+using NhanViet.Analytics.Drivers;
+using NhanViet.Analytics.Models;
+using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Data.Migration;
+using OrchardCore.Modules;
+using OrchardCore.Security.Permissions;
 
 namespace NhanViet.Analytics;
 
@@ -11,16 +14,15 @@ public sealed class Startup : StartupBase
     public override void ConfigureServices(IServiceCollection services)
     {
         services.AddScoped<IDataMigration, Migrations>();
-    }
+        
+        // Register Analytics Content Part
+        services.AddContentPart<AnalyticsPart>()
+            .UseDisplayDriver<AnalyticsPartDisplayDriver>();
+            
+        // Register Permission Provider
+        services.AddScoped<IPermissionProvider, Permissions>();
 
-    public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
-    {
-        routes.MapAreaControllerRoute(
-            name: "Home",
-            areaName: "NhanViet.Analytics",
-            pattern: "Home/Index",
-            defaults: new { controller = "Home", action = "Index" }
-        );
+        // Register Authorization Handler
     }
 }
 

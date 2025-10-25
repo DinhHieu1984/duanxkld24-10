@@ -1,0 +1,141 @@
+@model NhanViet.Consultation.ViewModels.ConsultationPartViewModel
+
+<div class="consultation-info">
+    @if (!string.IsNullOrEmpty(Model.ClientName))
+    {
+        <h3 class="client-name">@Model.ClientName</h3>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Subject))
+    {
+        <h5 class="subject text-primary">@Model.Subject</h5>
+    }
+    
+    <div class="consultation-meta mb-3">
+        @if (!string.IsNullOrEmpty(Model.Email))
+        {
+            <span class="email me-3">
+                <i class="fas fa-envelope"></i> <a href="mailto:@Model.Email">@Model.Email</a>
+            </span>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.Phone))
+        {
+            <span class="phone me-3">
+                <i class="fas fa-phone"></i> <a href="tel:@Model.Phone">@Model.Phone</a>
+            </span>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.Company))
+        {
+            <span class="company me-3">
+                <i class="fas fa-building"></i> @Model.Company
+            </span>
+        }
+    </div>
+    
+    <div class="status-info mb-3">
+        <span class="badge @(Model.Status == "Completed" ? "badge-success" : Model.Status == "Cancelled" ? "badge-danger" : Model.Status == "InProgress" ? "badge-warning" : "badge-info")">
+            @T[Model.Status]
+        </span>
+        
+        <span class="badge @(Model.Priority == "Urgent" ? "badge-danger" : Model.Priority == "High" ? "badge-warning" : Model.Priority == "Medium" ? "badge-info" : "badge-secondary") ms-2">
+            @T[Model.Priority] @T["Priority"]
+        </span>
+    </div>
+    
+    @if (!string.IsNullOrEmpty(Model.ServiceType))
+    {
+        <div class="service-type mb-3">
+            <h6>@T["Service Type"]</h6>
+            <p>@Model.ServiceType</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <div class="message mb-3">
+            <h6>@T["Message"]</h6>
+            <p>@Html.Raw(Model.Message.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Requirements))
+    {
+        <div class="requirements mb-3">
+            <h6>@T["Requirements"]</h6>
+            <p>@Html.Raw(Model.Requirements.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    <div class="additional-info">
+        <div class="row">
+            @if (!string.IsNullOrEmpty(Model.Country))
+            {
+                <div class="col-md-6">
+                    <small><strong>@T["Country"]:</strong> @Model.Country</small>
+                </div>
+            }
+            
+            @if (!string.IsNullOrEmpty(Model.Industry))
+            {
+                <div class="col-md-6">
+                    <small><strong>@T["Industry"]:</strong> @Model.Industry</small>
+                </div>
+            }
+        </div>
+        
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <small class="text-muted">
+                    <strong>@T["Requested"]:</strong> @Model.RequestDate.ToString("MMM dd, yyyy")
+                </small>
+            </div>
+            
+            @if (Model.EstimatedBudget > 0)
+            {
+                <div class="col-md-6">
+                    <small class="text-muted">
+                        <strong>@T["Budget"]:</strong> $@Model.EstimatedBudget.ToString("N0")
+                    </small>
+                </div>
+            }
+        </div>
+    </div>
+    
+    @if (!string.IsNullOrEmpty(Model.AssignedTo))
+    {
+        <div class="assigned-info mt-3">
+            <small><strong>@T["Assigned to"]:</strong> @Model.AssignedTo</small>
+        </div>
+    }
+    
+    @if (Model.Rating > 0)
+    {
+        <div class="rating-section mt-3">
+            <h6>@T["Rating"]</h6>
+            <div class="stars">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <i class="fas fa-star @(i <= Model.Rating ? "text-warning" : "text-muted")"></i>
+                }
+            </div>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Feedback))
+    {
+        <div class="feedback-section mt-3">
+            <h6>@T["Client Feedback"]</h6>
+            <p>@Html.Raw(Model.Feedback.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Notes))
+    {
+        <div class="notes-section mt-3 p-3 bg-light rounded">
+            <h6>@T["Internal Notes"]</h6>
+            <p>@Html.Raw(Model.Notes.Replace("\n", "<br />"))</p>
+        </div>
+    }
+</div>

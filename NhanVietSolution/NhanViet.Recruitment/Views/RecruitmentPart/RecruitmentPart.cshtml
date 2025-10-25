@@ -1,0 +1,141 @@
+@model NhanViet.Recruitment.ViewModels.RecruitmentPartViewModel
+
+<div class="recruitment-info">
+    @if (!string.IsNullOrEmpty(Model.CandidateName))
+    {
+        <h3 class="candidate-name">@Model.CandidateName</h3>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Position))
+    {
+        <h5 class="position text-primary">@T["Applied for"]: @Model.Position</h5>
+    }
+    
+    <div class="candidate-meta mb-3">
+        @if (!string.IsNullOrEmpty(Model.Email))
+        {
+            <span class="email me-3">
+                <i class="fas fa-envelope"></i> <a href="mailto:@Model.Email">@Model.Email</a>
+            </span>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.Phone))
+        {
+            <span class="phone me-3">
+                <i class="fas fa-phone"></i> <a href="tel:@Model.Phone">@Model.Phone</a>
+            </span>
+        }
+        
+        @if (Model.YearsOfExperience > 0)
+        {
+            <span class="experience me-3">
+                <i class="fas fa-briefcase"></i> @Model.YearsOfExperience @T["years experience"]
+            </span>
+        }
+    </div>
+    
+    <div class="status-info mb-3">
+        <span class="badge @(Model.Status == "Hired" ? "badge-success" : Model.Status == "Rejected" ? "badge-danger" : Model.Status == "Interview" ? "badge-warning" : "badge-info")">
+            @T[Model.Status]
+        </span>
+        
+        @if (Model.IsAvailable)
+        {
+            <span class="badge badge-success ms-2">@T["Available"]</span>
+        }
+    </div>
+    
+    @if (!string.IsNullOrEmpty(Model.CoverLetter))
+    {
+        <div class="cover-letter mb-3">
+            <h6>@T["Cover Letter"]</h6>
+            <p>@Html.Raw(Model.CoverLetter.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Experience))
+    {
+        <div class="experience-section mb-3">
+            <h6>@T["Experience"]</h6>
+            <p>@Html.Raw(Model.Experience.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Education))
+    {
+        <div class="education-section mb-3">
+            <h6>@T["Education"]</h6>
+            <p>@Html.Raw(Model.Education.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Skills))
+    {
+        <div class="skills-section mb-3">
+            <h6>@T["Skills"]</h6>
+            <p>@Html.Raw(Model.Skills.Replace("\n", "<br />"))</p>
+        </div>
+    }
+    
+    <div class="additional-info">
+        <div class="row">
+            @if (!string.IsNullOrEmpty(Model.PreferredLocation))
+            {
+                <div class="col-md-6">
+                    <small><strong>@T["Preferred Location"]:</strong> @Model.PreferredLocation</small>
+                </div>
+            }
+            
+            @if (!string.IsNullOrEmpty(Model.ExpectedSalary))
+            {
+                <div class="col-md-6">
+                    <small><strong>@T["Expected Salary"]:</strong> @Model.ExpectedSalary</small>
+                </div>
+            }
+        </div>
+        
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <small class="text-muted">
+                    <strong>@T["Applied"]:</strong> @Model.ApplicationDate.ToString("MMM dd, yyyy")
+                </small>
+            </div>
+            
+            @if (Model.AvailableFrom != DateTime.MinValue)
+            {
+                <div class="col-md-6">
+                    <small class="text-muted">
+                        <strong>@T["Available from"]:</strong> @Model.AvailableFrom.ToString("MMM dd, yyyy")
+                    </small>
+                </div>
+            }
+        </div>
+    </div>
+    
+    @if (!string.IsNullOrEmpty(Model.ResumeUrl) || !string.IsNullOrEmpty(Model.LinkedInProfile) || !string.IsNullOrEmpty(Model.PortfolioUrl))
+    {
+        <div class="links-section mt-3">
+            <h6>@T["Links"]</h6>
+            @if (!string.IsNullOrEmpty(Model.ResumeUrl))
+            {
+                <p><a href="@Model.ResumeUrl" target="_blank" class="btn btn-sm btn-outline-primary">@T["View Resume"]</a></p>
+            }
+            @if (!string.IsNullOrEmpty(Model.LinkedInProfile))
+            {
+                <p><a href="@Model.LinkedInProfile" target="_blank" class="btn btn-sm btn-outline-info">@T["LinkedIn Profile"]</a></p>
+            }
+            @if (!string.IsNullOrEmpty(Model.PortfolioUrl))
+            {
+                <p><a href="@Model.PortfolioUrl" target="_blank" class="btn btn-sm btn-outline-secondary">@T["Portfolio"]</a></p>
+            }
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Notes))
+    {
+        <div class="notes-section mt-3 p-3 bg-light rounded">
+            <h6>@T["Internal Notes"]</h6>
+            <p>@Html.Raw(Model.Notes.Replace("\n", "<br />"))</p>
+        </div>
+    }
+</div>

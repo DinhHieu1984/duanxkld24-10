@@ -1,10 +1,11 @@
 using OrchardCore.Modules.Manifest;
 
 [assembly: Module(
-    Name = "NhanViet.JobOrders",
-    Author = "The Orchard Core Team",
-    Website = "https://orchardcore.net",
-    Version = "0.0.1",
-    Description = "NhanViet.JobOrders",
-    Category = "Content Management"
+    Name = "NhanViet Job Orders",
+    Author = "NhanViet Group",
+    Website = "https://nhanvietgroup.com",
+    Version = "1.0.0",
+    Description = "Job orders and recruitment management module for NhanViet website",
+    Dependencies = ["OrchardCore.ContentManagement", "OrchardCore.Title"],
+    Category = "Recruitment"
 )]

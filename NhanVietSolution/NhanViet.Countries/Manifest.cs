@@ -1,10 +1,11 @@
 using OrchardCore.Modules.Manifest;
 
 [assembly: Module(
-    Name = "NhanViet.Countries",
-    Author = "The Orchard Core Team",
-    Website = "https://orchardcore.net",
-    Version = "0.0.1",
-    Description = "NhanViet.Countries",
-    Category = "Content Management"
+    Name = "NhanViet Countries",
+    Author = "NhanViet Group",
+    Website = "https://nhanvietgroup.com",
+    Version = "1.0.0",
+    Description = "Countries and locations data module for NhanViet website",
+    Dependencies = ["OrchardCore.ContentManagement", "OrchardCore.Title"],
+    Category = "Data"
 )]

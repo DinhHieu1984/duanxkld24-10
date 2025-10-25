@@ -1,0 +1,160 @@
+@model NhanViet.JobOrders.ViewModels.JobOrderPartViewModel
+
+<fieldset class="form-group">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="JobTitle" class="form-label">@T["Job Title"]</label>
+                <input asp-for="JobTitle" class="form-control" required />
+                <span asp-validation-for="JobTitle" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="form-check">
+                    <input asp-for="IsFeatured" type="checkbox" class="form-check-input" />
+                    <label asp-for="IsFeatured" class="form-check-label">@T["Featured Job"]</label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="IsActive" type="checkbox" class="form-check-input" />
+                    <label asp-for="IsActive" class="form-check-label">@T["Active"]</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="CompanyName" class="form-label">@T["Company Name"]</label>
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Location" class="form-label">@T["Location"]</label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="JobType" class="form-label">@T["Job Type"]</label>
+                <select asp-for="JobType" class="form-control">
+                    <option value="">@T["Select Job Type"]</option>
+                    <option value="Full-time">@T["Full-time"]</option>
+                    <option value="Part-time">@T["Part-time"]</option>
+                    <option value="Contract">@T["Contract"]</option>
+                    <option value="Freelance">@T["Freelance"]</option>
+                    <option value="Internship">@T["Internship"]</option>
+                </select>
+                <span asp-validation-for="JobType" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="ExperienceLevel" class="form-label">@T["Experience Level"]</label>
+                <select asp-for="ExperienceLevel" class="form-control">
+                    <option value="">@T["Select Experience Level"]</option>
+                    <option value="Entry">@T["Entry Level"]</option>
+                    <option value="Mid">@T["Mid Level"]</option>
+                    <option value="Senior">@T["Senior Level"]</option>
+                    <option value="Executive">@T["Executive"]</option>
+                </select>
+                <span asp-validation-for="ExperienceLevel" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="SalaryRange" class="form-label">@T["Salary Range"]</label>
+                <input asp-for="SalaryRange" class="form-control" placeholder="e.g., $50,000 - $70,000" />
+                <span asp-validation-for="SalaryRange" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="PostedDate" class="form-label">@T["Posted Date"]</label>
+                <input asp-for="PostedDate" type="date" class="form-control" />
+                <span asp-validation-for="PostedDate" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="ExpiryDate" class="form-label">@T["Expiry Date"]</label>
+                <input asp-for="ExpiryDate" type="date" class="form-control" />
+                <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="ContactEmail" class="form-label">@T["Contact Email"]</label>
+                <input asp-for="ContactEmail" type="email" class="form-control" />
+                <span asp-validation-for="ContactEmail" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="ContactPhone" class="form-label">@T["Contact Phone"]</label>
+                <input asp-for="ContactPhone" type="tel" class="form-control" />
+                <span asp-validation-for="ContactPhone" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="JobDescription" class="form-label">@T["Job Description"]</label>
+                <textarea asp-for="JobDescription" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="JobDescription" class="text-danger"></span>
+                <div class="hint">@T["Detailed description of the job position"]</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Requirements" class="form-label">@T["Requirements"]</label>
+                <textarea asp-for="Requirements" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Requirements" class="text-danger"></span>
+                <div class="hint">@T["Job requirements and qualifications"]</div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Benefits" class="form-label">@T["Benefits"]</label>
+                <textarea asp-for="Benefits" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Benefits" class="text-danger"></span>
+                <div class="hint">@T["Job benefits and perks"]</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="ApplicationCount" class="form-label">@T["Application Count"]</label>
+                <input asp-for="ApplicationCount" type="number" min="0" class="form-control" readonly />
+                <div class="hint">@T["Number of applications received (read-only)"]</div>
+            </div>
+        </div>
+    </div>
+</fieldset>

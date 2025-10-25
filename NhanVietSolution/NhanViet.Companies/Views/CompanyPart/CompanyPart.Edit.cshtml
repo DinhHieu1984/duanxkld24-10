@@ -1,0 +1,105 @@
+@model NhanViet.Companies.ViewModels.CompanyPartViewModel
+
+<fieldset class="form-group">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="CompanyName" class="form-label">@T["Company Name"]</label>
+                <input asp-for="CompanyName" class="form-control" required />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="form-check">
+                    <input asp-for="IsVerified" type="checkbox" class="form-check-input" />
+                    <label asp-for="IsVerified" class="form-check-label">@T["Verified Company"]</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Industry" class="form-label">@T["Industry"]</label>
+                <input asp-for="Industry" class="form-control" />
+                <span asp-validation-for="Industry" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Location" class="form-label">@T["Location"]</label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Website" class="form-label">@T["Website"]</label>
+                <input asp-for="Website" type="url" class="form-control" />
+                <span asp-validation-for="Website" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="LogoUrl" class="form-label">@T["Logo URL"]</label>
+                <input asp-for="LogoUrl" type="url" class="form-control" />
+                <span asp-validation-for="LogoUrl" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="ContactEmail" class="form-label">@T["Contact Email"]</label>
+                <input asp-for="ContactEmail" type="email" class="form-control" />
+                <span asp-validation-for="ContactEmail" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="ContactPhone" class="form-label">@T["Contact Phone"]</label>
+                <input asp-for="ContactPhone" type="tel" class="form-control" />
+                <span asp-validation-for="ContactPhone" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="EmployeeCount" class="form-label">@T["Employee Count"]</label>
+                <input asp-for="EmployeeCount" type="number" min="0" class="form-control" />
+                <span asp-validation-for="EmployeeCount" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="EstablishedDate" class="form-label">@T["Established Date"]</label>
+                <input asp-for="EstablishedDate" type="date" class="form-control" />
+                <span asp-validation-for="EstablishedDate" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Description" class="form-label">@T["Description"]</label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+                <div class="hint">@T["Company description and overview"]</div>
+            </div>
+        </div>
+    </div>
+</fieldset>

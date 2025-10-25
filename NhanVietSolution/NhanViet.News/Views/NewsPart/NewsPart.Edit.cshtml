@@ -1,0 +1,71 @@
+@model NhanViet.News.ViewModels.NewsPartViewModel
+
+<fieldset class="form-group">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Summary" class="form-label">@T["Summary"]</label>
+                <textarea asp-for="Summary" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Summary" class="text-danger"></span>
+                <div class="hint">@T["Brief summary of the news article"]</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Category" class="form-label">@T["Category"]</label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Author" class="form-label">@T["Author"]</label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Tags" class="form-label">@T["Tags"]</label>
+                <input asp-for="Tags" class="form-control" />
+                <span asp-validation-for="Tags" class="text-danger"></span>
+                <div class="hint">@T["Comma-separated tags"]</div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="PublishedDate" class="form-label">@T["Published Date"]</label>
+                <input asp-for="PublishedDate" type="datetime-local" class="form-control" />
+                <span asp-validation-for="PublishedDate" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="form-label">@T["Image URL"]</label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="form-check">
+                    <input asp-for="IsFeatured" type="checkbox" class="form-check-input" />
+                    <label asp-for="IsFeatured" class="form-check-label">@T["Featured Article"]</label>
+                </div>
+                <div class="hint">@T["Mark as featured news"]</div>
+            </div>
+        </div>
+    </div>
+</fieldset>

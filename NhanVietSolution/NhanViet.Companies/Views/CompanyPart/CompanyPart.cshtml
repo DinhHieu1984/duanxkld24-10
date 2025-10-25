@@ -1,0 +1,70 @@
+@model NhanViet.Companies.ViewModels.CompanyPartViewModel
+
+<div class="company-info">
+    @if (!string.IsNullOrEmpty(Model.CompanyName))
+    {
+        <h3 class="company-name">
+            @Model.CompanyName
+            @if (Model.IsVerified)
+            {
+                <span class="badge badge-success">@T["Verified"]</span>
+            }
+        </h3>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Industry))
+    {
+        <p class="company-industry">
+            <strong>@T["Industry"]:</strong> @Model.Industry
+        </p>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Location))
+    {
+        <p class="company-location">
+            <strong>@T["Location"]:</strong> @Model.Location
+        </p>
+    }
+    
+    @if (!string.IsNullOrEmpty(Model.Description))
+    {
+        <div class="company-description">
+            <strong>@T["Description"]:</strong>
+            <p>@Model.Description</p>
+        </div>
+    }
+    
+    <div class="company-details">
+        @if (Model.EmployeeCount > 0)
+        {
+            <p><strong>@T["Employees"]:</strong> @Model.EmployeeCount</p>
+        }
+        
+        @if (Model.EstablishedDate != DateTime.MinValue)
+        {
+            <p><strong>@T["Established"]:</strong> @Model.EstablishedDate.ToString("yyyy")</p>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.Website))
+        {
+            <p><strong>@T["Website"]:</strong> <a href="@Model.Website" target="_blank">@Model.Website</a></p>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.ContactEmail))
+        {
+            <p><strong>@T["Email"]:</strong> <a href="mailto:@Model.ContactEmail">@Model.ContactEmail</a></p>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.ContactPhone))
+        {
+            <p><strong>@T["Phone"]:</strong> <a href="tel:@Model.ContactPhone">@Model.ContactPhone</a></p>
+        }
+    </div>
+    
+    @if (!string.IsNullOrEmpty(Model.LogoUrl))
+    {
+        <div class="company-logo">
+            <img src="@Model.LogoUrl" alt="@Model.CompanyName Logo" class="img-fluid" style="max-width: 200px;" />
+        </div>
+    }
+</div>
