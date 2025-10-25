@@ -1,0 +1,410 @@
+{% comment %}
+Breadcrumb Navigation Template for NhanViet Frontend Theme
+Provides hierarchical navigation with SEO-friendly structured data
+{% endcomment %}
+
+{% assign breadcrumbItems = Model.Items | default: empty %}
+{% assign currentPage = Model.CurrentPage | default: "" %}
+{% assign showHome = Model.ShowHome | default: true %}
+
+{% if breadcrumbItems.size > 0 or currentPage != "" %}
+<nav aria-label="breadcrumb" class="breadcrumb-nav">
+    <div class="container">
+        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+            {% comment %} Home breadcrumb {% endcomment %}
+            {% if showHome %}
+                <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="/" itemprop="item" class="breadcrumb-link">
+                        <i class="fas fa-home me-1"></i>
+                        <span itemprop="name">Trang chủ</span>
+                    </a>
+                    <meta itemprop="position" content="1" />
+                </li>
+            {% endif %}
+            
+            {% comment %} Dynamic breadcrumb items {% endcomment %}
+            {% assign position = 2 %}
+            {% if showHome == false %}
+                {% assign position = 1 %}
+            {% endif %}
+            
+            {% for item in breadcrumbItems %}
+                {% if forloop.last and currentPage == "" %}
+                    {% comment %} Last item without link {% endcomment %}
+                    <li class="breadcrumb-item active" aria-current="page" 
+                        itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        {% if item.Icon %}
+                            <i class="{{ item.Icon }} me-1"></i>
+                        {% endif %}
+                        <span itemprop="name">{{ item.Name }}</span>
+                        <meta itemprop="position" content="{{ position }}" />
+                    </li>
+                {% else %}
+                    {% comment %} Linked breadcrumb item {% endcomment %}
+                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <a href="{{ item.Url | href }}" itemprop="item" class="breadcrumb-link">
+                            {% if item.Icon %}
+                                <i class="{{ item.Icon }} me-1"></i>
+                            {% endif %}
+                            <span itemprop="name">{{ item.Name }}</span>
+                        </a>
+                        <meta itemprop="position" content="{{ position }}" />
+                    </li>
+                {% endif %}
+                {% assign position = position | plus: 1 %}
+            {% endfor %}
+            
+            {% comment %} Current page breadcrumb {% endcomment %}
+            {% if currentPage != "" %}
+                <li class="breadcrumb-item active" aria-current="page"
+                    itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name">{{ currentPage }}</span>
+                    <meta itemprop="position" content="{{ position }}" />
+                </li>
+            {% endif %}
+        </ol>
+        
+        {% comment %} Additional navigation info {% endcomment %}
+        <div class="breadcrumb-meta">
+            {% if Model.TotalItems %}
+                <span class="breadcrumb-count">
+                    <i class="fas fa-list-ul me-1"></i>
+                    {{ Model.TotalItems }} mục
+                </span>
+            {% endif %}
+            
+            {% if Model.LastUpdated %}
+                <span class="breadcrumb-updated">
+                    <i class="fas fa-clock me-1"></i>
+                    Cập nhật: {{ Model.LastUpdated | date: "dd/MM/yyyy" }}
+                </span>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+{% endif %}
+
+{% comment %} Auto-generate breadcrumb based on URL if no items provided {% endcomment %}
+{% if breadcrumbItems.size == 0 and currentPage == "" %}
+<nav aria-label="breadcrumb" class="breadcrumb-nav auto-breadcrumb">
+    <div class="container">
+        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a href="/" itemprop="item" class="breadcrumb-link">
+                    <i class="fas fa-home me-1"></i>
+                    <span itemprop="name">Trang chủ</span>
+                </a>
+                <meta itemprop="position" content="1" />
+            </li>
+            
+            {% comment %} Auto-generate from URL path {% endcomment %}
+            <li class="breadcrumb-item active" aria-current="page"
+                itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <span itemprop="name" id="auto-breadcrumb-current"></span>
+                <meta itemprop="position" content="2" />
+            </li>
+        </ol>
+    </div>
+</nav>
+{% endif %}
+
+{% comment %} Custom Styles {% endcomment %}
+<style>
+.breadcrumb-nav {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.breadcrumb {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: '\f105';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #6c757d;
+    padding: 0 0.75rem;
+    font-size: 0.8rem;
+}
+
+.breadcrumb-link {
+    color: #495057;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-link:hover {
+    color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+    font-weight: 600;
+}
+
+.breadcrumb-item.active span {
+    padding: 0.25rem 0.5rem;
+    background: rgba(108, 117, 125, 0.1);
+    border-radius: 4px;
+}
+
+.breadcrumb-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.breadcrumb-count, .breadcrumb-updated {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-count i, .breadcrumb-updated i {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .breadcrumb-nav {
+        padding: 0.75rem 0;
+        margin-bottom: 1.5rem;
+    }
+    
+    .breadcrumb {
+        font-size: 0.8rem;
+    }
+    
+    .breadcrumb-item + .breadcrumb-item::before {
+        padding: 0 0.5rem;
+    }
+    
+    .breadcrumb-link {
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .breadcrumb-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+    
+    /* Hide icons on very small screens */
+    @media (max-width: 480px) {
+        .breadcrumb-link i, .breadcrumb-item.active i {
+            display: none;
+        }
+        
+        .breadcrumb-count i, .breadcrumb-updated i {
+            display: none;
+        }
+    }
+}
+
+/* Print Styles */
+@media print {
+    .breadcrumb-nav {
+        background: none;
+        border-bottom: 1px solid #000;
+        padding: 0.5rem 0;
+    }
+    
+    .breadcrumb-link {
+        color: #000 !important;
+        text-decoration: underline;
+    }
+    
+    .breadcrumb-meta {
+        display: none;
+    }
+}
+
+/* Accessibility */
+.breadcrumb-nav:focus-within {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+.breadcrumb-link:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Animation */
+.breadcrumb-nav {
+    animation: slideInDown 0.5s ease-out;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading State */
+.breadcrumb-nav.loading {
+    opacity: 0.6;
+}
+
+.breadcrumb-nav.loading .breadcrumb-item {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+</style>
+
+{% comment %} JavaScript for Auto-Breadcrumb and Enhanced Functionality {% endcomment %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-generate breadcrumb from URL
+    const autoBreadcrumbElement = document.getElementById('auto-breadcrumb-current');
+    if (autoBreadcrumbElement) {
+        const path = window.location.pathname;
+        const segments = path.split('/').filter(segment => segment !== '');
+        
+        if (segments.length > 0) {
+            const currentSegment = segments[segments.length - 1];
+            const breadcrumbText = generateBreadcrumbText(currentSegment);
+            autoBreadcrumbElement.textContent = breadcrumbText;
+        } else {
+            // Hide auto-breadcrumb if on home page
+            const autoBreadcrumbNav = document.querySelector('.auto-breadcrumb');
+            if (autoBreadcrumbNav) {
+                autoBreadcrumbNav.style.display = 'none';
+            }
+        }
+    }
+    
+    // Add click tracking for breadcrumb links
+    const breadcrumbLinks = document.querySelectorAll('.breadcrumb-link');
+    breadcrumbLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            // Track breadcrumb navigation
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'breadcrumb_click', {
+                    'breadcrumb_text': this.textContent.trim(),
+                    'breadcrumb_url': this.getAttribute('href')
+                });
+            }
+        });
+    });
+    
+    // Add keyboard navigation
+    const breadcrumbNav = document.querySelector('.breadcrumb-nav');
+    if (breadcrumbNav) {
+        breadcrumbNav.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                const links = this.querySelectorAll('.breadcrumb-link');
+                const currentIndex = Array.from(links).indexOf(document.activeElement);
+                
+                if (currentIndex !== -1) {
+                    e.preventDefault();
+                    let nextIndex;
+                    
+                    if (e.key === 'ArrowLeft') {
+                        nextIndex = currentIndex > 0 ? currentIndex - 1 : links.length - 1;
+                    } else {
+                        nextIndex = currentIndex < links.length - 1 ? currentIndex + 1 : 0;
+                    }
+                    
+                    links[nextIndex].focus();
+                }
+            }
+        });
+    }
+    
+    // Function to generate readable breadcrumb text from URL segment
+    function generateBreadcrumbText(segment) {
+        // URL decode
+        segment = decodeURIComponent(segment);
+        
+        // Replace hyphens and underscores with spaces
+        segment = segment.replace(/[-_]/g, ' ');
+        
+        // Capitalize first letter of each word
+        segment = segment.replace(/\b\w/g, l => l.toUpperCase());
+        
+        // Handle specific cases
+        const translations = {
+            'Jobs': 'Việc làm',
+            'News': 'Tin tức',
+            'Companies': 'Công ty',
+            'Countries': 'Quốc gia',
+            'Consultations': 'Tư vấn',
+            'About': 'Giới thiệu',
+            'Contact': 'Liên hệ',
+            'Search': 'Tìm kiếm',
+            'Profile': 'Hồ sơ',
+            'Login': 'Đăng nhập',
+            'Register': 'Đăng ký'
+        };
+        
+        return translations[segment] || segment;
+    }
+    
+    // Add smooth scroll to top when clicking home breadcrumb
+    const homeBreadcrumb = document.querySelector('.breadcrumb-link[href="/"]');
+    if (homeBreadcrumb) {
+        homeBreadcrumb.addEventListener('click', function(e) {
+            if (window.location.pathname === '/') {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+    
+    // Update breadcrumb meta information dynamically
+    updateBreadcrumbMeta();
+    
+    function updateBreadcrumbMeta() {
+        const metaContainer = document.querySelector('.breadcrumb-meta');
+        if (metaContainer) {
+            // Update last modified time if available
+            const lastModified = document.lastModified;
+            if (lastModified) {
+                const updatedElement = metaContainer.querySelector('.breadcrumb-updated');
+                if (updatedElement) {
+                    const date = new Date(lastModified);
+                    const formattedDate = date.toLocaleDateString('vi-VN');
+                    updatedElement.innerHTML = `<i class="fas fa-clock me-1"></i>Cập nhật: ${formattedDate}`;
+                }
+            }
+        }
+    }
+});
+</script>

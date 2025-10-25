@@ -132,5 +132,33 @@
       "Differentiator": null,
       "Place": "Content:1"
     }
+  ],
+  "Menu": [
+    {
+      "DisplayType": "Detail",
+      "Differentiator": "MainMenu",
+      "Place": "Navigation:1"
+    }
+  ],
+  "MenuItem": [
+    {
+      "DisplayType": "Detail",
+      "Differentiator": "MainMenu",
+      "Place": "Content:1"
+    }
+  ],
+  "MenuItemLink": [
+    {
+      "DisplayType": "Detail",
+      "Differentiator": "MainMenu",
+      "Place": "Content:1"
+    }
+  ],
+  "Breadcrumb": [
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Header:5"
+    }
   ]
 }

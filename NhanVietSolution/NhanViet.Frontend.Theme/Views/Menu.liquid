@@ -1,0 +1,366 @@
+{% comment %}
+Main Menu Template for NhanViet Frontend Theme
+Renders the main navigation menu with responsive design
+{% endcomment %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" id="mainNav">
+    <div class="container">
+        {% comment %} Brand Logo {% endcomment %}
+        <a class="navbar-brand" href="/">
+            <img src="~/NhanViet.Frontend.Theme/images/logo.png" alt="NhanViet" height="40" class="d-inline-block align-text-top">
+            <span class="brand-text ms-2">NhanViet</span>
+        </a>
+
+        {% comment %} Mobile Toggle Button {% endcomment %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        {% comment %} Navigation Menu {% endcomment %}
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% for item in Model.Items %}
+                    {{ item | shape_render }}
+                {% endfor %}
+            </ul>
+
+            {% comment %} Right Side Actions {% endcomment %}
+            <div class="navbar-nav ms-auto">
+                {% comment %} Language Selector {% endcomment %}
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe me-1"></i>
+                        <span class="d-none d-md-inline">Tiếng Việt</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" data-lang="vi">
+                            <img src="https://flagcdn.com/w20/vn.png" alt="Vietnam" class="me-2">Tiếng Việt
+                        </a></li>
+                        <li><a class="dropdown-item" href="#" data-lang="en">
+                            <img src="https://flagcdn.com/w20/us.png" alt="English" class="me-2">English
+                        </a></li>
+                        <li><a class="dropdown-item" href="#" data-lang="ja">
+                            <img src="https://flagcdn.com/w20/jp.png" alt="Japanese" class="me-2">日本語
+                        </a></li>
+                        <li><a class="dropdown-item" href="#" data-lang="ko">
+                            <img src="https://flagcdn.com/w20/kr.png" alt="Korean" class="me-2">한국어
+                        </a></li>
+                    </ul>
+                </div>
+
+                {% comment %} Search Button {% endcomment %}
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <i class="fas fa-search"></i>
+                    <span class="d-none d-md-inline ms-1">Tìm kiếm</span>
+                </a>
+
+                {% comment %} User Account {% endcomment %}
+                {% if User.Identity.IsAuthenticated %}
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i>
+                            <span class="d-none d-md-inline">{{ User.Identity.Name }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="/profile">
+                                <i class="fas fa-user me-2"></i>Hồ sơ cá nhân
+                            </a></li>
+                            <li><a class="dropdown-item" href="/my-applications">
+                                <i class="fas fa-briefcase me-2"></i>Đơn ứng tuyển
+                            </a></li>
+                            <li><a class="dropdown-item" href="/consultations">
+                                <i class="fas fa-comments me-2"></i>Tư vấn của tôi
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            {% if User.IsInRole("Administrator") %}
+                                <li><a class="dropdown-item" href="/admin">
+                                    <i class="fas fa-cog me-2"></i>Quản trị
+                                </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                            {% endif %}
+                            <li><a class="dropdown-item" href="/logout">
+                                <i class="fas fa-sign-out-alt me-2"></i>Đăng xuất
+                            </a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a class="nav-link" href="/login">
+                        <i class="fas fa-sign-in-alt me-1"></i>
+                        <span class="d-none d-md-inline">Đăng nhập</span>
+                    </a>
+                    <a class="btn btn-primary ms-2" href="/register">
+                        <i class="fas fa-user-plus me-1"></i>Đăng ký
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+{% comment %} Search Modal {% endcomment %}
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchModalLabel">
+                    <i class="fas fa-search me-2"></i>Tìm kiếm việc làm
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/search" method="get" id="searchForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="searchKeyword" class="form-label">Từ khóa</label>
+                            <input type="text" class="form-control" id="searchKeyword" name="q" 
+                                   placeholder="Nhập từ khóa tìm kiếm...">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="searchLocation" class="form-label">Địa điểm</label>
+                            <select class="form-select" id="searchLocation" name="location">
+                                <option value="">Tất cả quốc gia</option>
+                                <option value="japan">Nhật Bản</option>
+                                <option value="korea">Hàn Quốc</option>
+                                <option value="germany">Đức</option>
+                                <option value="australia">Úc</option>
+                                <option value="canada">Canada</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="searchCategory" class="form-label">Ngành nghề</label>
+                            <select class="form-select" id="searchCategory" name="category">
+                                <option value="">Tất cả ngành nghề</option>
+                                <option value="manufacturing">Sản xuất</option>
+                                <option value="construction">Xây dựng</option>
+                                <option value="hospitality">Khách sạn - Nhà hàng</option>
+                                <option value="healthcare">Y tế</option>
+                                <option value="agriculture">Nông nghiệp</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="searchSalary" class="form-label">Mức lương</label>
+                            <select class="form-select" id="searchSalary" name="salary">
+                                <option value="">Tất cả mức lương</option>
+                                <option value="1000-2000">$1,000 - $2,000</option>
+                                <option value="2000-3000">$2,000 - $3,000</option>
+                                <option value="3000-4000">$3,000 - $4,000</option>
+                                <option value="4000+">$4,000+</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-search me-2"></i>Tìm kiếm việc làm
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} Custom Styles {% endcomment %}
+<style>
+.navbar {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: #2c3e50 !important;
+    text-decoration: none;
+}
+
+.brand-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #007bff, #28a745);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    color: #495057 !important;
+    padding: 0.75rem 1rem !important;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff !important;
+}
+
+.navbar-nav .nav-link.active {
+    color: #007bff !important;
+}
+
+.navbar-nav .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 3px;
+    background: linear-gradient(45deg, #007bff, #28a745);
+    border-radius: 2px;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+}
+
+.dropdown-item {
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+.dropdown-item img {
+    width: 20px;
+    height: auto;
+    border-radius: 2px;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    border: none;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #0056b3, #004085);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+}
+
+.modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+
+.modal-header {
+    border-bottom: 1px solid #e9ecef;
+    padding: 1.5rem;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        padding-top: 1rem;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 0 !important;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .navbar-nav .nav-link:last-child {
+        border-bottom: none;
+    }
+    
+    .brand-text {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 1rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+}
+</style>
+
+{% comment %} JavaScript for Menu Functionality {% endcomment %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Language selector
+    document.querySelectorAll('[data-lang]').forEach(function(element) {
+        element.addEventListener('click', function(e) {
+            e.preventDefault();
+            const lang = this.getAttribute('data-lang');
+            // Implement language switching logic
+            console.log('Switching to language:', lang);
+        });
+    });
+
+    // Search form submission
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+        const keyword = document.getElementById('searchKeyword').value.trim();
+        if (!keyword) {
+            e.preventDefault();
+            alert('Vui lòng nhập từ khóa tìm kiếm');
+            return;
+        }
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(function(element) {
+        element.addEventListener('click', function() {
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            if (navbarCollapse.classList.contains('show')) {
+                const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                bsCollapse.hide();
+            }
+        });
+    });
+});
+</script>

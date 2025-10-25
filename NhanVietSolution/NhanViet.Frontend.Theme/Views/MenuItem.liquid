@@ -1,0 +1,316 @@
+{% comment %}
+MenuItem Template for NhanViet Frontend Theme
+Renders individual menu items with dropdown support
+{% endcomment %}
+
+{% assign menuItem = Model.ContentItem.Content %}
+{% assign hasChildren = Model.Items.size > 0 %}
+
+<li class="nav-item{% if hasChildren %} dropdown{% endif %}">
+    {% comment %} Transform to MenuItemLink for rendering the actual link {% endcomment %}
+    {% shape_clear_alternates Model %}
+    {% shape_type Model "MenuItemLink" %}
+    
+    {% comment %} Render the menu item link {% endcomment %}
+    {{ Model | shape_render }}
+    
+    {% comment %} Render dropdown menu if has children {% endcomment %}
+    {% if hasChildren %}
+        <ul class="dropdown-menu">
+            {% for childItem in Model.Items %}
+                {% comment %} Child menu items use different styling {% endcomment %}
+                {% assign childMenuItem = childItem.ContentItem.Content %}
+                <li>
+                    {% if childItem.Items.size > 0 %}
+                        {% comment %} Multi-level dropdown {% endcomment %}
+                        <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            {% if childMenuItem.LinkMenuItemPart.Icon %}
+                                <i class="{{ childMenuItem.LinkMenuItemPart.Icon }} me-2"></i>
+                            {% endif %}
+                            {{ childMenuItem.LinkMenuItemPart.Name }}
+                            <i class="fas fa-chevron-right ms-auto"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-submenu">
+                            {% for grandChildItem in childItem.Items %}
+                                {% assign grandChildMenuItem = grandChildItem.ContentItem.Content %}
+                                <li>
+                                    <a class="dropdown-item" href="{{ grandChildMenuItem.LinkMenuItemPart.Url | href }}">
+                                        {% if grandChildMenuItem.LinkMenuItemPart.Icon %}
+                                            <i class="{{ grandChildMenuItem.LinkMenuItemPart.Icon }} me-2"></i>
+                                        {% endif %}
+                                        {{ grandChildMenuItem.LinkMenuItemPart.Name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {% comment %} Simple dropdown item {% endcomment %}
+                        <a class="dropdown-item" href="{{ childMenuItem.LinkMenuItemPart.Url | href }}">
+                            {% if childMenuItem.LinkMenuItemPart.Icon %}
+                                <i class="{{ childMenuItem.LinkMenuItemPart.Icon }} me-2"></i>
+                            {% endif %}
+                            {{ childMenuItem.LinkMenuItemPart.Name }}
+                            {% if childMenuItem.LinkMenuItemPart.Description %}
+                                <small class="text-muted d-block">{{ childMenuItem.LinkMenuItemPart.Description }}</small>
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            
+            {% comment %} Add special menu items based on menu context {% endcomment %}
+            {% if Model.Menu.Differentiator == "MainMenu" %}
+                {% comment %} Add featured items to main menu dropdowns {% endcomment %}
+                {% case menuItem.LinkMenuItemPart.Name %}
+                    {% when "Việc làm" %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item featured-item" href="/jobs/featured">
+                                <i class="fas fa-star text-warning me-2"></i>
+                                Việc làm nổi bật
+                                <span class="badge bg-primary ms-2">Hot</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/jobs/urgent">
+                                <i class="fas fa-clock text-danger me-2"></i>
+                                Tuyển gấp
+                            </a>
+                        </li>
+                    {% when "Tin tức" %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="/news/latest">
+                                <i class="fas fa-newspaper me-2"></i>
+                                Tin mới nhất
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/news/featured">
+                                <i class="fas fa-fire text-danger me-2"></i>
+                                Tin nổi bật
+                            </a>
+                        </li>
+                {% endcase %}
+            {% endif %}
+        </ul>
+    {% endif %}
+</li>
+
+{% comment %} Custom Styles for MenuItem {% endcomment %}
+<style>
+.nav-item.dropdown .nav-link {
+    position: relative;
+}
+
+.nav-item.dropdown .nav-link::after {
+    content: '\f107';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-item.dropdown:hover .nav-link::after {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    min-width: 250px;
+    padding: 0.75rem 0;
+    margin-top: 0.5rem;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.dropdown-item {
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    color: #495057;
+    transition: all 0.3s ease;
+    border-radius: 0;
+    position: relative;
+}
+
+.dropdown-item:hover {
+    background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+    color: #007bff;
+    transform: translateX(5px);
+}
+
+.dropdown-item.featured-item {
+    background: linear-gradient(45deg, #fff3cd, #ffeaa7);
+    border-left: 4px solid #ffc107;
+}
+
+.dropdown-item.featured-item:hover {
+    background: linear-gradient(45deg, #ffeaa7, #fdcb6e);
+}
+
+.dropdown-item small {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.dropdown-submenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+    margin-left: -1px;
+}
+
+.dropdown-item.dropdown-toggle::after {
+    content: '\f105';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    border: none;
+    margin-left: auto;
+}
+
+.dropdown-divider {
+    margin: 0.5rem 1rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.badge {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 991.98px) {
+    .dropdown-menu {
+        position: static !important;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        background-color: #f8f9fa;
+        border: none;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        border-radius: 0;
+    }
+    
+    .dropdown-item {
+        padding: 0.5rem 2rem;
+        font-size: 0.9rem;
+    }
+    
+    .dropdown-submenu {
+        position: static;
+        margin-left: 1rem;
+        background-color: #e9ecef;
+    }
+    
+    .nav-item.dropdown .nav-link::after {
+        content: '\f107';
+        transform: none;
+    }
+    
+    .nav-item.dropdown.show .nav-link::after {
+        transform: rotate(180deg);
+    }
+}
+
+/* Hover Effects */
+.nav-item:hover .dropdown-menu {
+    display: block;
+    animation: fadeInDown 0.3s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Active State */
+.nav-item .nav-link.active {
+    color: #007bff !important;
+    font-weight: 600;
+}
+
+.nav-item .nav-link.active::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 3px;
+    background: linear-gradient(45deg, #007bff, #28a745);
+    border-radius: 2px;
+}
+</style>
+
+{% comment %} JavaScript for MenuItem Functionality {% endcomment %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle dropdown hover on desktop
+    if (window.innerWidth > 991) {
+        const dropdowns = document.querySelectorAll('.nav-item.dropdown');
+        
+        dropdowns.forEach(function(dropdown) {
+            dropdown.addEventListener('mouseenter', function() {
+                const dropdownMenu = this.querySelector('.dropdown-menu');
+                if (dropdownMenu) {
+                    dropdownMenu.classList.add('show');
+                }
+            });
+            
+            dropdown.addEventListener('mouseleave', function() {
+                const dropdownMenu = this.querySelector('.dropdown-menu');
+                if (dropdownMenu) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        });
+    }
+    
+    // Handle submenu positioning
+    const submenuItems = document.querySelectorAll('.dropdown-submenu');
+    submenuItems.forEach(function(submenu) {
+        const parent = submenu.closest('.dropdown-item');
+        if (parent) {
+            parent.addEventListener('mouseenter', function() {
+                // Position submenu
+                const rect = submenu.getBoundingClientRect();
+                const viewportWidth = window.innerWidth;
+                
+                if (rect.right > viewportWidth) {
+                    submenu.style.left = '-100%';
+                    submenu.style.right = '0';
+                }
+            });
+        }
+    });
+    
+    // Track active menu items
+    const currentPath = window.location.pathname;
+    const menuLinks = document.querySelectorAll('.nav-link, .dropdown-item');
+    
+    menuLinks.forEach(function(link) {
+        const href = link.getAttribute('href');
+        if (href && currentPath.startsWith(href) && href !== '/') {
+            link.classList.add('active');
+            
+            // Also mark parent dropdown as active
+            const parentDropdown = link.closest('.dropdown');
+            if (parentDropdown) {
+                const parentLink = parentDropdown.querySelector('.nav-link');
+                if (parentLink) {
+                    parentLink.classList.add('active');
+                }
+            }
+        }
+    });
+});
+</script>

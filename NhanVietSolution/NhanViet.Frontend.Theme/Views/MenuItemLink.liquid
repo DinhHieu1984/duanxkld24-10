@@ -1,0 +1,283 @@
+{% comment %}
+MenuItemLink Template for NhanViet Frontend Theme
+Renders the actual link for menu items with proper styling and functionality
+{% endcomment %}
+
+{% assign link = Model.ContentItem.Content.LinkMenuItemPart %}
+{% assign hasChildren = Model.Items.size > 0 %}
+{% assign level = Model.Level | default: 0 %}
+
+{% comment %} Determine link classes based on context {% endcomment %}
+{% if level == 0 %}
+    {% comment %} Top level navigation link {% endcomment %}
+    {% if hasChildren %}
+        <a href="{{ link.Url | href }}" class="nav-link dropdown-toggle" 
+           data-bs-toggle="dropdown" aria-expanded="false" role="button">
+            {% if link.Icon %}
+                <i class="{{ link.Icon }} me-2"></i>
+            {% endif %}
+            {{ link.Name }}
+        </a>
+    {% else %}
+        <a href="{{ link.Url | href }}" class="nav-link">
+            {% if link.Icon %}
+                <i class="{{ link.Icon }} me-2"></i>
+            {% endif %}
+            {{ link.Name }}
+            {% if link.Badge %}
+                <span class="badge bg-primary ms-2">{{ link.Badge }}</span>
+            {% endif %}
+        </a>
+    {% endif %}
+{% else %}
+    {% comment %} Dropdown menu item link {% endcomment %}
+    {% if hasChildren %}
+        <a href="{{ link.Url | href }}" class="dropdown-item dropdown-toggle" 
+           data-bs-toggle="dropdown" aria-expanded="false">
+            {% if link.Icon %}
+                <i class="{{ link.Icon }} me-2"></i>
+            {% endif %}
+            {{ link.Name }}
+            {% if link.Description %}
+                <small class="text-muted d-block">{{ link.Description }}</small>
+            {% endif %}
+            <i class="fas fa-chevron-right ms-auto"></i>
+        </a>
+    {% else %}
+        <a href="{{ link.Url | href }}" class="dropdown-item">
+            {% if link.Icon %}
+                <i class="{{ link.Icon }} me-2"></i>
+            {% endif %}
+            {{ link.Name }}
+            {% if link.Badge %}
+                <span class="badge bg-primary ms-2">{{ link.Badge }}</span>
+            {% endif %}
+            {% if link.Description %}
+                <small class="text-muted d-block">{{ link.Description }}</small>
+            {% endif %}
+        </a>
+    {% endif %}
+{% endif %}
+
+{% comment %} Add special styling for certain menu items {% endcomment %}
+{% if link.CssClass %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const link = document.querySelector('a[href="{{ link.Url | href }}"]');
+            if (link) {
+                link.classList.add('{{ link.CssClass }}');
+            }
+        });
+    </script>
+{% endif %}
+
+{% comment %} Add analytics tracking {% endcomment %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuLink = document.querySelector('a[href="{{ link.Url | href }}"]');
+    if (menuLink) {
+        menuLink.addEventListener('click', function(e) {
+            // Track menu click analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'menu_click', {
+                    'menu_item': '{{ link.Name }}',
+                    'menu_level': {{ level }},
+                    'menu_url': '{{ link.Url | href }}'
+                });
+            }
+            
+            // Handle external links
+            const url = this.getAttribute('href');
+            if (url && (url.startsWith('http') && !url.includes(window.location.hostname))) {
+                e.preventDefault();
+                window.open(url, '_blank', 'noopener,noreferrer');
+            }
+            
+            // Handle special actions
+            {% case link.Name %}
+                {% when "Đăng nhập" %}
+                    // Track login attempts
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'login_attempt', {
+                            'source': 'main_menu'
+                        });
+                    }
+                {% when "Đăng ký" %}
+                    // Track registration attempts
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'registration_attempt', {
+                            'source': 'main_menu'
+                        });
+                    }
+                {% when "Tìm việc làm" %}
+                    // Track job search
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'job_search_start', {
+                            'source': 'main_menu'
+                        });
+                    }
+            {% endcase %}
+        });
+        
+        // Add hover effects for better UX
+        menuLink.addEventListener('mouseenter', function() {
+            // Preload page for faster navigation
+            if (this.getAttribute('href') && !this.getAttribute('href').startsWith('#')) {
+                const link = document.createElement('link');
+                link.rel = 'prefetch';
+                link.href = this.getAttribute('href');
+                document.head.appendChild(link);
+            }
+        });
+    }
+});
+</script>
+
+{% comment %} Custom Styles for MenuItemLink {% endcomment %}
+<style>
+/* Enhanced link styling */
+.nav-link, .dropdown-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before, .dropdown-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.nav-link:hover::before, .dropdown-item:hover::before {
+    left: 100%;
+}
+
+/* Icon styling */
+.nav-link i, .dropdown-item i {
+    width: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover i, .dropdown-item:hover i {
+    transform: scale(1.1);
+}
+
+/* Badge styling */
+.badge {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Special menu item styles */
+.nav-link.featured, .dropdown-item.featured {
+    background: linear-gradient(45deg, #fff3cd, #ffeaa7);
+    border-left: 4px solid #ffc107;
+    font-weight: 600;
+}
+
+.nav-link.urgent, .dropdown-item.urgent {
+    background: linear-gradient(45deg, #f8d7da, #f5c6cb);
+    border-left: 4px solid #dc3545;
+    font-weight: 600;
+}
+
+.nav-link.new, .dropdown-item.new {
+    background: linear-gradient(45deg, #d1ecf1, #bee5eb);
+    border-left: 4px solid #17a2b8;
+    font-weight: 600;
+}
+
+/* Description text styling */
+.dropdown-item small {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    margin-top: 0.25rem;
+    opacity: 0.8;
+}
+
+/* Active state */
+.nav-link.active, .dropdown-item.active {
+    color: #007bff !important;
+    font-weight: 600;
+}
+
+.nav-link.active {
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 6px;
+}
+
+/* Loading state */
+.nav-link.loading, .dropdown-item.loading {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.nav-link.loading::after, .dropdown-item.loading::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid #007bff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .nav-link, .dropdown-item {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .nav-link:last-child, .dropdown-item:last-child {
+        border-bottom: none;
+    }
+    
+    .badge {
+        float: right;
+        margin-top: 0.125rem;
+    }
+}
+
+/* Accessibility improvements */
+.nav-link:focus, .dropdown-item:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .nav-link, .dropdown-item {
+        color: #000 !important;
+        text-decoration: underline;
+    }
+    
+    .nav-link::before, .dropdown-item::before,
+    .nav-link::after, .dropdown-item::after {
+        display: none;
+    }
+}
+</style>
