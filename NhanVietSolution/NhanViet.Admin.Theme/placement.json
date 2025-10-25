@@ -1,0 +1,69 @@
+{
+  "JobOrderPart": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": "Admin",
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": "Admin", 
+      "Place": "Content:1"
+    }
+  ],
+  "CompanyPart": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": "Admin",
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": "Admin",
+      "Place": "Content:1"
+    }
+  ],
+  "NewsPart": [
+    {
+      "DisplayType": "Summary", 
+      "Differentiator": "Admin",
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": "Admin",
+      "Place": "Content:1"
+    }
+  ],
+  "CountryPart": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": "Admin", 
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": "Admin",
+      "Place": "Content:1"
+    }
+  ],
+  "ConsultationPart": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": "Admin",
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": "Admin",
+      "Place": "Content:1"
+    }
+  ],
+  "Dashboard": [
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ]
+}

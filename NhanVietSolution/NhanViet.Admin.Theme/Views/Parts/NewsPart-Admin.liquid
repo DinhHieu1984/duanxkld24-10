@@ -1,0 +1,501 @@
+{% comment %}
+NewsPart Admin Display Template
+Renders News content part for admin interface with management features
+{% endcomment %}
+
+<div class="news-admin-part">
+    {% if Model.NewsPart %}
+        {% assign news = Model.NewsPart %}
+        
+        {% comment %} Admin Header with Actions {% endcomment %}
+        <div class="admin-header mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="d-flex align-items-center">
+                        <div class="news-status-indicator me-3">
+                            {% if news.IsPublished %}
+                                <span class="badge bg-success fs-6">
+                                    <i class="fas fa-check-circle me-1"></i>Published
+                                </span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark fs-6">
+                                    <i class="fas fa-clock me-1"></i>Draft
+                                </span>
+                            {% endif %}
+                            {% if news.IsFeatured %}
+                                <span class="badge bg-primary ms-2">
+                                    <i class="fas fa-star me-1"></i>Featured
+                                </span>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h2 class="news-title mb-1">{{ news.Title }}</h2>
+                            <div class="news-meta text-muted">
+                                <span class="me-3">
+                                    <i class="fas fa-user me-1"></i>{{ news.Author | default: "Unknown Author" }}
+                                </span>
+                                <span class="me-3">
+                                    <i class="fas fa-tag me-1"></i>{{ news.Category | default: "Uncategorized" }}
+                                </span>
+                                <span>
+                                    <i class="fas fa-calendar me-1"></i>{{ news.PublishedDate | date: "MMM dd, yyyy" }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="admin-actions">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="editNews('{{ Model.ContentItem.ContentItemId }}')">
+                                <i class="fas fa-edit me-1"></i>Edit
+                            </button>
+                            <button type="button" class="btn btn-outline-success btn-sm" onclick="togglePublishStatus('{{ Model.ContentItem.ContentItemId }}', {{ news.IsPublished | json }})">
+                                {% if news.IsPublished %}
+                                    <i class="fas fa-eye-slash me-1"></i>Unpublish
+                                {% else %}
+                                    <i class="fas fa-eye me-1"></i>Publish
+                                {% endif %}
+                            </button>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" onclick="viewNews('{{ Model.ContentItem.ContentItemId }}')">
+                                        <i class="fas fa-eye me-2"></i>View Public
+                                    </a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="duplicateNews('{{ Model.ContentItem.ContentItemId }}')">
+                                        <i class="fas fa-copy me-2"></i>Duplicate
+                                    </a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="toggleFeatured('{{ Model.ContentItem.ContentItemId }}', {{ news.IsFeatured | json }})">
+                                        {% if news.IsFeatured %}
+                                            <i class="fas fa-star-half-alt me-2"></i>Remove from Featured
+                                        {% else %}
+                                            <i class="fas fa-star me-2"></i>Add to Featured
+                                        {% endif %}
+                                    </a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger" href="#" onclick="deleteNews('{{ Model.ContentItem.ContentItemId }}')">
+                                        <i class="fas fa-trash me-2"></i>Delete
+                                    </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% comment %} Admin Stats Row {% endcomment %}
+        <div class="admin-stats mb-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-primary">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">{{ news.ViewCount | default: 0 }}</div>
+                            <div class="stat-label">Views</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success">
+                            <i class="fas fa-share"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">{{ news.ShareCount | default: 0 }}</div>
+                            <div class="stat-label">Shares</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">{{ news.ReadTimeMinutes | default: 0 }}</div>
+                            <div class="stat-label">Min Read</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-info">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">{{ news.CommentCount | default: 0 }}</div>
+                            <div class="stat-label">Comments</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% comment %} News Details {% endcomment %}
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Article Content</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Title:</strong></div>
+                            <div class="col-sm-9">{{ news.Title }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Category:</strong></div>
+                            <div class="col-sm-9">
+                                <span class="badge bg-secondary">{{ news.Category | default: "Uncategorized" }}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Author:</strong></div>
+                            <div class="col-sm-9">{{ news.Author | default: "Unknown Author" }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Status:</strong></div>
+                            <div class="col-sm-9">
+                                {% if news.IsPublished %}
+                                    <span class="badge bg-success">Published</span>
+                                {% else %}
+                                    <span class="badge bg-warning text-dark">Draft</span>
+                                {% endif %}
+                                {% if news.IsFeatured %}
+                                    <span class="badge bg-primary ms-2">Featured</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        {% if news.FeaturedImageUrl %}
+                            <hr>
+                            <h6>Featured Image</h6>
+                            <div class="featured-image mb-3">
+                                <img src="{{ news.FeaturedImageUrl }}" alt="{{ news.Title }}" class="img-fluid rounded" style="max-height: 200px;">
+                                {% if news.ImageCaption %}
+                                    <div class="image-caption mt-2">
+                                        <small class="text-muted">{{ news.ImageCaption }}</small>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        
+                        {% if news.Summary %}
+                            <hr>
+                            <h6>Summary/Excerpt</h6>
+                            <div class="news-summary">
+                                {{ news.Summary | raw }}
+                            </div>
+                        {% endif %}
+                        
+                        {% if news.Content %}
+                            <hr>
+                            <h6>Content</h6>
+                            <div class="news-content">
+                                {{ news.Content | raw | truncate: 500 }}
+                                {% if news.Content.size > 500 %}
+                                    <div class="mt-2">
+                                        <button class="btn btn-sm btn-outline-primary" onclick="toggleFullContent()">
+                                            <i class="fas fa-expand me-1"></i>Show Full Content
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        
+                        {% if news.Tags %}
+                            <hr>
+                            <h6>Tags</h6>
+                            <div class="news-tags">
+                                {% assign tagArray = news.Tags | split: ',' %}
+                                {% for tag in tagArray %}
+                                    <span class="badge bg-light text-dark me-1 mb-1">{{ tag | strip }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% comment %} SEO Information {% endcomment %}
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">SEO Information</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if news.MetaTitle %}
+                            <div class="row mb-3">
+                                <div class="col-sm-3"><strong>Meta Title:</strong></div>
+                                <div class="col-sm-9">{{ news.MetaTitle }}</div>
+                            </div>
+                        {% endif %}
+                        {% if news.MetaDescription %}
+                            <div class="row mb-3">
+                                <div class="col-sm-3"><strong>Meta Description:</strong></div>
+                                <div class="col-sm-9">{{ news.MetaDescription }}</div>
+                            </div>
+                        {% endif %}
+                        {% if news.Slug %}
+                            <div class="row mb-3">
+                                <div class="col-sm-3"><strong>URL Slug:</strong></div>
+                                <div class="col-sm-9">
+                                    <code>/news/{{ news.Slug }}</code>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Publishing Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="publish-info mb-3">
+                            <label class="form-label">Published Date:</label>
+                            <div>{{ news.PublishedDate | date: "MMMM dd, yyyy 'at' HH:mm" }}</div>
+                        </div>
+                        
+                        {% if news.UpdatedDate %}
+                            <div class="publish-info mb-3">
+                                <label class="form-label">Last Updated:</label>
+                                <div>{{ news.UpdatedDate | date: "MMMM dd, yyyy 'at' HH:mm" }}</div>
+                            </div>
+                        {% endif %}
+                        
+                        {% if news.ScheduledDate %}
+                            <div class="publish-info mb-3">
+                                <label class="form-label">Scheduled For:</label>
+                                <div>{{ news.ScheduledDate | date: "MMMM dd, yyyy 'at' HH:mm" }}</div>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="publish-info mb-3">
+                            <label class="form-label">Reading Time:</label>
+                            <div>{{ news.ReadTimeMinutes | default: 0 }} minutes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Author Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="author-info">
+                            <h6 class="author-name">{{ news.Author | default: "Unknown Author" }}</h6>
+                            {% if news.AuthorBio %}
+                                <p class="author-bio">{{ news.AuthorBio }}</p>
+                            {% endif %}
+                            {% if news.AuthorEmail %}
+                                <div class="author-contact">
+                                    <a href="mailto:{{ news.AuthorEmail }}" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-envelope me-1"></i>Contact Author
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary btn-sm" onclick="editNews('{{ Model.ContentItem.ContentItemId }}')">
+                                <i class="fas fa-edit me-1"></i>Edit Article
+                            </button>
+                            {% if news.IsPublished %}
+                                <button class="btn btn-outline-warning btn-sm" onclick="togglePublishStatus('{{ Model.ContentItem.ContentItemId }}', true)">
+                                    <i class="fas fa-eye-slash me-1"></i>Unpublish
+                                </button>
+                            {% else %}
+                                <button class="btn btn-outline-success btn-sm" onclick="togglePublishStatus('{{ Model.ContentItem.ContentItemId }}', false)">
+                                    <i class="fas fa-eye me-1"></i>Publish Now
+                                </button>
+                            {% endif %}
+                            <button class="btn btn-outline-info btn-sm" onclick="viewNews('{{ Model.ContentItem.ContentItemId }}')">
+                                <i class="fas fa-external-link-alt me-1"></i>View Public
+                            </button>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="duplicateNews('{{ Model.ContentItem.ContentItemId }}')">
+                                <i class="fas fa-copy me-1"></i>Duplicate Article
+                            </button>
+                            {% if news.IsFeatured %}
+                                <button class="btn btn-outline-warning btn-sm" onclick="toggleFeatured('{{ Model.ContentItem.ContentItemId }}', true)">
+                                    <i class="fas fa-star-half-alt me-1"></i>Remove Featured
+                                </button>
+                            {% else %}
+                                <button class="btn btn-outline-primary btn-sm" onclick="toggleFeatured('{{ Model.ContentItem.ContentItemId }}', false)">
+                                    <i class="fas fa-star me-1"></i>Make Featured
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% comment %} Custom Admin Styles {% endcomment %}
+<style>
+.news-admin-part {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.news-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.news-meta {
+    font-size: 0.9rem;
+}
+
+.admin-actions .btn-group {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-right: 1rem;
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.news-summary, .news-content {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 4px solid #007bff;
+}
+
+.publish-info label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.25rem;
+}
+
+.author-name {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.author-bio {
+    color: #6c757d;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.featured-image img {
+    object-fit: cover;
+}
+
+.image-caption {
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .admin-actions {
+        margin-top: 1rem;
+    }
+    
+    .admin-actions .btn-group {
+        width: 100%;
+    }
+    
+    .admin-actions .btn {
+        flex: 1;
+    }
+}
+</style>
+
+{% comment %} JavaScript for Admin Functions {% endcomment %}
+<script>
+function editNews(newsId) {
+    window.location.href = '/admin/news/edit/' + newsId;
+}
+
+function togglePublishStatus(newsId, currentStatus) {
+    const action = currentStatus ? 'unpublish' : 'publish';
+    if (confirm(`Are you sure you want to ${action} this article?`)) {
+        console.log('Toggling publish status:', newsId, !currentStatus);
+        // Make AJAX call to update publish status
+    }
+}
+
+function toggleFeatured(newsId, currentFeatured) {
+    const action = currentFeatured ? 'remove from featured' : 'add to featured';
+    if (confirm(`Are you sure you want to ${action} this article?`)) {
+        console.log('Toggling featured status:', newsId, !currentFeatured);
+        // Make AJAX call to update featured status
+    }
+}
+
+function viewNews(newsId) {
+    window.open('/news/' + newsId, '_blank');
+}
+
+function duplicateNews(newsId) {
+    if (confirm('Are you sure you want to duplicate this article?')) {
+        window.location.href = '/admin/news/duplicate/' + newsId;
+    }
+}
+
+function deleteNews(newsId) {
+    if (confirm('Are you sure you want to delete this article? This action cannot be undone.')) {
+        console.log('Deleting news article:', newsId);
+        // Make AJAX call to delete
+    }
+}
+
+function toggleFullContent() {
+    // Toggle between truncated and full content view
+    console.log('Toggling full content view');
+}
+</script>

@@ -1,4 +1,64 @@
 {
+  "JobOrderPart": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": null,
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ],
+  "CompanyPart": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": null,
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ],
+  "NewsPart": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": null,
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ],
+  "CountryPart": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": null,
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ],
+  "ConsultationPart": [
+    {
+      "DisplayType": "Summary",
+      "Differentiator": null,
+      "Place": "Content:1"
+    },
+    {
+      "DisplayType": "Detail",
+      "Differentiator": null,
+      "Place": "Content:1"
+    }
+  ],
   "JobOrder": [
     {
       "DisplayType": "Summary",

@@ -5903,3 +5903,8 @@
 2025-10-25 10:26:39.6164||||Microsoft.Hosting.Lifetime|INFO|Content root path: /workspace/duanxkld24-10/NhanVietSolution/NhanViet.Website 
 2025-10-25 10:27:22.8566|None|00-403ca86f37371bb61a4f31c177d2dccc-c886b81784c1b033-00|3|Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware|WARN|Failed to determine the https port for redirect. 
 2025-10-25 10:28:21.5245||||Microsoft.Hosting.Lifetime|INFO|Application is shutting down... 
+2025-10-25 10:44:42.9737|||14|Microsoft.Hosting.Lifetime|INFO|Now listening on: http://0.0.0.0:12001 
+2025-10-25 10:44:42.9978||||Microsoft.Hosting.Lifetime|INFO|Application started. Press Ctrl+C to shut down. 
+2025-10-25 10:44:42.9984||||Microsoft.Hosting.Lifetime|INFO|Hosting environment: Development 
+2025-10-25 10:44:42.9984||||Microsoft.Hosting.Lifetime|INFO|Content root path: /workspace/duanxkld24-10/NhanVietSolution/NhanViet.Website 
+2025-10-25 10:44:45.0112|None|00-39729c49ba6cced7ec3b4d1eab6b6877-e3830e468d6be657-00|3|Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware|WARN|Failed to determine the https port for redirect. 

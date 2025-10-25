@@ -1,0 +1,353 @@
+{% comment %}
+CompanyPart Display Template
+Renders Company content part with professional styling
+{% endcomment %}
+
+<div class="company-part">
+    {% if Model.CompanyPart %}
+        {% assign company = Model.CompanyPart %}
+        
+        {% comment %} Company Header {% endcomment %}
+        <div class="company-header mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="company-name mb-2">{{ company.CompanyName }}</h2>
+                    <div class="company-meta">
+                        <span class="industry">
+                            <i class="fas fa-industry me-2"></i>{{ company.Industry }}
+                        </span>
+                        <span class="location ms-3">
+                            <i class="fas fa-map-marker-alt me-2"></i>{{ company.Address }}
+                        </span>
+                        <span class="company-size ms-3">
+                            <i class="fas fa-users me-2"></i>{{ company.CompanySize }} employees
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    {% if company.IsVerified %}
+                        <span class="badge bg-success mb-2">
+                            <i class="fas fa-check-circle me-1"></i>Verified
+                        </span>
+                    {% endif %}
+                    {% if company.Rating %}
+                        <div class="company-rating">
+                            <div class="stars">
+                                {% for i in (1..5) %}
+                                    {% if i <= company.Rating %}
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% else %}
+                                        <i class="far fa-star text-muted"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <span class="rating-text">{{ company.Rating }}/5</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% comment %} Company Details {% endcomment %}
+        <div class="company-details">
+            <div class="row">
+                <div class="col-lg-8">
+                    {% comment %} Company Description {% endcomment %}
+                    {% if company.Description %}
+                        <div class="company-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-info-circle me-2"></i>About Company
+                            </h4>
+                            <div class="section-content">
+                                {{ company.Description | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Services {% endcomment %}
+                    {% if company.Services %}
+                        <div class="company-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-cogs me-2"></i>Services
+                            </h4>
+                            <div class="section-content">
+                                {{ company.Services | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Company Culture {% endcomment %}
+                    {% if company.CompanyCulture %}
+                        <div class="company-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-heart me-2"></i>Company Culture
+                            </h4>
+                            <div class="section-content">
+                                {{ company.CompanyCulture | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-lg-4">
+                    {% comment %} Company Info Sidebar {% endcomment %}
+                    <div class="company-info-sidebar">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-building me-2"></i>Company Information
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                {% if company.FoundedYear %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Founded:</label>
+                                        <span class="info-value">{{ company.FoundedYear }}</span>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Industry:</label>
+                                    <span class="info-value">{{ company.Industry }}</span>
+                                </div>
+                                
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Company Size:</label>
+                                    <span class="info-value">{{ company.CompanySize }} employees</span>
+                                </div>
+                                
+                                {% if company.Website %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Website:</label>
+                                        <span class="info-value">
+                                            <a href="{{ company.Website }}" target="_blank" rel="noopener">
+                                                <i class="fas fa-external-link-alt me-1"></i>Visit Website
+                                            </a>
+                                        </span>
+                                    </div>
+                                {% endif %}
+
+                                {% comment %} Contact Information {% endcomment %}
+                                <hr>
+                                <h6 class="mb-3">Contact Information</h6>
+                                
+                                {% if company.ContactEmail %}
+                                    <div class="contact-item mb-2">
+                                        <i class="fas fa-envelope me-2"></i>
+                                        <a href="mailto:{{ company.ContactEmail }}">{{ company.ContactEmail }}</a>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if company.ContactPhone %}
+                                    <div class="contact-item mb-2">
+                                        <i class="fas fa-phone me-2"></i>
+                                        <a href="tel:{{ company.ContactPhone }}">{{ company.ContactPhone }}</a>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if company.Address %}
+                                    <div class="contact-item mb-2">
+                                        <i class="fas fa-map-marker-alt me-2"></i>
+                                        <span>{{ company.Address }}</span>
+                                    </div>
+                                {% endif %}
+
+                                {% comment %} Social Media {% endcomment %}
+                                {% if company.LinkedInUrl or company.FacebookUrl or company.TwitterUrl %}
+                                    <hr>
+                                    <h6 class="mb-3">Follow Us</h6>
+                                    <div class="social-links">
+                                        {% if company.LinkedInUrl %}
+                                            <a href="{{ company.LinkedInUrl }}" target="_blank" rel="noopener" class="social-link linkedin">
+                                                <i class="fab fa-linkedin"></i>
+                                            </a>
+                                        {% endif %}
+                                        {% if company.FacebookUrl %}
+                                            <a href="{{ company.FacebookUrl }}" target="_blank" rel="noopener" class="social-link facebook">
+                                                <i class="fab fa-facebook"></i>
+                                            </a>
+                                        {% endif %}
+                                        {% if company.TwitterUrl %}
+                                            <a href="{{ company.TwitterUrl }}" target="_blank" rel="noopener" class="social-link twitter">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+
+                                {% comment %} View Jobs Button {% endcomment %}
+                                <div class="view-jobs-section mt-4">
+                                    <a href="/jobs?company={{ company.CompanyName | url_encode }}" class="btn btn-primary btn-lg w-100">
+                                        <i class="fas fa-briefcase me-2"></i>View Open Positions
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% comment %} Custom Styles {% endcomment %}
+<style>
+.company-part {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.company-name {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.company-meta {
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+.company-meta span {
+    display: inline-block;
+    margin-bottom: 0.25rem;
+}
+
+.company-rating {
+    text-align: right;
+}
+
+.company-rating .stars {
+    margin-bottom: 0.25rem;
+}
+
+.company-rating .rating-text {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.section-title {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.section-content {
+    color: #495057;
+    line-height: 1.6;
+}
+
+.company-info-sidebar .card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.company-info-sidebar .card-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.info-value {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.info-value a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.info-value a:hover {
+    text-decoration: underline;
+}
+
+.contact-item {
+    color: #495057;
+    display: flex;
+    align-items: center;
+}
+
+.contact-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+}
+
+.social-links {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.social-link:hover {
+    transform: scale(1.1);
+    color: #fff;
+}
+
+.social-link.linkedin {
+    background: #0077b5;
+}
+
+.social-link.facebook {
+    background: #1877f2;
+}
+
+.social-link.twitter {
+    background: #1da1f2;
+}
+
+.view-jobs-section .btn {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+    .company-part {
+        padding: 1rem;
+    }
+    
+    .company-meta span {
+        display: block;
+        margin-left: 0 !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .company-rating {
+        text-align: left;
+        margin-top: 1rem;
+    }
+}
+</style>

@@ -1,0 +1,423 @@
+{% comment %}
+CountryPart Display Template
+Renders Country content part with professional styling
+{% endcomment %}
+
+<div class="country-part">
+    {% if Model.CountryPart %}
+        {% assign country = Model.CountryPart %}
+        
+        {% comment %} Country Header {% endcomment %}
+        <div class="country-header mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="country-title-section">
+                        {% if country.FlagUrl %}
+                            <img src="{{ country.FlagUrl }}" alt="{{ country.CountryName }} Flag" class="country-flag me-3">
+                        {% endif %}
+                        <div class="country-title-info">
+                            <h2 class="country-name mb-2">{{ country.CountryName }}</h2>
+                            <div class="country-meta">
+                                <span class="capital">
+                                    <i class="fas fa-city me-2"></i>Capital: {{ country.Capital }}
+                                </span>
+                                <span class="region ms-3">
+                                    <i class="fas fa-globe me-2"></i>{{ country.Region }}
+                                </span>
+                                <span class="population ms-3">
+                                    <i class="fas fa-users me-2"></i>{{ country.Population | number_with_delimiter }} people
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    {% if country.IsPopularDestination %}
+                        <span class="badge bg-warning text-dark mb-2">
+                            <i class="fas fa-star me-1"></i>Popular Destination
+                        </span>
+                    {% endif %}
+                    {% if country.VisaRequired %}
+                        <div class="visa-info">
+                            <span class="badge bg-info">
+                                <i class="fas fa-passport me-1"></i>Visa Required
+                            </span>
+                        </div>
+                    {% else %}
+                        <div class="visa-info">
+                            <span class="badge bg-success">
+                                <i class="fas fa-check me-1"></i>Visa Free
+                            </span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% comment %} Country Details {% endcomment %}
+        <div class="country-details">
+            <div class="row">
+                <div class="col-lg-8">
+                    {% comment %} Country Overview {% endcomment %}
+                    {% if country.Overview %}
+                        <div class="country-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-info-circle me-2"></i>Country Overview
+                            </h4>
+                            <div class="section-content">
+                                {{ country.Overview | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Work Opportunities {% endcomment %}
+                    {% if country.WorkOpportunities %}
+                        <div class="country-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-briefcase me-2"></i>Work Opportunities
+                            </h4>
+                            <div class="section-content">
+                                {{ country.WorkOpportunities | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Living Conditions {% endcomment %}
+                    {% if country.LivingConditions %}
+                        <div class="country-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-home me-2"></i>Living Conditions
+                            </h4>
+                            <div class="section-content">
+                                {{ country.LivingConditions | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Cultural Information {% endcomment %}
+                    {% if country.CulturalInfo %}
+                        <div class="country-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-theater-masks me-2"></i>Culture & Traditions
+                            </h4>
+                            <div class="section-content">
+                                {{ country.CulturalInfo | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Requirements {% endcomment %}
+                    {% if country.Requirements %}
+                        <div class="country-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-list-check me-2"></i>Requirements for Workers
+                            </h4>
+                            <div class="section-content">
+                                {{ country.Requirements | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-lg-4">
+                    {% comment %} Country Info Sidebar {% endcomment %}
+                    <div class="country-info-sidebar">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-flag me-2"></i>Country Facts
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Official Language:</label>
+                                    <span class="info-value">{{ country.Language }}</span>
+                                </div>
+                                
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Currency:</label>
+                                    <span class="info-value">{{ country.Currency }}</span>
+                                </div>
+                                
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Time Zone:</label>
+                                    <span class="info-value">{{ country.TimeZone }}</span>
+                                </div>
+                                
+                                {% if country.AverageSalary %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Average Salary:</label>
+                                        <span class="info-value">{{ country.AverageSalary }}</span>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if country.CostOfLiving %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Cost of Living:</label>
+                                        <span class="info-value">{{ country.CostOfLiving }}</span>
+                                    </div>
+                                {% endif %}
+
+                                {% if country.Climate %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Climate:</label>
+                                        <span class="info-value">{{ country.Climate }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% comment %} Visa Information {% endcomment %}
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-passport me-2"></i>Visa Information
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="visa-status mb-3">
+                                    {% if country.VisaRequired %}
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle me-2"></i>
+                                            <strong>Visa Required</strong><br>
+                                            You need a valid visa to work in {{ country.CountryName }}.
+                                        </div>
+                                    {% else %}
+                                        <div class="alert alert-success">
+                                            <i class="fas fa-check-circle me-2"></i>
+                                            <strong>Visa Free</strong><br>
+                                            No visa required for Vietnamese citizens.
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                {% if country.VisaProcessingTime %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Processing Time:</label>
+                                        <span class="info-value">{{ country.VisaProcessingTime }}</span>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if country.VisaCost %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Visa Cost:</label>
+                                        <span class="info-value">{{ country.VisaCost }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% comment %} Available Jobs {% endcomment %}
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-briefcase me-2"></i>Job Opportunities
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                {% if country.JobCount %}
+                                    <div class="job-stats mb-3">
+                                        <div class="stat-item">
+                                            <span class="stat-number">{{ country.JobCount }}</span>
+                                            <span class="stat-label">Available Jobs</span>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                
+                                {% comment %} Popular Job Categories {% endcomment %}
+                                {% if country.PopularJobCategories %}
+                                    <div class="job-categories mb-3">
+                                        <h6 class="mb-2">Popular Categories:</h6>
+                                        {% assign categories = country.PopularJobCategories | split: ',' %}
+                                        {% for category in categories %}
+                                            <span class="badge bg-secondary me-1 mb-1">{{ category | strip }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                                <div class="view-jobs-section">
+                                    <a href="/jobs?country={{ country.CountryName | url_encode }}" class="btn btn-primary w-100">
+                                        <i class="fas fa-search me-2"></i>View Jobs in {{ country.CountryName }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% comment %} Custom Styles {% endcomment %}
+<style>
+.country-part {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.country-title-section {
+    display: flex;
+    align-items: center;
+}
+
+.country-flag {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.country-name {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.country-meta {
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+.country-meta span {
+    display: inline-block;
+    margin-bottom: 0.25rem;
+}
+
+.visa-info {
+    margin-top: 0.5rem;
+}
+
+.section-title {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.section-content {
+    color: #495057;
+    line-height: 1.6;
+}
+
+.country-info-sidebar .card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.country-info-sidebar .card-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 0;
+    flex: 0 0 auto;
+    margin-right: 1rem;
+}
+
+.info-value {
+    color: #2c3e50;
+    font-weight: 500;
+    text-align: right;
+    flex: 1;
+}
+
+.visa-status .alert {
+    margin-bottom: 0;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.job-stats {
+    text-align: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #007bff;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.job-categories h6 {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.view-jobs-section .btn {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+    .country-part {
+        padding: 1rem;
+    }
+    
+    .country-title-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .country-flag {
+        margin-bottom: 1rem;
+        margin-right: 0 !important;
+    }
+    
+    .country-meta span {
+        display: block;
+        margin-left: 0 !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .visa-info {
+        margin-top: 1rem;
+        text-align: left;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .info-label {
+        margin-right: 0;
+        margin-bottom: 0.25rem;
+    }
+    
+    .info-value {
+        text-align: left;
+    }
+}
+</style>

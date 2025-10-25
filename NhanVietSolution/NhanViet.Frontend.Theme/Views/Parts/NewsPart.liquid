@@ -1,0 +1,417 @@
+{% comment %}
+NewsPart Display Template
+Renders News content part with professional styling
+{% endcomment %}
+
+<div class="news-part">
+    {% if Model.NewsPart %}
+        {% assign news = Model.NewsPart %}
+        
+        {% comment %} News Header {% endcomment %}
+        <div class="news-header mb-4">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="news-title mb-3">{{ news.Title }}</h1>
+                    <div class="news-meta">
+                        <span class="publish-date">
+                            <i class="fas fa-calendar-alt me-2"></i>{{ news.PublishedDate | date: "MMMM dd, yyyy" }}
+                        </span>
+                        {% if news.Author %}
+                            <span class="author ms-3">
+                                <i class="fas fa-user me-2"></i>By {{ news.Author }}
+                            </span>
+                        {% endif %}
+                        {% if news.Category %}
+                            <span class="category ms-3">
+                                <i class="fas fa-tag me-2"></i>{{ news.Category }}
+                            </span>
+                        {% endif %}
+                        <span class="read-time ms-3">
+                            <i class="fas fa-clock me-2"></i>{{ news.ReadTimeMinutes }} min read
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% comment %} Featured Image {% endcomment %}
+        {% if news.FeaturedImageUrl %}
+            <div class="news-featured-image mb-4">
+                <img src="{{ news.FeaturedImageUrl }}" alt="{{ news.Title }}" class="img-fluid rounded">
+                {% if news.ImageCaption %}
+                    <div class="image-caption mt-2">
+                        <small class="text-muted">{{ news.ImageCaption }}</small>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% comment %} News Content {% endcomment %}
+        <div class="news-content">
+            <div class="row">
+                <div class="col-lg-8">
+                    {% comment %} Summary/Excerpt {% endcomment %}
+                    {% if news.Summary %}
+                        <div class="news-summary mb-4">
+                            <div class="summary-content">
+                                {{ news.Summary | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Main Content {% endcomment %}
+                    {% if news.Content %}
+                        <div class="news-body">
+                            {{ news.Content | raw }}
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Tags {% endcomment %}
+                    {% if news.Tags %}
+                        <div class="news-tags mt-4">
+                            <h6 class="tags-title">Tags:</h6>
+                            <div class="tags-list">
+                                {% assign tagArray = news.Tags | split: ',' %}
+                                {% for tag in tagArray %}
+                                    <a href="/news/tag/{{ tag | strip | url_encode }}" class="tag-link">
+                                        <span class="badge bg-secondary me-2 mb-2">{{ tag | strip }}</span>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Social Share {% endcomment %}
+                    <div class="news-share mt-4">
+                        <h6 class="share-title">Share this article:</h6>
+                        <div class="share-buttons">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ 'Global.Request.Url' | absolute_url | url_encode }}" 
+                               target="_blank" rel="noopener" class="share-btn facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url={{ 'Global.Request.Url' | absolute_url | url_encode }}&text={{ news.Title | url_encode }}" 
+                               target="_blank" rel="noopener" class="share-btn twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ 'Global.Request.Url' | absolute_url | url_encode }}" 
+                               target="_blank" rel="noopener" class="share-btn linkedin">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="mailto:?subject={{ news.Title | url_encode }}&body={{ 'Global.Request.Url' | absolute_url | url_encode }}" 
+                               class="share-btn email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    {% comment %} News Sidebar {% endcomment %}
+                    <div class="news-sidebar">
+                        {% comment %} Article Info {% endcomment %}
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-info-circle me-2"></i>Article Info
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Published:</label>
+                                    <span class="info-value">{{ news.PublishedDate | date: "MMM dd, yyyy" }}</span>
+                                </div>
+                                
+                                {% if news.UpdatedDate %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Updated:</label>
+                                        <span class="info-value">{{ news.UpdatedDate | date: "MMM dd, yyyy" }}</span>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Category:</label>
+                                    <span class="info-value">
+                                        <a href="/news/category/{{ news.Category | url_encode }}">{{ news.Category }}</a>
+                                    </span>
+                                </div>
+                                
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Reading Time:</label>
+                                    <span class="info-value">{{ news.ReadTimeMinutes }} minutes</span>
+                                </div>
+
+                                {% if news.ViewCount %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Views:</label>
+                                        <span class="info-value">{{ news.ViewCount }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% comment %} Author Info {% endcomment %}
+                        {% if news.Author %}
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-user me-2"></i>About the Author
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="author-info">
+                                        <h6 class="author-name">{{ news.Author }}</h6>
+                                        {% if news.AuthorBio %}
+                                            <p class="author-bio">{{ news.AuthorBio }}</p>
+                                        {% endif %}
+                                        {% if news.AuthorEmail %}
+                                            <div class="author-contact">
+                                                <a href="mailto:{{ news.AuthorEmail }}" class="btn btn-outline-primary btn-sm">
+                                                    <i class="fas fa-envelope me-1"></i>Contact Author
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% comment %} Related Articles {% endcomment %}
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-newspaper me-2"></i>Related Articles
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="related-articles">
+                                    {% comment %} This would be populated by a related articles query {% endcomment %}
+                                    <div class="related-article mb-3">
+                                        <a href="#" class="related-link">
+                                            <h6 class="related-title">Sample Related Article 1</h6>
+                                            <small class="text-muted">March 15, 2024</small>
+                                        </a>
+                                    </div>
+                                    <div class="related-article mb-3">
+                                        <a href="#" class="related-link">
+                                            <h6 class="related-title">Sample Related Article 2</h6>
+                                            <small class="text-muted">March 10, 2024</small>
+                                        </a>
+                                    </div>
+                                    <div class="related-article">
+                                        <a href="#" class="related-link">
+                                            <h6 class="related-title">Sample Related Article 3</h6>
+                                            <small class="text-muted">March 5, 2024</small>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% comment %} Custom Styles {% endcomment %}
+<style>
+.news-part {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.news-title {
+    color: #2c3e50;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+.news-meta {
+    color: #6c757d;
+    font-size: 0.9rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.news-meta span {
+    display: inline-block;
+    margin-bottom: 0.25rem;
+}
+
+.news-featured-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.image-caption {
+    text-align: center;
+    font-style: italic;
+}
+
+.news-summary {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-left: 4px solid #007bff;
+    border-radius: 0 4px 4px 0;
+}
+
+.summary-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #495057;
+    font-weight: 500;
+}
+
+.news-body {
+    color: #495057;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.news-body h2, .news-body h3, .news-body h4 {
+    color: #2c3e50;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.news-body p {
+    margin-bottom: 1.5rem;
+}
+
+.tags-title, .share-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.tag-link {
+    text-decoration: none;
+}
+
+.tag-link:hover .badge {
+    background-color: #007bff !important;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.share-btn:hover {
+    transform: scale(1.1);
+    color: #fff;
+}
+
+.share-btn.facebook { background: #1877f2; }
+.share-btn.twitter { background: #1da1f2; }
+.share-btn.linkedin { background: #0077b5; }
+.share-btn.email { background: #6c757d; }
+
+.news-sidebar .card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.news-sidebar .card-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.info-value {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.info-value a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.info-value a:hover {
+    text-decoration: underline;
+}
+
+.author-name {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.author-bio {
+    color: #6c757d;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.related-article {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.related-article:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.related-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.related-link:hover .related-title {
+    color: #007bff;
+}
+
+.related-title {
+    color: #2c3e50;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+}
+
+@media (max-width: 768px) {
+    .news-part {
+        padding: 1rem;
+    }
+    
+    .news-meta span {
+        display: block;
+        margin-left: 0 !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .share-buttons {
+        justify-content: center;
+    }
+}
+</style>

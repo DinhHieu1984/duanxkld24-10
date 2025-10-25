@@ -1,0 +1,266 @@
+{% comment %}
+JobOrderPart Display Template
+Renders JobOrder content part with professional styling
+{% endcomment %}
+
+<div class="job-order-part">
+    {% if Model.JobOrderPart %}
+        {% assign jobOrder = Model.JobOrderPart %}
+        
+        {% comment %} Job Header {% endcomment %}
+        <div class="job-header mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="job-title mb-2">{{ jobOrder.JobTitle }}</h2>
+                    <div class="job-meta">
+                        <span class="company-name">
+                            <i class="fas fa-building me-2"></i>{{ jobOrder.CompanyName }}
+                        </span>
+                        <span class="job-location ms-3">
+                            <i class="fas fa-map-marker-alt me-2"></i>{{ jobOrder.Location }}
+                        </span>
+                        <span class="job-type ms-3">
+                            <i class="fas fa-briefcase me-2"></i>{{ jobOrder.JobType }}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    {% if jobOrder.IsFeatured %}
+                        <span class="badge bg-warning text-dark mb-2">
+                            <i class="fas fa-star me-1"></i>Featured
+                        </span>
+                    {% endif %}
+                    <div class="salary-range">
+                        <strong>{{ jobOrder.SalaryRange }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% comment %} Job Details {% endcomment %}
+        <div class="job-details">
+            <div class="row">
+                <div class="col-lg-8">
+                    {% comment %} Job Description {% endcomment %}
+                    {% if jobOrder.JobDescription %}
+                        <div class="job-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-info-circle me-2"></i>Job Description
+                            </h4>
+                            <div class="section-content">
+                                {{ jobOrder.JobDescription | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Requirements {% endcomment %}
+                    {% if jobOrder.Requirements %}
+                        <div class="job-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-list-check me-2"></i>Requirements
+                            </h4>
+                            <div class="section-content">
+                                {{ jobOrder.Requirements | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Benefits {% endcomment %}
+                    {% if jobOrder.Benefits %}
+                        <div class="job-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-gift me-2"></i>Benefits
+                            </h4>
+                            <div class="section-content">
+                                {{ jobOrder.Benefits | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-lg-4">
+                    {% comment %} Job Info Sidebar {% endcomment %}
+                    <div class="job-info-sidebar">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-info me-2"></i>Job Information
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Experience Level:</label>
+                                    <span class="info-value">{{ jobOrder.ExperienceLevel }}</span>
+                                </div>
+                                
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Posted Date:</label>
+                                    <span class="info-value">{{ jobOrder.PostedDate | date: "MMM dd, yyyy" }}</span>
+                                </div>
+                                
+                                {% if jobOrder.ExpiryDate %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Expiry Date:</label>
+                                        <span class="info-value">{{ jobOrder.ExpiryDate | date: "MMM dd, yyyy" }}</span>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Applications:</label>
+                                    <span class="info-value">{{ jobOrder.ApplicationCount }} applicants</span>
+                                </div>
+
+                                {% comment %} Contact Information {% endcomment %}
+                                {% if jobOrder.ContactEmail or jobOrder.ContactPhone %}
+                                    <hr>
+                                    <h6 class="mb-3">Contact Information</h6>
+                                    
+                                    {% if jobOrder.ContactEmail %}
+                                        <div class="contact-item mb-2">
+                                            <i class="fas fa-envelope me-2"></i>
+                                            <a href="mailto:{{ jobOrder.ContactEmail }}">{{ jobOrder.ContactEmail }}</a>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if jobOrder.ContactPhone %}
+                                        <div class="contact-item mb-2">
+                                            <i class="fas fa-phone me-2"></i>
+                                            <a href="tel:{{ jobOrder.ContactPhone }}">{{ jobOrder.ContactPhone }}</a>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% comment %} Apply Button {% endcomment %}
+                                {% if jobOrder.IsActive %}
+                                    <div class="apply-section mt-4">
+                                        <button class="btn btn-primary btn-lg w-100" onclick="applyForJob('{{ Model.ContentItem.ContentItemId }}')">
+                                            <i class="fas fa-paper-plane me-2"></i>Apply Now
+                                        </button>
+                                    </div>
+                                {% else %}
+                                    <div class="apply-section mt-4">
+                                        <button class="btn btn-secondary btn-lg w-100" disabled>
+                                            <i class="fas fa-times me-2"></i>Position Closed
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% comment %} Custom Styles {% endcomment %}
+<style>
+.job-order-part {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.job-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.job-meta {
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+.job-meta span {
+    display: inline-block;
+    margin-bottom: 0.25rem;
+}
+
+.section-title {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.section-content {
+    color: #495057;
+    line-height: 1.6;
+}
+
+.job-info-sidebar .card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.job-info-sidebar .card-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.info-value {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.contact-item {
+    color: #495057;
+}
+
+.contact-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+}
+
+.apply-section .btn {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+    .job-order-part {
+        padding: 1rem;
+    }
+    
+    .job-meta span {
+        display: block;
+        margin-left: 0 !important;
+        margin-bottom: 0.5rem;
+    }
+}
+</style>
+
+{% comment %} JavaScript for Apply Functionality {% endcomment %}
+<script>
+function applyForJob(jobId) {
+    // Implement job application logic
+    console.log('Applying for job:', jobId);
+    
+    // Example: Redirect to application form
+    window.location.href = '/apply/' + jobId;
+    
+    // Or show modal, etc.
+}
+</script>

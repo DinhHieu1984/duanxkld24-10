@@ -1,0 +1,414 @@
+{% comment %}
+ConsultationPart Display Template
+Renders Consultation content part with professional styling
+{% endcomment %}
+
+<div class="consultation-part">
+    {% if Model.ConsultationPart %}
+        {% assign consultation = Model.ConsultationPart %}
+        
+        {% comment %} Consultation Header {% endcomment %}
+        <div class="consultation-header mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="consultation-title mb-2">{{ consultation.Subject }}</h2>
+                    <div class="consultation-meta">
+                        <span class="client-name">
+                            <i class="fas fa-user me-2"></i>{{ consultation.ClientName }}
+                        </span>
+                        <span class="consultation-type ms-3">
+                            <i class="fas fa-tag me-2"></i>{{ consultation.ConsultationType }}
+                        </span>
+                        <span class="submitted-date ms-3">
+                            <i class="fas fa-calendar-alt me-2"></i>{{ consultation.SubmittedDate | date: "MMM dd, yyyy" }}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    {% case consultation.Status %}
+                        {% when 'Pending' %}
+                            <span class="badge bg-warning text-dark">
+                                <i class="fas fa-clock me-1"></i>Pending Review
+                            </span>
+                        {% when 'InProgress' %}
+                            <span class="badge bg-info">
+                                <i class="fas fa-spinner me-1"></i>In Progress
+                            </span>
+                        {% when 'Completed' %}
+                            <span class="badge bg-success">
+                                <i class="fas fa-check-circle me-1"></i>Completed
+                            </span>
+                        {% when 'Cancelled' %}
+                            <span class="badge bg-danger">
+                                <i class="fas fa-times-circle me-1"></i>Cancelled
+                            </span>
+                        {% else %}
+                            <span class="badge bg-secondary">
+                                <i class="fas fa-question me-1"></i>{{ consultation.Status }}
+                            </span>
+                    {% endcase %}
+                    
+                    {% if consultation.Priority %}
+                        <div class="priority-indicator mt-2">
+                            {% case consultation.Priority %}
+                                {% when 'High' %}
+                                    <span class="badge bg-danger">
+                                        <i class="fas fa-exclamation-triangle me-1"></i>High Priority
+                                    </span>
+                                {% when 'Medium' %}
+                                    <span class="badge bg-warning text-dark">
+                                        <i class="fas fa-exclamation me-1"></i>Medium Priority
+                                    </span>
+                                {% when 'Low' %}
+                                    <span class="badge bg-success">
+                                        <i class="fas fa-info me-1"></i>Low Priority
+                                    </span>
+                            {% endcase %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% comment %} Consultation Details {% endcomment %}
+        <div class="consultation-details">
+            <div class="row">
+                <div class="col-lg-8">
+                    {% comment %} Consultation Message {% endcomment %}
+                    {% if consultation.Message %}
+                        <div class="consultation-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-comment-dots me-2"></i>Consultation Request
+                            </h4>
+                            <div class="section-content">
+                                <div class="message-content">
+                                    {{ consultation.Message | raw }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Additional Information {% endcomment %}
+                    {% if consultation.AdditionalInfo %}
+                        <div class="consultation-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-info-circle me-2"></i>Additional Information
+                            </h4>
+                            <div class="section-content">
+                                {{ consultation.AdditionalInfo | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Response/Reply {% endcomment %}
+                    {% if consultation.Response %}
+                        <div class="consultation-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-reply me-2"></i>Our Response
+                            </h4>
+                            <div class="section-content">
+                                <div class="response-content">
+                                    {{ consultation.Response | raw }}
+                                </div>
+                                {% if consultation.ResponseDate %}
+                                    <div class="response-meta mt-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>
+                                            Responded on {{ consultation.ResponseDate | date: "MMMM dd, yyyy 'at' HH:mm" }}
+                                        </small>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% comment %} Follow-up Actions {% endcomment %}
+                    {% if consultation.FollowUpActions %}
+                        <div class="consultation-section mb-4">
+                            <h4 class="section-title">
+                                <i class="fas fa-tasks me-2"></i>Follow-up Actions
+                            </h4>
+                            <div class="section-content">
+                                {{ consultation.FollowUpActions | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-lg-4">
+                    {% comment %} Consultation Info Sidebar {% endcomment %}
+                    <div class="consultation-info-sidebar">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-info-circle me-2"></i>Consultation Details
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Reference ID:</label>
+                                    <span class="info-value">#{{ consultation.ReferenceNumber | default: Model.ContentItem.ContentItemId | truncate: 8, "" }}</span>
+                                </div>
+                                
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Type:</label>
+                                    <span class="info-value">{{ consultation.ConsultationType }}</span>
+                                </div>
+                                
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Status:</label>
+                                    <span class="info-value">{{ consultation.Status }}</span>
+                                </div>
+                                
+                                <div class="info-item mb-3">
+                                    <label class="info-label">Submitted:</label>
+                                    <span class="info-value">{{ consultation.SubmittedDate | date: "MMM dd, yyyy" }}</span>
+                                </div>
+                                
+                                {% if consultation.ExpectedResponseDate %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Expected Response:</label>
+                                        <span class="info-value">{{ consultation.ExpectedResponseDate | date: "MMM dd, yyyy" }}</span>
+                                    </div>
+                                {% endif %}
+                                
+                                {% if consultation.AssignedTo %}
+                                    <div class="info-item mb-3">
+                                        <label class="info-label">Assigned To:</label>
+                                        <span class="info-value">{{ consultation.AssignedTo }}</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% comment %} Client Information {% endcomment %}
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-user me-2"></i>Client Information
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="client-info">
+                                    <h6 class="client-name">{{ consultation.ClientName }}</h6>
+                                    
+                                    {% if consultation.ClientEmail %}
+                                        <div class="contact-item mb-2">
+                                            <i class="fas fa-envelope me-2"></i>
+                                            <a href="mailto:{{ consultation.ClientEmail }}">{{ consultation.ClientEmail }}</a>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if consultation.ClientPhone %}
+                                        <div class="contact-item mb-2">
+                                            <i class="fas fa-phone me-2"></i>
+                                            <a href="tel:{{ consultation.ClientPhone }}">{{ consultation.ClientPhone }}</a>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if consultation.ClientAddress %}
+                                        <div class="contact-item mb-2">
+                                            <i class="fas fa-map-marker-alt me-2"></i>
+                                            <span>{{ consultation.ClientAddress }}</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        {% comment %} Actions {% endcomment %}
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-cogs me-2"></i>Actions
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="action-buttons">
+                                    {% if consultation.Status == 'Pending' or consultation.Status == 'InProgress' %}
+                                        <button class="btn btn-primary btn-sm w-100 mb-2" onclick="updateConsultation('{{ Model.ContentItem.ContentItemId }}')">
+                                            <i class="fas fa-edit me-1"></i>Update Status
+                                        </button>
+                                    {% endif %}
+                                    
+                                    <button class="btn btn-outline-primary btn-sm w-100 mb-2" onclick="addResponse('{{ Model.ContentItem.ContentItemId }}')">
+                                        <i class="fas fa-reply me-1"></i>Add Response
+                                    </button>
+                                    
+                                    <button class="btn btn-outline-secondary btn-sm w-100 mb-2" onclick="printConsultation()">
+                                        <i class="fas fa-print me-1"></i>Print Details
+                                    </button>
+                                    
+                                    {% if consultation.ClientEmail %}
+                                        <a href="mailto:{{ consultation.ClientEmail }}?subject=Re: {{ consultation.Subject | url_encode }}" 
+                                           class="btn btn-outline-info btn-sm w-100">
+                                            <i class="fas fa-envelope me-1"></i>Email Client
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% comment %} Custom Styles {% endcomment %}
+<style>
+.consultation-part {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.consultation-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.consultation-meta {
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+.consultation-meta span {
+    display: inline-block;
+    margin-bottom: 0.25rem;
+}
+
+.priority-indicator {
+    margin-top: 0.5rem;
+}
+
+.section-title {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.section-content {
+    color: #495057;
+    line-height: 1.6;
+}
+
+.message-content {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-left: 4px solid #007bff;
+    border-radius: 0 4px 4px 0;
+}
+
+.response-content {
+    background: #e8f5e8;
+    padding: 1.5rem;
+    border-left: 4px solid #28a745;
+    border-radius: 0 4px 4px 0;
+}
+
+.response-meta {
+    text-align: right;
+    padding-top: 0.5rem;
+    border-top: 1px solid #dee2e6;
+}
+
+.consultation-info-sidebar .card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.consultation-info-sidebar .card-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.info-value {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.client-name {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.contact-item {
+    color: #495057;
+    display: flex;
+    align-items: center;
+}
+
+.contact-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+}
+
+.action-buttons .btn {
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .consultation-part {
+        padding: 1rem;
+    }
+    
+    .consultation-meta span {
+        display: block;
+        margin-left: 0 !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .priority-indicator {
+        margin-top: 1rem;
+        text-align: left;
+    }
+}
+</style>
+
+{% comment %} JavaScript for Actions {% endcomment %}
+<script>
+function updateConsultation(consultationId) {
+    // Implement consultation update logic
+    console.log('Updating consultation:', consultationId);
+    
+    // Example: Show modal or redirect to edit form
+    window.location.href = '/admin/consultation/edit/' + consultationId;
+}
+
+function addResponse(consultationId) {
+    // Implement add response logic
+    console.log('Adding response to consultation:', consultationId);
+    
+    // Example: Show response modal or redirect
+    window.location.href = '/admin/consultation/respond/' + consultationId;
+}
+
+function printConsultation() {
+    // Implement print functionality
+    window.print();
+}
+</script>
