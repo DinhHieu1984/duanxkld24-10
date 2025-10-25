@@ -29,7 +29,7 @@ public sealed class ConsultationPartDisplayDriver : ContentPartDisplayDriver<Con
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.ViewConsultation, consultationPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return null;
+            return Task.FromResult<IDisplayResult?>(null).Result;
         }
 
         return Initialize<ConsultationPartViewModel>(GetDisplayShapeType(context), m => BuildViewModel(m, consultationPart))
@@ -45,7 +45,7 @@ public sealed class ConsultationPartDisplayDriver : ContentPartDisplayDriver<Con
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.EditConsultation, consultationPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return null;
+            return Task.FromResult<IDisplayResult?>(null).Result;
         }
 
         return Initialize<ConsultationPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, consultationPart));

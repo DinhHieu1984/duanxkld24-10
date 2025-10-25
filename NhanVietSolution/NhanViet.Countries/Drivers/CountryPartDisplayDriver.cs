@@ -29,7 +29,7 @@ public sealed class CountryPartDisplayDriver : ContentPartDisplayDriver<CountryP
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.ViewCountries, countryPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return null;
+            return Task.FromResult<IDisplayResult?>(null).Result;
         }
 
         return Initialize<CountryPartViewModel>(GetDisplayShapeType(context), m => BuildViewModel(m, countryPart))
@@ -45,7 +45,7 @@ public sealed class CountryPartDisplayDriver : ContentPartDisplayDriver<CountryP
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.EditCountries, countryPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return null;
+            return Task.FromResult<IDisplayResult?>(null).Result;
         }
 
         return Initialize<CountryPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, countryPart));

@@ -29,7 +29,7 @@ public sealed class AnalyticsPartDisplayDriver : ContentPartDisplayDriver<Analyt
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.ViewAnalyticsDashboard, analyticsPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return null;
+            return Task.FromResult<IDisplayResult?>(null).Result;
         }
 
         return Initialize<AnalyticsPartViewModel>(GetDisplayShapeType(context), m => BuildViewModel(m, analyticsPart))
@@ -45,7 +45,7 @@ public sealed class AnalyticsPartDisplayDriver : ContentPartDisplayDriver<Analyt
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.ManageAnalytics, analyticsPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return null;
+            return Task.FromResult<IDisplayResult?>(null).Result;
         }
 
         return Initialize<AnalyticsPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, analyticsPart));

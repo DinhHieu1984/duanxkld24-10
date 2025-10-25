@@ -29,7 +29,7 @@ public sealed class RecruitmentPartDisplayDriver : ContentPartDisplayDriver<Recr
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.ViewRecruitment, recruitmentPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return null;
+            return Task.FromResult<IDisplayResult?>(null).Result;
         }
 
         return Initialize<RecruitmentPartViewModel>(GetDisplayShapeType(context), m => BuildViewModel(m, recruitmentPart))
@@ -45,7 +45,7 @@ public sealed class RecruitmentPartDisplayDriver : ContentPartDisplayDriver<Recr
         if (user != null && !await _authorizationService.AuthorizeAsync(user, Permissions.EditRecruitment, recruitmentPart.ContentItem))
         {
             // Trả về empty result nếu không có permission
-            return null;
+            return Task.FromResult<IDisplayResult?>(null).Result;
         }
 
         return Initialize<RecruitmentPartViewModel>(GetEditorShapeType(context), m => BuildViewModel(m, recruitmentPart));

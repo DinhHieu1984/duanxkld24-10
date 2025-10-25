@@ -253,16 +253,18 @@ namespace NhanViet.JobOrders.Controllers
         /// <summary>
         /// Helper method để tạo báo cáo
         /// </summary>
-        private async Task<object> GenerateJobOrderReportsAsync()
+        private Task<object> GenerateJobOrderReportsAsync()
         {
             var jobOrders = new List<ContentItem>();
             
-            return new
+            var result = new
             {
                 TotalJobOrders = jobOrders.Count(),
                 ActiveJobOrders = jobOrders.Where(jo => jo.Published).Count(),
                 // ... thêm các thống kê khác ...
             };
+            
+            return Task.FromResult<object>(result);
         }
     }
 }
